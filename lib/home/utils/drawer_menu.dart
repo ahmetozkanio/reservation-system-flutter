@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_reservation_liberta_flutter/home/cc.dart';
 
+import '../../birim/screens/birim_list_view.dart';
 import '../../login/login_view.dart';
 import '../home.dart';
 
@@ -30,8 +31,11 @@ class _DrawerMenuState extends State<DrawerMenu> {
           InkWell(
             onTap: () {
               Navigator.of(context).pop();
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => HomeVieww()));
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => BirimListView(),
+                ),
+              );
             },
             child:
                 // DrawerHeader(
@@ -64,7 +68,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 // ),
                 UserAccountsDrawerHeader(
               accountEmail: Text('ahmetozkanio@yahoo.com'),
-              currentAccountPicture: Image(image: AssetImage('/user.jpg')),
+              // currentAccountPicture: Image(image: AssetImage('/user.jpg')),
               accountName: Row(
                 children: <Widget>[
                   // Container(
@@ -101,7 +105,14 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 menuItems[0],
                 style: TextStyle(),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => BirimListView(),
+                  ),
+                );
+              },
             ),
           ),
           SizedBox(
