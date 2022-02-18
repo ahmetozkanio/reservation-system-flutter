@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '/birim/api/birim_api.dart';
 
-class LoginController extends GetxController {
+import '../model/birim_model.dart';
+import 'birim_create_view.dart';
+
+class BirimCreateController extends GetxController {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   late TextEditingController emailController, passwordController;
   var email = '';
   var password = '';
+
   @override
   void onInit() {
     super.onInit();
@@ -45,5 +50,7 @@ class LoginController extends GetxController {
       return;
     }
     loginFormKey.currentState!.save();
+    print(emailController.text);
+    print(passwordController.text);
   }
 }

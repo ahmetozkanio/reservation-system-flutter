@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/text_form_field.dart';
+
 class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);
 
   final paddingAll = EdgeInsets.all(32.0);
   final color = Color.fromRGBO(20, 83, 136, 1);
-  final border = OutlineInputBorder();
 
   GlobalKey<FormState> formKey = GlobalKey();
   TextEditingController controllerTc = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
+
+  List<String> formLabelText = [
+    "TC",
+    "ŞİFRE",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -47,21 +53,13 @@ class LoginView extends StatelessWidget {
       runSpacing: 10,
       alignment: WrapAlignment.center,
       children: [
-        TextFormField(
-          controller: controllerTc,
-          decoration: InputDecoration(
-            labelText: 'TC',
-            focusedBorder: focusedBorderCustom(),
-            border: border,
-          ),
-        ),
-        TextFormField(
+        TextFormFieldCustom(
           controller: controllerPassword,
-          decoration: InputDecoration(
-            focusedBorder: focusedBorderCustom(),
-            labelText: 'Şifre',
-            border: border,
-          ),
+          labelText: formLabelText[0],
+        ),
+        TextFormFieldCustom(
+          controller: controllerPassword,
+          labelText: formLabelText[1],
         ),
         TextButton(
           onPressed: () {},
@@ -73,13 +71,6 @@ class LoginView extends StatelessWidget {
           ),
         )
       ],
-    );
-  }
-
-  OutlineInputBorder focusedBorderCustom() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      borderSide: BorderSide(width: 2, color: color),
     );
   }
 }

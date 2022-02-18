@@ -1,207 +1,111 @@
 import 'package:flutter/material.dart';
-import 'package:library_reservation_liberta_flutter/home/cc.dart';
+import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/actions/salon/screens/salon_list_view.dart';
 
-import '../../birim/screens/birim_list_view.dart';
+import '../../actions/birim/screens/birim_list_view.dart';
 import '../../login/login_view.dart';
 import '../home.dart';
 
-class DrawerMenu extends StatefulWidget {
-  const DrawerMenu({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<DrawerMenu> createState() => _DrawerMenuState();
-}
-
-class _DrawerMenuState extends State<DrawerMenu> {
+class DrawerMenu extends StatelessWidget {
   List<String> menuItems = [
-    "Birim",
-    "Salon",
-    "Blok",
-    "Masa",
-    "Kitap Tavsiyeleri"
+    "Birimler",
+    "Salonlar",
+    "Bloklar",
+    "Masalar",
+    "Kitap Tavsiyeleri",
+    "Sıkça Sorulan Sorular"
+  ];
+  List<IconData> iconData = [
+    Icons.dashboard,
   ];
   List<String> menuItemss = [""];
   @override
   Widget build(BuildContext context) {
-    return Drawer(
+    return Container(
       child: ListView(
         children: [
           InkWell(
             onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) => BirimListView(),
-                ),
-              );
+              Get.to(BirimListView());
             },
-            child:
-                // DrawerHeader(
-                //   decoration: BoxDecoration(
-                //     color: Color.fromARGB(255, 151, 89, 89),
-                //   ),
-                //   child: Card(
-                //     child: SingleChildScrollView(
-                //       child: ExpansionTile(
-                //         title: Text("info@yahoo.com"),
-                //         leading: Icon(
-                //           Icons.person_outline_sharp,
-                //         ),
-                //         children: <Widget>[
-                //           ListTile(
-                //             title: Center(
-                //               child: Text("Salon Oluştur"),
-                //             ),
-                //             onTap: () {},
-                //           ),
-                //           ListTile(
-                //             title: Center(
-                //               child: Text("Salon Oluştur"),
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                UserAccountsDrawerHeader(
-              accountEmail: Text('ahmetozkanio@yahoo.com'),
-              // currentAccountPicture: Image(image: AssetImage('/user.jpg')),
-              accountName: Row(
-                children: <Widget>[
-                  // Container(
-                  //   width: 50,
-                  //   height: 50,
-                  //   decoration: BoxDecoration(shape: BoxShape.circle),
-                  //   child: CircleAvatar(
-                  //     backgroundColor: Colors.white,
-                  //     child: Icon(
-                  //       Icons.check,
-                  //     ),
-                  //   ),
-                  // ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Ahmet Ozkan'),
-                      Text('Kullanici'),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            child: userAccountDrawerCustom(),
           ),
-          Card(
-            child: ListTile(
-              leading: Icon(
-                Icons.dashboard,
-              ),
-              title: Text(
-                menuItems[0],
-                style: TextStyle(),
-              ),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => BirimListView(),
-                  ),
-                );
-              },
-            ),
-          ),
-          SizedBox(
-            height: 3.0,
-          ),
-          Card(
-            child: ExpansionTile(
-              title: Text(menuItems[1]),
-              leading: Icon(
-                Icons.meeting_room_outlined,
-              ),
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(),
-                  child: ListTile(
-                    title: Center(
-                      child: Text("Salon Oluştur"),
-                    ),
-                    onTap: () {},
-                  ),
-                ),
-                ListTile(
-                  title: Center(
-                    child: Text("Salon Oluştur"),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Card(
-            child: ExpansionTile(
-              title: Text(menuItems[2]),
-              leading: Icon(Icons.meeting_room_outlined),
-              children: <Widget>[
-                Container(
-                  child: ListTile(
-                    title: Center(
-                      child: Text("Salon Oluştur"),
-                    ),
-                    onTap: () {},
-                  ),
-                ),
-                Container(
-                  child: ListTile(
-                    title: Center(
-                      child: Text("Salon Oluştur"),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Card(
-            child: ExpansionTile(
-              title: Text(menuItems[3]),
-              leading: Icon(Icons.meeting_room_outlined),
-              children: <Widget>[
-                Container(
-                  child: ListTile(
-                    title: Center(
-                      child: Text("Salon Oluştur"),
-                    ),
-                    onTap: () {},
-                  ),
-                ),
-                Container(
-                  child: ListTile(
-                    title: Center(
-                      child: Text("Salon Oluştur"),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Card(
-            child: ListTile(
-              leading: Icon(
-                Icons.save,
-              ),
-              title: Text(
-                menuItems[4],
-                style: TextStyle(),
-              ),
-              onTap: () {},
-            ),
-          ),
+          menuListItem(iconData[0], menuItems[0], BirimListView()),
+          menuItemsSizedBox(),
+          menuListItem(iconData[0], menuItems[1], SalonListView()),
+          menuItemsSizedBox(),
+          menuListItem(iconData[0], menuItems[2], BirimListView()),
+          menuItemsSizedBox(),
+          menuListItem(iconData[0], menuItems[3], BirimListView()),
+          menuItemsSizedBox(),
+          menuListItem(iconData[0], menuItems[4], BirimListView()),
+          menuItemsSizedBox(),
+          menuListItem(iconData[0], menuItems[5], BirimListView()),
+          menuItemsSizedBox(),
         ],
       ),
     );
   }
+
+  UserAccountsDrawerHeader userAccountDrawerCustom() {
+    return const UserAccountsDrawerHeader(
+      accountEmail: Text('ahmetozkanio@yahoo.com'),
+      decoration: BoxDecoration(
+        color: Color.fromARGB(255, 90, 127, 145),
+      ),
+      accountName: Text('Ahmet Ozkan'),
+      currentAccountPicture: CircleAvatar(
+        backgroundColor: Color.fromARGB(255, 51, 50, 50),
+        backgroundImage: NetworkImage(
+            "https://avatars.githubusercontent.com/u/65506828?v=4"),
+      ),
+    );
+  }
+
+  SizedBox menuItemsSizedBox() {
+    return SizedBox(
+      height: 3.0,
+    );
+  }
+
+  Card menuListItem(IconData icon, menuItems, Widget route) {
+    return Card(
+      child: ListTile(
+        leading: Icon(icon),
+        title: Text(
+          menuItems,
+          style: TextStyle(),
+        ),
+        onTap: () {
+          Get.to(route);
+        },
+      ),
+    );
+  }
 }
+
+
+//  Card(
+//             child: ExpansionTile(
+//               title: Text(menuItems[1]),
+//               leading: Icon(
+//                 Icons.meeting_room_outlined,
+//               ),
+//               children: <Widget>[
+//                 Container(
+//                   decoration: BoxDecoration(),
+//                   child: ListTile(
+//                     title: Center(
+//                       child: Text("Salon Oluştur"),
+//                     ),
+//                     onTap: () {},
+//                   ),
+//                 ),
+//                 ListTile(
+//                   title: Center(
+//                     child: Text("Salon Oluştur"),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),

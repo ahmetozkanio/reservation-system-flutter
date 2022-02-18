@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 
-import '../../actions/birim/model/birim_model.dart';
+import '../model/birim_model.dart';
 import '/api/base_api.dart';
 
 class BirimApi {
@@ -8,7 +8,7 @@ class BirimApi {
     try {
       var response =
           await http.get(Uri.parse(BaseApi.apiBaseUrl + "/api/Birim/list"));
-      print(response.statusCode);
+      print("Birim Api" + response.statusCode.toString());
 
       if (response.statusCode == 200) {
         var jsonString = response.body;

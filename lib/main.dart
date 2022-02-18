@@ -4,5 +4,5 @@ import 'package:library_reservation_liberta_flutter/home/home.dart';
 import 'package:library_reservation_liberta_flutter/login/login_view.dart';
 
 void main() {
-  runApp(const GetMaterialApp(home: HomeView()));
+  runApp(GetMaterialApp(home: Home()));
 }
