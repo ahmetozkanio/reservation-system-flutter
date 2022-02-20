@@ -1,56 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '/birim/api/birim_api.dart';
 
 import '../model/birim_model.dart';
 import 'birim_create_view.dart';
 
 class BirimCreateController extends GetxController {
-  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  var currentStep = 0.obs;
 
-  late TextEditingController emailController, passwordController;
-  var email = '';
-  var password = '';
+  //final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
-  @override
-  void onInit() {
-    super.onInit();
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-  }
+  TextEditingController emailController = TextEditingController();
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  // var email = '';
+  // var password = '';
 
-  @override
-  void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   emailController = TextEditingController();
+  //   passwordController = TextEditingController();
+  // }
 
-  String? validateEmail(String value) {
-    if (!GetUtils.isEmail(value)) {
-      return "Provide valid Email";
-    }
-    return null;
-  }
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  // }
 
-  String? validatePassword(String value) {
-    if (value.length < 6) {
-      return "Password must be of 6 characters";
-    }
-    return null;
-  }
+  // @override
+  // void onClose() {
+  //   emailController.dispose();
+  //   passwordController.dispose();
+  // }
 
-  void checkLogin() {
-    final isValid = loginFormKey.currentState!.validate();
-    if (!isValid) {
-      return;
-    }
-    loginFormKey.currentState!.save();
-    print(emailController.text);
-    print(passwordController.text);
-  }
+  // String? validateEmail(String value) {
+  //   if (!GetUtils.isEmail(value)) {
+  //     return "Provide valid Email";
+  //   }
+  //   return null;
+  // }
+
+  // String? validatePassword(String value) {
+  //   if (value.length < 6) {
+  //     return "Password must be of 6 characters";
+  //   }
+  //   return null;
+  // }
+
+  // void checkLogin() {
+  //   final isValid = loginFormKey.currentState!.validate();
+  //   if (!isValid) {
+  //     return;
+  //   }
+  //   loginFormKey.currentState!.save();
+  //   print(emailController.text);
+  //   print(passwordController.text);
+  // }
 }

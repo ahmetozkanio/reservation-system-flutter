@@ -6,7 +6,9 @@ import 'utils/drawer_menu.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
+
   GlobalKey<SliderDrawerState> _key = GlobalKey<SliderDrawerState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

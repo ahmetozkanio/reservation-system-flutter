@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/actions/salon/screens/salon_list_view.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../actions/birim/screens/birim_list_view.dart';
 import '../../login/login_view.dart';
@@ -30,17 +31,17 @@ class DrawerMenu extends StatelessWidget {
             },
             child: userAccountDrawerCustom(),
           ),
-          menuListItem(iconData[0], menuItems[0], BirimListView()),
+          menuListItem(iconData[0], menuItems[0], BirimListView(), context),
           menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[1], SalonListView()),
+          menuListItem(iconData[0], menuItems[1], BirimListView(), context),
           menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[2], BirimListView()),
+          menuListItem(iconData[0], menuItems[2], BirimListView(), context),
           menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[3], BirimListView()),
+          menuListItem(iconData[0], menuItems[3], BirimListView(), context),
           menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[4], BirimListView()),
+          menuListItem(iconData[0], menuItems[4], BirimListView(), context),
           menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[5], BirimListView()),
+          menuListItem(iconData[0], menuItems[5], BirimListView(), context),
           menuItemsSizedBox(),
         ],
       ),
@@ -68,18 +69,19 @@ class DrawerMenu extends StatelessWidget {
     );
   }
 
-  Card menuListItem(IconData icon, menuItems, Widget route) {
+  Card menuListItem(
+      IconData icon, menuItems, Widget route, BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Icon(icon),
-        title: Text(
-          menuItems,
-          style: TextStyle(),
-        ),
-        onTap: () {
-          Get.to(route);
-        },
-      ),
+          leading: Icon(icon),
+          title: Text(
+            menuItems,
+            style: TextStyle(),
+          ),
+          onTap: () => Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.rightToLeft, child: route))),
     );
   }
 }

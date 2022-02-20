@@ -11,6 +11,7 @@ class BirimListView extends StatelessWidget {
 
   final BirimListController birimListController =
       Get.put(BirimListController());
+
   EdgeInsets listP = EdgeInsets.only(right: 20, left: 72.0, bottom: 18.0);
   List<String> titles = [
     "Şehir :",

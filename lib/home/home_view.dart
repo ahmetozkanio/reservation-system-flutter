@@ -7,7 +7,7 @@ import 'utils/pie_card.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({Key? key}) : super(key: key);
-  final HomeController homeViewController = Get.put(HomeController());
+  // final HomeController homeViewController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return Column(
