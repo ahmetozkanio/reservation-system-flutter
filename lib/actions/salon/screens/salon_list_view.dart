@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/actions/salon/screens/salon_create_view.dart';
 
-import '../../birim/screens/birim_create_view.dart';
+import '../../../widgets/appbar.dart';
+
 import 'salon_list_controller.dart';
 
 class SalonListView extends StatelessWidget {
@@ -28,24 +30,26 @@ class SalonListView extends StatelessWidget {
     Icons.chair_outlined,
     Icons.table_chart_outlined
   ];
+
+  List<Widget> appBarActions = [
+    InkWell(
+      onTap: () {
+        Get.to(SalonCreateView(),
+            duration: Duration(seconds: 1), transition: Transition.rightToLeft);
+      },
+      child: Container(
+        padding: EdgeInsets.only(
+          left: 16,
+          right: 16,
+        ),
+        child: Icon(Icons.create_outlined),
+      ),
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: color,
-        actions: [
-          InkWell(
-            onTap: () => Get.to(BirimCreateView()),
-            child: Container(
-              padding: EdgeInsets.only(
-                left: 16,
-                right: 16,
-              ),
-              child: Icon(Icons.create_outlined),
-            ),
-          ),
-        ],
-      ),
+      appBar: globalAppBar("Salonlar", appBarActions),
       body: Column(
         children: [
           Expanded(

@@ -53,13 +53,25 @@ class LoginView extends StatelessWidget {
       runSpacing: 10,
       alignment: WrapAlignment.center,
       children: [
-        TextFormFieldCustom(
-          controller: controllerPassword,
-          labelText: formLabelText[0],
+        TextFormField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            labelText: "Title",
+          ),
+          keyboardType: TextInputType.name,
+          //controller: controller.birimAdiCtrl,
         ),
-        TextFormFieldCustom(
-          controller: controllerPassword,
-          labelText: formLabelText[1],
+        TextFormField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            labelText: "Title",
+          ),
+          keyboardType: TextInputType.name,
+          //controller: controller.birimAdiCtrl,
         ),
         TextButton(
           onPressed: () {},

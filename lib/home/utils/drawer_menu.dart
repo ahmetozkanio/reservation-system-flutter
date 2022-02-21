@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/actions/salon/screens/salon_list_view.dart';
-import 'package:page_transition/page_transition.dart';
 
 import '../../actions/birim/screens/birim_list_view.dart';
 import '../../login/login_view.dart';
@@ -33,7 +32,7 @@ class DrawerMenu extends StatelessWidget {
           ),
           menuListItem(iconData[0], menuItems[0], BirimListView(), context),
           menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[1], BirimListView(), context),
+          menuListItem(iconData[0], menuItems[1], SalonListView(), context),
           menuItemsSizedBox(),
           menuListItem(iconData[0], menuItems[2], BirimListView(), context),
           menuItemsSizedBox(),
@@ -73,15 +72,19 @@ class DrawerMenu extends StatelessWidget {
       IconData icon, menuItems, Widget route, BuildContext context) {
     return Card(
       child: ListTile(
-          leading: Icon(icon),
-          title: Text(
-            menuItems,
-            style: TextStyle(),
-          ),
-          onTap: () => Navigator.push(
-              context,
-              PageTransition(
-                  type: PageTransitionType.rightToLeft, child: route))),
+        leading: Icon(icon),
+        title: Text(
+          menuItems,
+          style: TextStyle(),
+        ),
+        onTap: () {
+          Get.to(route, //next page class
+              duration:
+                  Duration(seconds: 1), //duration of transitions, default 1 sec
+              transition: Transition.rightToLeft //transition effect
+              );
+        },
+      ),
     );
   }
 }

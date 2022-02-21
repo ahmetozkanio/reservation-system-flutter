@@ -1,33 +1,27 @@
 import 'package:flutter/material.dart';
 
-class TextFormFieldCustom extends StatelessWidget {
-  TextFormFieldCustom({
-    Key? key,
-    required this.controller,
-    required this.labelText,
-  }) : super(key: key);
-
-  final TextEditingController controller;
-  final String labelText;
-  final color = Color.fromRGBO(20, 83, 136, 1);
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-          labelText: labelText,
-          border: OutlineInputBorder(),
-          focusedBorder: focusedBorderCustom()),
-    );
-  }
-
-  OutlineInputBorder focusedBorderCustom() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      borderSide: BorderSide(width: 2, color: color),
-    );
-  }
+TextFormField textFormFieldCustom(TextEditingController controller,
+    String labelText, TextInputType inputType, FormFieldValidator validator) {
+  return TextFormField(
+    decoration: InputDecoration(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      labelText: labelText,
+    ),
+    keyboardType: inputType,
+    controller: controller,
+    validator: validator,
+  );
 }
+ 
+
+  // OutlineInputBorder focusedBorderCustom() {
+  //   return OutlineInputBorder(
+  //     borderRadius: BorderRadius.all(Radius.circular(8.0)),
+  //   );
+  // }
+
 
 
 
