@@ -8,7 +8,7 @@ class SalonCreateController extends GetxController {
   var currentStep = 0.obs;
   var birimList = <Birim>[].obs;
   static var birimListAdi = <String>[].obs;
-
+  static var salonBlokList = [].obs;
   //final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   TextEditingController birimCtrl = TextEditingController();
@@ -26,20 +26,8 @@ class SalonCreateController extends GetxController {
   void onClose() {
     birimListAdi.clear();
     birimList.clear();
+    salonBlokList.clear();
     super.onClose();
-  }
-
-  String? validatePassword(
-    String value,
-  ) {
-    if (value.length < 8) {
-      return "Password must be of 6 characters";
-    }
-    return null;
-  }
-
-  String? validateCustom(String value, Function function) {
-    return function(value);
   }
 
   getBirimList() async {
@@ -61,6 +49,44 @@ class SalonCreateController extends GetxController {
     return birimListAdi;
   }
 
+  List<String> salonBlokAdi() {
+    String a = "Ahmet Ozkan A";
+    String blokName = "";
+
+    List<String> blokNameList = salonAdiCtrl.text.trim().split(" ");
+    List<String> blokNameNumberList = [];
+
+    if (blokNameList != null)
+      for (var list in blokNameList) {
+        blokName += list[0].toUpperCase();
+      }
+    if (blokCtrl.text != null) {
+      for (int i = 0; i < int.parse(blokCtrl.text); i++) {
+        blokName += i.toString();
+        blokNameNumberList.add(blokName);
+        if (i < 10) {
+          blokName = blokName.substring(0, blokName.length - 1);
+        } else if (i >= 10 && i < 100) {
+          blokName = blokName.substring(0, blokName.length - 2);
+        }
+        if (i >= 100 && i < 1000) {
+          blokName = blokName.substring(0, blokName.length - 3);
+        }
+
+        print(blokNameNumberList[i]);
+      }
+    }
+    return blokNameNumberList;
+  }
+
+  // String? validatePassword(
+  //   String value,
+  // ) {
+  //   if (value.length < 8) {
+  //     return "Password must be of 6 characters";
+  //   }
+  //   return null;
+  // }
   // var email = '';
   // var password = '';
 

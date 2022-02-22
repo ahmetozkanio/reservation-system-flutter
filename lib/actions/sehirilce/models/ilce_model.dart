@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-List<SehirIlce> birimFromJson(String str) => List<SehirIlce>.from(
+List<Ilce> ilceFromJson(String str) => List<Ilce>.from(
       json.decode(str).map(
-            (x) => SehirIlce.fromJson(x),
+            (x) => Ilce.fromJson(x),
           ),
     );
 
-String birimToJson(List<SehirIlce> data) => json.encode(
+String ilceToJson(List<Ilce> data) => json.encode(
       List<dynamic>.from(
         data.map(
           (x) => x.toJson(),
@@ -14,16 +14,18 @@ String birimToJson(List<SehirIlce> data) => json.encode(
       ),
     );
 
-class SehirIlce {
+class Ilce {
   int? id;
   String? adi;
+  int? sehirId;
   bool? aktifMi;
 
-  SehirIlce({this.id, this.adi, this.aktifMi});
+  Ilce({this.id, this.adi, this.sehirId, this.aktifMi});
 
-  SehirIlce.fromJson(Map<String, dynamic> json) {
+  Ilce.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     adi = json['adi'];
+    sehirId = json['sehirId'];
     aktifMi = json['aktifMi'];
   }
 
@@ -31,6 +33,7 @@ class SehirIlce {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['adi'] = this.adi;
+    data['sehirId'] = this.sehirId;
     data['aktifMi'] = this.aktifMi;
     return data;
   }

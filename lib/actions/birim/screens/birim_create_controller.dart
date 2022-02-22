@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:library_reservation_liberta_flutter/actions/sehirilce/api/sehirilce_api.dart';
-import 'package:library_reservation_liberta_flutter/actions/sehirilce/models/sehirilce_model.dart';
+import 'package:library_reservation_liberta_flutter/actions/sehirilce/api/ilce_api.dart';
+import 'package:library_reservation_liberta_flutter/actions/sehirilce/api/sehir_api.dart';
+import 'package:library_reservation_liberta_flutter/actions/sehirilce/models/sehir_model.dart';
 
 import '../model/birim_model.dart';
 import 'birim_create_view.dart';
@@ -20,7 +21,8 @@ class BirimCreateController extends GetxController {
   TextEditingController yetkiliCepTelCtrl = TextEditingController();
   TextEditingController yetkiliOfisTelCtrl = TextEditingController();
 
-  var sehirIlceList = [].obs;
+  var sehirList = [].obs;
+  var ilceList = [].obs;
   static var sehirAdi = <String>[].obs;
 
   @override
@@ -37,18 +39,29 @@ class BirimCreateController extends GetxController {
 
   getSehirIlceList() async {
     try {
-      var sehirIlce = await SehirIlceApi.getSehirIlceListApi();
+      var sehir = await SehirApi.getSehirListApi();
 
-      if (sehirIlce != null) {
-        sehirIlceList.assignAll(sehirIlce);
-        print(sehirIlce[0].adi);
+      if (sehir != null) {
+        sehirList.assignAll(sehir);
+        print("Sehirler : " + sehir[0].adi.toString());
+        sehirAdiList();
+      }
+    } finally {}
+  }
+
+  getIlceList() async {
+    try {
+      var ilce = await IlceApi.getIlceListApi();
+      if (ilce != null) {
+        ilceList.assignAll(ilce);
+        print("Ilceler : " + ilce[0].adi.toString());
         sehirAdiList();
       }
     } finally {}
   }
 
   List<String?> sehirAdiList() {
-    for (var list in sehirIlceList) {
+    for (var list in sehirList) {
       if (list.adi != null) {
         sehirAdi.add(list.adi!);
       }

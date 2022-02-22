@@ -21,6 +21,7 @@ class SalonCreateView extends StatelessWidget {
     Icons.chair_outlined,
     Icons.table_chart_outlined
   ];
+  List<String> salonBlokList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +36,10 @@ class SalonCreateView extends StatelessWidget {
               print("Send data to server");
             } else {
               controller.currentStep.value++;
+            }
+            if (controller.currentStep.value == buildStep().length - 2) {
+              SalonCreateController.salonBlokList
+                  .assignAll(controller.salonBlokAdi());
             }
           },
           onStepCancel: () {
@@ -132,6 +137,34 @@ class SalonCreateView extends StatelessWidget {
               ? StepState.complete
               : StepState.indexed),
       Step(
+          title: Text('Bloklar'),
+          content: Column(
+            children: [
+              formTitle("Bloklar İçin Sandalye Adetleri"),
+              formSizedBox(),
+              for (var list in SalonCreateController.salonBlokList)
+                Column(
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        labelText: list,
+                      ),
+                      keyboardType: TextInputType.number,
+                      controller: controller.salonAdiCtrl,
+                    ),
+                    formSizedBox(),
+                  ],
+                ),
+            ],
+          ),
+          isActive: controller.currentStep.value >= 1,
+          state: controller.currentStep.value > 1
+              ? StepState.complete
+              : StepState.indexed),
+      Step(
           title: const Text('Onay'),
           content: Column(
             children: [
@@ -159,8 +192,8 @@ class SalonCreateView extends StatelessWidget {
               ),
             ],
           ),
-          isActive: controller.currentStep.value >= 1,
-          state: controller.currentStep.value > 1
+          isActive: controller.currentStep.value >= 2,
+          state: controller.currentStep.value > 2
               ? StepState.complete
               : StepState.indexed),
     ];
