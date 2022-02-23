@@ -34,8 +34,7 @@ class SalonListView extends StatelessWidget {
   List<Widget> appBarActions = [
     InkWell(
       onTap: () {
-        Get.to(SalonCreateView(),
-            duration: Duration(seconds: 1), transition: Transition.rightToLeft);
+        Get.to(SalonCreateView(), transition: Transition.rightToLeft);
       },
       child: Container(
         padding: EdgeInsets.only(

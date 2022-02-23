@@ -32,14 +32,15 @@ class SalonCreateView extends StatelessWidget {
           steps: buildStep(),
           currentStep: controller.currentStep.value,
           onStepContinue: () {
+            if (controller.currentStep.value == buildStep().length - 2) {
+              if()
+              SalonCreateController.salonBlokList
+                  .assignAll(controller.salonBlokAdi()!);
+            }
             if (controller.currentStep.value == buildStep().length - 1) {
               print("Send data to server");
             } else {
               controller.currentStep.value++;
-            }
-            if (controller.currentStep.value == buildStep().length - 2) {
-              SalonCreateController.salonBlokList
-                  .assignAll(controller.salonBlokAdi()!);
             }
           },
           onStepCancel: () {
@@ -47,9 +48,9 @@ class SalonCreateView extends StatelessWidget {
                 ? null
                 : controller.currentStep.value--;
           },
-          onStepTapped: (index) {
-            controller.currentStep.value = index;
-          },
+          // onStepTapped: (index) {
+          //   controller.currentStep.value = index;
+          // },
           controlsBuilder: (BuildContext context, ControlsDetails details) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -98,6 +99,9 @@ class SalonCreateView extends StatelessWidget {
                 ),
                 keyboardType: TextInputType.name,
                 controller: controller.salonAdiCtrl,
+                validator: () {
+                  
+                },
               ),
               formSizedBox(),
               DropdownSearch<String>(
