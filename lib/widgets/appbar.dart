@@ -5,6 +5,7 @@ AppBar globalAppBar(String title, List<Widget>? actions) {
     iconTheme: const IconThemeData(
       color: Colors.black,
     ),
+    centerTitle: true,
     actions: actions,
     backgroundColor: Colors.transparent,
     elevation: 0.0,

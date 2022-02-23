@@ -49,34 +49,37 @@ class SalonCreateController extends GetxController {
     return birimListAdi;
   }
 
-  List<String> salonBlokAdi() {
+  List<String>? salonBlokAdi() {
     String a = "Ahmet Ozkan A";
     String blokName = "";
 
     List<String> blokNameList = salonAdiCtrl.text.trim().split(" ");
     List<String> blokNameNumberList = [];
-
-    if (blokNameList != null)
-      for (var list in blokNameList) {
-        blokName += list[0].toUpperCase();
-      }
-    if (blokCtrl.text != null) {
-      for (int i = 0; i < int.parse(blokCtrl.text); i++) {
-        blokName += i.toString();
-        blokNameNumberList.add(blokName);
-        if (i < 10) {
-          blokName = blokName.substring(0, blokName.length - 1);
-        } else if (i >= 10 && i < 100) {
-          blokName = blokName.substring(0, blokName.length - 2);
+    try {
+      if (blokNameList != null)
+        for (var list in blokNameList) {
+          blokName += list[0].toUpperCase();
         }
-        if (i >= 100 && i < 1000) {
-          blokName = blokName.substring(0, blokName.length - 3);
-        }
+      if (blokCtrl.text != null) {
+        for (int i = 0; i < int.parse(blokCtrl.text); i++) {
+          blokName += i.toString();
+          blokNameNumberList.add(blokName);
+          if (i < 10) {
+            blokName = blokName.substring(0, blokName.length - 1);
+          } else if (i >= 10 && i < 100) {
+            blokName = blokName.substring(0, blokName.length - 2);
+          }
+          if (i >= 100 && i < 1000) {
+            blokName = blokName.substring(0, blokName.length - 3);
+          }
 
-        print(blokNameNumberList[i]);
+          print(blokNameNumberList[i]);
+        }
       }
+      return blokNameNumberList;
+    } catch (e) {
+      print(e);
     }
-    return blokNameNumberList;
   }
 
   // String? validatePassword(

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:library_reservation_liberta_flutter/widgets/appbar.dart';
-
+import 'package:hexcolor/hexcolor.dart';
 import '../../../widgets/info_list_text.dart';
 import 'birim_create_view.dart';
 import 'birim_list_controller.dart';
@@ -24,8 +24,7 @@ class BirimListView extends StatelessWidget {
     InkWell(
       onTap: () {
         Get.to(BirimCreateView(), //next page class
-            duration:
-                Duration(seconds: 1), //duration of transitions, default 1 sec
+
             transition: Transition.rightToLeft //transition effect
             );
       },
@@ -54,9 +53,23 @@ class BirimListView extends StatelessWidget {
                     itemCount: birimListController.birimList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Card(
+                        // color:
+                        //     birimListController.birimList[index].tableColor !=
+                        //             null
+                        //         ? HexColor(birimListController
+                        //             .birimList[index].tableBackgroundColor)
+                        //         : Colors.white,
                         child: ExpansionTile(
                           title: Text(
                             birimListController.birimList[index].adi.toString(),
+                            // style: TextStyle(
+                            //   color: birimListController
+                            //               .birimList[index].tableColor !=
+                            //           null
+                            //       ? HexColor(birimListController
+                            //           .birimList[index].color)
+                            //       : Colors.black,
+                            // ),
                           ),
                           leading: const Icon(Icons.school_outlined),
                           children: [

@@ -21,7 +21,7 @@ class SalonCreateView extends StatelessWidget {
     Icons.chair_outlined,
     Icons.table_chart_outlined
   ];
-  List<String> salonBlokList = [];
+  //List<String> salonBlokList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +39,7 @@ class SalonCreateView extends StatelessWidget {
             }
             if (controller.currentStep.value == buildStep().length - 2) {
               SalonCreateController.salonBlokList
-                  .assignAll(controller.salonBlokAdi());
+                  .assignAll(controller.salonBlokAdi()!);
             }
           },
           onStepCancel: () {
@@ -120,16 +120,6 @@ class SalonCreateView extends StatelessWidget {
                 controller: controller.blokCtrl,
               ),
               formSizedBox(),
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  labelText: "Sandalye Kapasitesi",
-                ),
-                keyboardType: TextInputType.number,
-                controller: controller.sandalyeCtrl,
-              ),
             ],
           ),
           isActive: controller.currentStep.value >= 0,
@@ -138,27 +128,43 @@ class SalonCreateView extends StatelessWidget {
               : StepState.indexed),
       Step(
           title: Text('Bloklar'),
-          content: Column(
-            children: [
-              formTitle("Bloklar İçin Sandalye Adetleri"),
-              formSizedBox(),
-              for (var list in SalonCreateController.salonBlokList)
-                Column(
-                  children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+          content: Expanded(
+            child: Column(
+              children: [
+                formTitle("Bloklar İçin Sandalye Adetleri"),
+                formSizedBox(),
+                // if (SalonCreateController.salonBlokList != null)
+                //   ListView.builder(
+                //     padding: const EdgeInsets.all(8),
+                //     itemCount: SalonCreateController.salonBlokList.length,
+                //     itemBuilder: (BuildContext context, int index) {
+                //       return Container(
+                //         height: 50,
+                //         color: Color.fromARGB(255, 182, 172, 142),
+                //         child: Center(
+                //             child: Text(
+                //                 'Entry ${SalonCreateController.salonBlokList[index]}')),
+                //       );
+                //     },
+                //   )
+                for (var list in SalonCreateController.salonBlokList)
+                  Column(
+                    children: [
+                      TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          labelText: list,
                         ),
-                        labelText: list,
+                        keyboardType: TextInputType.number,
+                        controller: controller.salonAdiCtrl,
                       ),
-                      keyboardType: TextInputType.number,
-                      controller: controller.salonAdiCtrl,
-                    ),
-                    formSizedBox(),
-                  ],
-                ),
-            ],
+                      formSizedBox(),
+                    ],
+                  ),
+              ],
+            ),
           ),
           isActive: controller.currentStep.value >= 1,
           state: controller.currentStep.value > 1

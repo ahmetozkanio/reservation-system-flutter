@@ -9,7 +9,7 @@ String birimToJson(List<Birim> data) =>
 class Birim {
   int? id;
   String? adi;
-  dynamic unvan;
+  Null? unvan;
   bool? aktifMi;
   String? yetkiliKisi;
   String? email;
@@ -17,8 +17,12 @@ class Birim {
   String? ofisTelefon;
   String? sehirAdi;
   String? ilceAdi;
+  String? backgroundColor;
+  String? color;
   int? ilceId;
   int? sehirId;
+  String? tableColor;
+  String? tableBackgroundColor;
 
   Birim(
       {this.id,
@@ -31,8 +35,12 @@ class Birim {
       this.ofisTelefon,
       this.sehirAdi,
       this.ilceAdi,
+      this.backgroundColor,
+      this.color,
       this.ilceId,
-      this.sehirId});
+      this.sehirId,
+      this.tableColor,
+      this.tableBackgroundColor});
 
   Birim.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -45,24 +53,32 @@ class Birim {
     ofisTelefon = json['ofisTelefon'];
     sehirAdi = json['sehirAdi'];
     ilceAdi = json['ilceAdi'];
+    backgroundColor = json['backgroundColor'];
+    color = json['color'];
     ilceId = json['ilceId'];
     sehirId = json['sehirId'];
+    tableColor = json['tableColor'];
+    tableBackgroundColor = json['tableBackgroundColor'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['adi'] = adi;
-    data['unvan'] = unvan;
-    data['aktifMi'] = aktifMi;
-    data['yetkiliKisi'] = yetkiliKisi;
-    data['email'] = email;
-    data['cepTelefon'] = cepTelefon;
-    data['ofisTelefon'] = ofisTelefon;
-    data['sehirAdi'] = sehirAdi;
-    data['ilceAdi'] = ilceAdi;
-    data['ilceId'] = ilceId;
-    data['sehirId'] = sehirId;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['adi'] = this.adi;
+    data['unvan'] = this.unvan;
+    data['aktifMi'] = this.aktifMi;
+    data['yetkiliKisi'] = this.yetkiliKisi;
+    data['email'] = this.email;
+    data['cepTelefon'] = this.cepTelefon;
+    data['ofisTelefon'] = this.ofisTelefon;
+    data['sehirAdi'] = this.sehirAdi;
+    data['ilceAdi'] = this.ilceAdi;
+    data['backgroundColor'] = this.backgroundColor;
+    data['color'] = this.color;
+    data['ilceId'] = this.ilceId;
+    data['sehirId'] = this.sehirId;
+    data['tableColor'] = this.tableColor;
+    data['tableBackgroundColor'] = this.tableBackgroundColor;
     return data;
   }
 }

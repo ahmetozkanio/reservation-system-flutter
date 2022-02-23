@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/actions/birim/screens/birim_create_view.dart';
 import 'package:library_reservation_liberta_flutter/actions/salon/screens/salon_list_view.dart';
 
 import '../../actions/birim/screens/birim_list_view.dart';
-import '../../login/login_view.dart';
-import '../home.dart';
 
 class DrawerMenu extends StatelessWidget {
   List<String> menuItems = [
@@ -22,25 +21,39 @@ class DrawerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      child: drawerMenu(),
+      // menuListItem(iconData[0], menuItems[0], BirimListView(), context),
+      // menuItemsSizedBox(),
+      // menuListItem(iconData[0], menuItems[1], SalonListView(), context),
+      // menuItemsSizedBox(),
+      // menuListItem(iconData[0], menuItems[2], BirimListView(), context),
+      // menuItemsSizedBox(),
+      // menuListItem(iconData[0], menuItems[3], BirimListView(), context),
+      // menuItemsSizedBox(),
+      // menuListItem(iconData[0], menuItems[4], BirimListView(), context),
+      // menuItemsSizedBox(),
+      // menuListItem(iconData[0], menuItems[5], BirimListView(), context),
+      // menuItemsSizedBox(),
+    );
+  }
+
+  Drawer drawerMenu() {
+    return Drawer(
       child: ListView(
-        children: [
-          InkWell(
-            onTap: () {
-              Get.to(BirimListView());
-            },
-            child: userAccountDrawerCustom(),
-          ),
-          menuListItem(iconData[0], menuItems[0], BirimListView(), context),
+        padding: EdgeInsets.all(0.0),
+        children: <Widget>[
+          userAccountDrawerCustom(),
+          menuListItem(iconData[0], menuItems[0], BirimListView()),
           menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[1], SalonListView(), context),
+          menuListItem(iconData[0], menuItems[1], SalonListView()),
           menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[2], BirimListView(), context),
+          menuListItem(iconData[0], menuItems[2], BirimListView()),
           menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[3], BirimListView(), context),
+          menuListItem(iconData[0], menuItems[3], BirimListView()),
           menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[4], BirimListView(), context),
+          menuListItem(iconData[0], menuItems[4], BirimListView()),
           menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[5], BirimListView(), context),
+          menuListItem(iconData[0], menuItems[5], BirimListView()),
           menuItemsSizedBox(),
         ],
       ),
@@ -48,12 +61,30 @@ class DrawerMenu extends StatelessWidget {
   }
 
   UserAccountsDrawerHeader userAccountDrawerCustom() {
-    return const UserAccountsDrawerHeader(
+    return UserAccountsDrawerHeader(
       accountEmail: Text('ahmetozkanio@yahoo.com'),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 90, 127, 145),
+        color: Color.fromARGB(255, 135, 152, 161),
       ),
       accountName: Text('Ahmet Ozkan'),
+      otherAccountsPictures: [
+        InkWell(
+          onTap: () =>
+              Get.to(BirimCreateView(), transition: Transition.upToDown),
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Icon(
+                Icons.logout,
+                color: Color.fromARGB(255, 135, 152, 161),
+              )),
+        ),
+        CircleAvatar(
+            backgroundColor: Colors.white,
+            child: Icon(
+              Icons.settings,
+              color: Color.fromARGB(255, 135, 152, 161),
+            )),
+      ],
       currentAccountPicture: CircleAvatar(
         backgroundColor: Color.fromARGB(255, 51, 50, 50),
         backgroundImage: NetworkImage(
@@ -68,8 +99,7 @@ class DrawerMenu extends StatelessWidget {
     );
   }
 
-  Card menuListItem(
-      IconData icon, menuItems, Widget route, BuildContext context) {
+  Card menuListItem(IconData icon, menuItems, Widget route) {
     return Card(
       child: ListTile(
         leading: Icon(icon),
@@ -79,8 +109,8 @@ class DrawerMenu extends StatelessWidget {
         ),
         onTap: () {
           Get.to(route, //next page class
-              duration:
-                  Duration(seconds: 1), //duration of transitions, default 1 sec
+              // duration:
+              //     Duration(seconds: 1), //duration of transitions, default 1 sec
               transition: Transition.rightToLeft //transition effect
               );
         },

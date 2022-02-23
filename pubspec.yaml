@@ -40,6 +40,7 @@ dependencies:
 
   # GetX 
   get: ^4.6.1
+  get_storage: ^2.0.3
   
   flutter_slidable: ^1.2.0
 
@@ -54,6 +55,11 @@ dependencies:
 
   # DropDown
   dropdown_search: ^2.0.1
+  
+  #Hex color
+  hexcolor: ^2.0.6
+  #color picker
+  flutter_colorpicker: ^1.0.3
   
 dev_dependencies:
   flutter_test:
