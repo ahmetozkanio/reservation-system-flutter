@@ -94,15 +94,23 @@ class BirimCreateView extends StatelessWidget {
                           print(controller.birimCreated.value);
                           Duration(seconds: 3);
                           if (controller.isLoading.value) {
-                            Get.back();
-                            Get.snackbar("Basarili Islem.",
-                                "Birim bilgileri kayit edildi",
-                                snackPosition: SnackPosition.BOTTOM,
-                                duration: Duration(seconds: 10),
-                                icon: Icon(
-                                  Icons.done,
-                                  color: Colors.green,
-                                ));
+                            Get.back(
+                              closeOverlays: true,
+                            );
+                            Get.snackbar(
+                              "Başarılı.",
+                              "Birim bilgileri kayıt edildi.",
+                              icon: Icon(Icons.done, color: Colors.white),
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: Color.fromARGB(255, 50, 139, 53),
+                              borderRadius: 20,
+                              margin: EdgeInsets.all(15),
+                              colorText: Colors.white,
+                              duration: Duration(seconds: 10),
+                              isDismissible: true,
+                              dismissDirection: DismissDirection.horizontal,
+                              forwardAnimationCurve: Curves.easeOutBack,
+                            );
                           } else {
                             Get.snackbar(
                                 "Basarisiz.", "Sorun olustu tekrar deneyiniz.",
