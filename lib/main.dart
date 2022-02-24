@@ -6,5 +6,7 @@ import 'package:library_reservation_liberta_flutter/home/home_view.dart';
 import 'accounts/login/screens/login_view.dart';
 
 void main() {
-  runApp(GetMaterialApp(home: Home()));
+  runApp(GetMaterialApp(
+    home: Home(),
+  ));
 }

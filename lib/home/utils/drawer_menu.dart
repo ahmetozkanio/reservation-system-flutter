@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/accounts/login/screens/login_view.dart';
 import 'package:library_reservation_liberta_flutter/actions/birim/screens/birim_create_view.dart';
 import 'package:library_reservation_liberta_flutter/actions/salon/screens/salon_list_view.dart';
 
@@ -22,18 +23,6 @@ class DrawerMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: drawerMenu(),
-      // menuListItem(iconData[0], menuItems[0], BirimListView(), context),
-      // menuItemsSizedBox(),
-      // menuListItem(iconData[0], menuItems[1], SalonListView(), context),
-      // menuItemsSizedBox(),
-      // menuListItem(iconData[0], menuItems[2], BirimListView(), context),
-      // menuItemsSizedBox(),
-      // menuListItem(iconData[0], menuItems[3], BirimListView(), context),
-      // menuItemsSizedBox(),
-      // menuListItem(iconData[0], menuItems[4], BirimListView(), context),
-      // menuItemsSizedBox(),
-      // menuListItem(iconData[0], menuItems[5], BirimListView(), context),
-      // menuItemsSizedBox(),
     );
   }
 
@@ -70,7 +59,7 @@ class DrawerMenu extends StatelessWidget {
       otherAccountsPictures: [
         InkWell(
           onTap: () =>
-              Get.to(BirimCreateView(), transition: Transition.upToDown),
+              Get.to(() => LoginView(), transition: Transition.upToDown),
           child: CircleAvatar(
               backgroundColor: Colors.white,
               child: Icon(
@@ -108,7 +97,7 @@ class DrawerMenu extends StatelessWidget {
           style: TextStyle(),
         ),
         onTap: () {
-          Get.to(route, //next page class
+          Get.to(() => route, //next page class
               // duration:
               //     Duration(seconds: 1), //duration of transitions, default 1 sec
               transition: Transition.rightToLeft //transition effect

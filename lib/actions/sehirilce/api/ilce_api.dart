@@ -6,11 +6,13 @@ import '../models/sehir_model.dart';
 import '/api/base_api.dart';
 
 class IlceApi {
-  static Future<List<Ilce>?> getIlceListApi() async {
-    int id = 27;
+  static Future<List<Ilce>?> getIlceListApi(int id) async {
     try {
-      var response = await http.get(
-          Uri.parse(BaseApi.apiBaseUrl + "/api/SehirIlce/ilce/list/${id}"));
+      var response = await http.post(
+        Uri.parse(
+          BaseApi.apiBaseUrl + "/api/SehirIlce/ilce/list/" + id.toString(),
+        ),
+      );
       print("ilce : " + response.statusCode.toString());
 
       if (response.statusCode == 200) {

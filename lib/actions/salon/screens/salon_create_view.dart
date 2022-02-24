@@ -33,7 +33,6 @@ class SalonCreateView extends StatelessWidget {
           currentStep: controller.currentStep.value,
           onStepContinue: () {
             if (controller.currentStep.value == buildStep().length - 2) {
-              if()
               SalonCreateController.salonBlokList
                   .assignAll(controller.salonBlokAdi()!);
             }
@@ -99,9 +98,6 @@ class SalonCreateView extends StatelessWidget {
                 ),
                 keyboardType: TextInputType.name,
                 controller: controller.salonAdiCtrl,
-                validator: () {
-                  
-                },
               ),
               formSizedBox(),
               DropdownSearch<String>(

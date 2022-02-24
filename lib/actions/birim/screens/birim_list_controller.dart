@@ -11,11 +11,17 @@ class BirimListController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getBirimList();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    birimList.clear();
   }
 
   @override
   void onReady() {
-    getBirimList();
     super.onReady();
   }
 

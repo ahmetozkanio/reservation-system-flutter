@@ -9,8 +9,6 @@ import 'salon_list_controller.dart';
 class SalonListView extends StatelessWidget {
   SalonListView({Key? key}) : super(key: key);
 
-  final SalonListController salonListController =
-      Get.put(SalonListController());
   EdgeInsets listP = EdgeInsets.only(right: 20, left: 72.0, bottom: 18.0);
   List<String> titles = [
     "Birim :",
@@ -47,6 +45,8 @@ class SalonListView extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    final SalonListController salonListController =
+        Get.put(SalonListController());
     return Scaffold(
       appBar: globalAppBar("Salonlar", appBarActions),
       body: Column(

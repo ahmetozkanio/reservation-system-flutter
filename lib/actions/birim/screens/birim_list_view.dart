@@ -12,9 +12,6 @@ import 'utils/default_lists.dart';
 class BirimListView extends StatelessWidget {
   BirimListView({Key? key}) : super(key: key);
 
-  final BirimListController birimListController =
-      Get.put(BirimListController());
-
   EdgeInsets listP = EdgeInsets.only(right: 20, left: 72.0, bottom: 18.0);
 
   List<Color> colorList = [
@@ -23,7 +20,7 @@ class BirimListView extends StatelessWidget {
   List<Widget> appBarActions = [
     InkWell(
       onTap: () {
-        Get.to(BirimCreateView(), //next page class
+        Get.to(() => BirimCreateView(), //next page class
 
             transition: Transition.rightToLeft //transition effect
             );
@@ -39,6 +36,8 @@ class BirimListView extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    final BirimListController birimListController =
+        Get.put(BirimListController());
     return Scaffold(
       appBar: globalAppBar("Birimler", appBarActions),
       body: Column(

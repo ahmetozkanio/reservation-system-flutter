@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/actions/birim/api/birim_api.dart';
 import 'package:library_reservation_liberta_flutter/actions/sehirilce/api/ilce_api.dart';
 import 'package:library_reservation_liberta_flutter/actions/sehirilce/api/sehir_api.dart';
 import 'package:library_reservation_liberta_flutter/actions/sehirilce/models/sehir_model.dart';
@@ -8,33 +9,64 @@ import '../model/birim_model.dart';
 import 'birim_create_view.dart';
 
 class BirimCreateController extends GetxController {
+  var isLoading = true.obs;
+
   var currentStep = 0.obs;
 
-  //final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  var birimCreated = false.obs;
+
+  final GlobalKey<FormState> birimFormKey = GlobalKey<FormState>().obs();
+  final GlobalKey<FormState> yetkiliFormKey = GlobalKey<FormState>().obs();
 
   TextEditingController birimAdiCtrl = TextEditingController();
-  TextEditingController sehirIdCtrl = TextEditingController();
-  TextEditingController ilceIdCtrl = TextEditingController();
+  bool aktifMi = true;
+  String sehirName = "".obs();
+  String ilceName = "".obs();
 
   TextEditingController yetkiliAdiCtrl = TextEditingController();
   TextEditingController yetkiliEmailCtrl = TextEditingController();
   TextEditingController yetkiliCepTelCtrl = TextEditingController();
   TextEditingController yetkiliOfisTelCtrl = TextEditingController();
 
-  var sehirList = [].obs;
+  int? sehirId;
+  int? ilceId;
+
+  var sehirList = <Sehir>[].obs;
   var ilceList = [].obs;
   static var sehirAdi = <String>[].obs;
+  static var ilceAdi = <String>[].obs;
 
   @override
   void onInit() {
     getSehirIlceList();
+
     super.onInit();
   }
 
   @override
   void onClose() {
-    sehirAdi.clear();
     super.onClose();
+  }
+
+  postBirim() async {
+    try {
+      var birimPost = await BirimApi.postBirimCreate(
+          aktifMi,
+          birimAdiCtrl.text,
+          sehirId,
+          ilceId,
+          yetkiliAdiCtrl.text,
+          yetkiliEmailCtrl.text,
+          yetkiliCepTelCtrl.text,
+          yetkiliOfisTelCtrl.text);
+
+      if (birimPost != null && birimPost == true) {
+        birimCreated(true);
+        return true;
+      } else {
+        return false;
+      }
+    } finally {}
   }
 
   getSehirIlceList() async {
@@ -51,11 +83,15 @@ class BirimCreateController extends GetxController {
 
   getIlceList() async {
     try {
-      var ilce = await IlceApi.getIlceListApi();
-      if (ilce != null) {
-        ilceList.assignAll(ilce);
-        print("Ilceler : " + ilce[0].adi.toString());
-        sehirAdiList();
+      ilceAdi.clear();
+
+      if (postSehirId() != null) {
+        var ilce = await IlceApi.getIlceListApi(postSehirId()!);
+        if (ilce != null) {
+          ilceList.assignAll(ilce);
+          print("Ilceler : " + ilce[0].adi.toString());
+          ilceAdiList();
+        }
       }
     } finally {}
   }
@@ -69,6 +105,30 @@ class BirimCreateController extends GetxController {
     return sehirAdi;
   }
 
+  List<String?> ilceAdiList() {
+    for (var list in ilceList) {
+      if (list.adi != null) {
+        ilceAdi.add(list.adi!);
+      }
+    }
+    return ilceAdi;
+  }
+
+  int? postSehirId() {
+    for (var list in sehirList) {
+      if (list.adi == sehirName) sehirId = list.id;
+    }
+    return sehirId;
+  }
+
+  int? postIlceId() {
+    print("postIlceId cagirildi");
+    for (var list in ilceList) {
+      if (list.adi == ilceName) ilceId = list.id;
+    }
+    print("ilce id ${ilceId}");
+    return ilceId;
+  }
   // String? validatePassword(
   //   String value,
   // ) {
