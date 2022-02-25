@@ -1,20 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/actions/birim/model/birim_model.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 import '../../birim/api/birim_api.dart';
+import '../model/salon_yetki_model.dart';
 
 class SalonCreateController extends GetxController {
   var currentStep = 0.obs;
   var birimList = <Birim>[].obs;
   static var birimListAdi = <String>[].obs;
   static var salonBlokList = [].obs;
+
   //final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormFieldState> yetkiFormKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormState> salonBilgileriFormKey = GlobalKey<FormState>();
 
   TextEditingController birimCtrl = TextEditingController();
   TextEditingController salonAdiCtrl = TextEditingController();
-  TextEditingController sandalyeCtrl = TextEditingController();
   TextEditingController blokCtrl = TextEditingController();
+
+  TextEditingController sandalyeCtrl = TextEditingController();
+  //select box yetki
+  // var selectYetki = [].obs;
+  // var yetkiList = ["Öğrenci", "Akademisyen", "Misafir"].obs;
+
+  static List<SalonYetki?> salonYetki = [
+    SalonYetki(id: 1, name: "Öğrenci"),
+    SalonYetki(id: 2, name: "Akademisyen"),
+    SalonYetki(id: 3, name: "Misafir"),
+  ];
+  final yetkiItems = salonYetki
+      .map((yetki) => MultiSelectItem<SalonYetki?>(yetki, yetki!.name))
+      .toList()
+      .obs;
+
+  List selectYetki = [].obs;
 
   @override
   void onInit() {

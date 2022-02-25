@@ -55,6 +55,13 @@ dependencies:
 
   # DropDown
   dropdown_search: ^2.0.1
+
+  #select box
+  multi_select_flutter: ^4.0.0
+  
+  #search bar
+  material_floating_search_bar: ^0.3.6
+  flutter_search_bar: ^3.0.0-dev.1
   
   #Hex color
   hexcolor: ^2.0.6

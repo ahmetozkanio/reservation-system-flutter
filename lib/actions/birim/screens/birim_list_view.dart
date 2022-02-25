@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:library_reservation_liberta_flutter/widgets/appbar.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import '../../../widgets/info_list_text.dart';
 import 'birim_create_view.dart';
 import 'birim_list_controller.dart';
@@ -17,7 +19,14 @@ class BirimListView extends StatelessWidget {
   List<Color> colorList = [
     Color.fromARGB(255, 24, 98, 121),
   ];
+
   List<Widget> appBarActions = [
+    // Expanded(
+    //   child: FloatingSearchAppBar(
+    //     body: Text("ss"),
+    //   ),
+    // ),
+
     InkWell(
       onTap: () {
         Get.to(() => BirimCreateView(), //next page class
@@ -34,10 +43,12 @@ class BirimListView extends StatelessWidget {
       ),
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
     final BirimListController birimListController =
         Get.put(BirimListController());
+
     return Scaffold(
       appBar: globalAppBar("Birimler", appBarActions),
       body: Column(

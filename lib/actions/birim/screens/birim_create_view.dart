@@ -34,24 +34,33 @@ class BirimCreateView extends StatelessWidget {
               if (controller.birimFormKey.currentState!.validate()) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('Birim bilgileri onaylandı.'),
+                    backgroundColor: Colors.green,
+                    content: Text(
+                      'Birim bilgileri onaylandı.',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 );
                 controller.postIlceId();
                 print("1. buton aktif");
                 controller.currentStep.value++;
               }
-            }
-            if (controller.currentStep.value == 1) {
-              if (controller.yetkiliFormKey.currentState!.validate()) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Yetkili bilgileri onaylandı'),
-                  ),
-                );
+            } else {
+              if (controller.currentStep.value == 1) {
+                if (controller.yetkiliFormKey.currentState!.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      backgroundColor: Colors.green,
+                      content: Text(
+                        'Yetkili bilgileri onaylandı',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  );
 
-                print("2. buton aktif");
-                controller.currentStep.value++;
+                  print("2. buton aktif");
+                  controller.currentStep.value++;
+                }
               }
             }
 
@@ -91,12 +100,10 @@ class BirimCreateView extends StatelessWidget {
                         onPressed: () {
                           controller.postBirim();
 
-                          print(controller.birimCreated.value);
-                          Duration(seconds: 3);
-                          if (controller.isLoading.value) {
-                            Get.back(
-                              closeOverlays: true,
-                            );
+                          print(BirimCreateController.birimCreated);
+
+                          if (BirimCreateController.birimCreated) {
+                            Get.back();
                             Get.snackbar(
                               "Başarılı.",
                               "Birim bilgileri kayıt edildi.",
@@ -113,9 +120,19 @@ class BirimCreateView extends StatelessWidget {
                             );
                           } else {
                             Get.snackbar(
-                                "Basarisiz.", "Sorun olustu tekrar deneyiniz.",
-                                snackPosition: SnackPosition.BOTTOM,
-                                duration: Duration(seconds: 4));
+                              "Basarisiz.",
+                              "Sorun olustu tekrar deneyiniz.",
+                              icon: Icon(Icons.close, color: Colors.white),
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: Color.fromARGB(255, 206, 8, 8),
+                              borderRadius: 20,
+                              margin: EdgeInsets.all(15),
+                              colorText: Colors.white,
+                              duration: Duration(seconds: 10),
+                              isDismissible: true,
+                              dismissDirection: DismissDirection.horizontal,
+                              forwardAnimationCurve: Curves.easeOutBack,
+                            );
                           }
                         },
                         child: Text("Onayla"),

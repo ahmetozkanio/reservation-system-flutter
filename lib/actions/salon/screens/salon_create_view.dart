@@ -1,10 +1,12 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 
 import 'package:library_reservation_liberta_flutter/actions/birim/screens/utils/default_lists.dart';
 import 'package:library_reservation_liberta_flutter/actions/salon/screens/salon_create_controller.dart';
 import 'package:library_reservation_liberta_flutter/widgets/appbar.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 import '../../../widgets/form_title.dart';
 import '/actions/birim/screens/birim_create_controller.dart';
@@ -14,7 +16,7 @@ class SalonCreateView extends StatelessWidget {
   SalonCreateView({Key? key}) : super(key: key);
 
   SalonCreateController controller = Get.put(SalonCreateController());
-  SalonCreateController controllerS = SalonCreateController();
+
   List<IconData> iconList = [
     Icons.location_city_outlined,
     Icons.person_outline_outlined,
@@ -22,6 +24,7 @@ class SalonCreateView extends StatelessWidget {
     Icons.table_chart_outlined
   ];
   //List<String> salonBlokList = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,14 +35,45 @@ class SalonCreateView extends StatelessWidget {
           steps: buildStep(),
           currentStep: controller.currentStep.value,
           onStepContinue: () {
-            if (controller.currentStep.value == buildStep().length - 2) {
-              SalonCreateController.salonBlokList
-                  .assignAll(controller.salonBlokAdi()!);
-            }
-            if (controller.currentStep.value == buildStep().length - 1) {
-              print("Send data to server");
+            if (controller.currentStep.value == 0) {
+              if (controller.salonBilgileriFormKey.currentState!.validate()) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    backgroundColor: Colors.green,
+                    content: Text(
+                      'Salon bilgileri onaylandı.',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                );
+
+                print("1. buton aktif");
+                controller.currentStep.value++;
+              }
             } else {
-              controller.currentStep.value++;
+              // if (controller.currentStep.value == 1) {
+              //   if (controller.yetkiliFormKey.currentState!.validate()) {
+              //     ScaffoldMessenger.of(context).showSnackBar(
+              //       const SnackBar(
+              //         backgroundColor: Colors.green,
+              //         content: Text(
+              //           'Yetkili bilgileri onaylandı',
+              //           style: TextStyle(color: Colors.white),
+              //         ),
+              //       ),
+              //     );
+
+              //     print("2. buton aktif");
+              //     controller.currentStep.value++;
+              //   }
+              // }
+            }
+
+            if (controller.currentStep.value == 2) {
+              // controller.birimCreated = controller.postBirim();
+              // if (controller.birimCreated.isTrue) {
+              //   Get.to(BirimListView());
+              // }
             }
           },
           onStepCancel: () {
@@ -85,42 +119,97 @@ class SalonCreateView extends StatelessWidget {
     return [
       Step(
           title: Text('Salon'),
-          content: Column(
-            children: [
-              formTitle("Salon Bilgileri"),
-              formSizedBox(),
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  labelText: "Salon Adı",
+          content: Form(
+            key: controller.salonBilgileriFormKey,
+            child: Column(
+              children: [
+                formTitle("Salon Bilgileri"),
+                formSizedBox(),
+                DropdownSearch<String>(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Salonun hangi birimde olacağını belirmeniz gerekiyor.";
+                    }
+                  },
+                  mode: Mode.BOTTOM_SHEET,
+                  showSelectedItems: true,
+                  items: SalonCreateController.birimListAdi,
+                  label: "Birim",
+                  hint: "",
+                  onChanged: print,
                 ),
-                keyboardType: TextInputType.name,
-                controller: controller.salonAdiCtrl,
-              ),
-              formSizedBox(),
-              DropdownSearch<String>(
-                mode: Mode.BOTTOM_SHEET,
-                showSelectedItems: true,
-                items: SalonCreateController.birimListAdi,
-                label: "Birim",
-                hint: "",
-                onChanged: print,
-              ),
-              formSizedBox(),
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                formSizedBox(),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Salon adını girmeniz gerekiyor.";
+                    }
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    labelText: "Salon Adı",
                   ),
-                  labelText: "Blok Kapasitesi",
+                  keyboardType: TextInputType.name,
+                  controller: controller.salonAdiCtrl,
                 ),
-                keyboardType: TextInputType.number,
-                controller: controller.blokCtrl,
-              ),
-              formSizedBox(),
-            ],
+                formSizedBox(),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Blok kapasitesini girmeniz gerekmekte.";
+                    }
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    labelText: "Blok Kapasitesi",
+                  ),
+                  keyboardType: TextInputType.number,
+                  controller: controller.blokCtrl,
+                ),
+                formSizedBox(),
+                //################################################################################################
+                // MultiSelectChipField
+                //################################################################################################
+
+                Center(
+                  child: MultiSelectChipField<dynamic>(
+                    key: controller.yetkiFormKey,
+                    autovalidateMode: AutovalidateMode.always,
+                    validator: (values) {
+                      if (values == null || values.isEmpty) {
+                        return "Salon yetkilerini seçiniz.";
+                      }
+                    },
+                    items: controller.yetkiItems,
+                    initialValue: [],
+                    title: Text(
+                      "Salon Yetkileri",
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                    ),
+                    showHeader: true,
+                    //headerColor: Color.fromARGB(255, 255, 255, 255),
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.only(topLeft: Radius.circular(15)),
+                    ),
+                    //selectedChipColor: Color.fromARGB(255, 5, 168, 5),
+                    //selectedTextStyle:
+                    //  TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                    onTap: (values) {
+                      controller.selectYetki = values;
+                      print(controller.selectYetki);
+                    },
+                  ),
+                ),
+
+                formSizedBox(),
+              ],
+            ),
           ),
           isActive: controller.currentStep.value >= 0,
           state: controller.currentStep.value > 0

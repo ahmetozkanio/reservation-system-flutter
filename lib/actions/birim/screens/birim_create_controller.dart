@@ -13,7 +13,7 @@ class BirimCreateController extends GetxController {
 
   var currentStep = 0.obs;
 
-  var birimCreated = false.obs;
+  static bool birimCreated = false;
 
   final GlobalKey<FormState> birimFormKey = GlobalKey<FormState>().obs();
   final GlobalKey<FormState> yetkiliFormKey = GlobalKey<FormState>().obs();
@@ -45,10 +45,11 @@ class BirimCreateController extends GetxController {
 
   @override
   void onClose() {
+    ilceList.clear();
     super.onClose();
   }
 
-  postBirim() async {
+  Future<bool> postBirim() async {
     try {
       var birimPost = await BirimApi.postBirimCreate(
           aktifMi,
@@ -61,12 +62,14 @@ class BirimCreateController extends GetxController {
           yetkiliOfisTelCtrl.text);
 
       if (birimPost != null && birimPost == true) {
-        birimCreated(true);
+        birimCreated = true;
         return true;
       } else {
         return false;
       }
-    } finally {}
+    } finally {
+      birimCreated = true;
+    }
   }
 
   getSehirIlceList() async {
