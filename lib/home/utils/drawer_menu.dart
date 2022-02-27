@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/accounts/login/screens/login_view.dart';
-import 'package:library_reservation_liberta_flutter/actions/birim/screens/birim_create_view.dart';
+
 import 'package:library_reservation_liberta_flutter/actions/salon/screens/salon_list_view.dart';
 
 import '../../actions/birim/screens/birim_list_view.dart';

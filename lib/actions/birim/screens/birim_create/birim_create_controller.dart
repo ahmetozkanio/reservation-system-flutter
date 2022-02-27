@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:library_reservation_liberta_flutter/actions/birim/api/birim_api.dart';
-import 'package:library_reservation_liberta_flutter/actions/sehirilce/api/ilce_api.dart';
-import 'package:library_reservation_liberta_flutter/actions/sehirilce/api/sehir_api.dart';
-import 'package:library_reservation_liberta_flutter/actions/sehirilce/models/sehir_model.dart';
-
-import '../model/birim_model.dart';
-import 'birim_create_view.dart';
+import '/actions/birim/api/birim_api.dart';
+import '/actions/sehirilce/api/ilce_api.dart';
+import '/actions/sehirilce/api/sehir_api.dart';
+import '/actions/sehirilce/models/sehir_model.dart';
 
 class BirimCreateController extends GetxController {
   var isLoading = true.obs;

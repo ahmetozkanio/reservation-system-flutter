@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 Color color = const Color.fromARGB(255, 24, 98, 121);
 EdgeInsets listP = EdgeInsets.only(right: 20, left: 72.0, bottom: 18.0);
-Container birimListDetail(String title, String indexName, IconData icon) {
+Container listDetail(String title, String indexName, IconData icon) {
   return Container(
     // color: Color.fromARGB(255, 214, 205, 205),
     padding: listP,

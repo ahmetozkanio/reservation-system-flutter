@@ -1,16 +1,15 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
-
-import 'package:library_reservation_liberta_flutter/actions/birim/screens/utils/default_lists.dart';
-import 'package:library_reservation_liberta_flutter/actions/salon/screens/salon_create_controller.dart';
-import 'package:library_reservation_liberta_flutter/widgets/appbar.dart';
+import 'package:library_reservation_liberta_flutter/widgets/text_form_field.dart';
+import '../../../../widgets/mask.dart';
+import '/widgets/appbar.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-import '../../../widgets/form_title.dart';
-import '/actions/birim/screens/birim_create_controller.dart';
+import '/widgets/form_title.dart';
+
 import '/widgets/info_list_text.dart';
+import 'salon_create_controller.dart';
 
 class SalonCreateView extends StatelessWidget {
   SalonCreateView({Key? key}) : super(key: key);
@@ -36,37 +35,37 @@ class SalonCreateView extends StatelessWidget {
           currentStep: controller.currentStep.value,
           onStepContinue: () {
             if (controller.currentStep.value == 0) {
-              if (controller.salonBilgileriFormKey.currentState!.validate()) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    backgroundColor: Colors.green,
-                    content: Text(
-                      'Salon bilgileri onaylandı.',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                );
-
-                print("1. buton aktif");
-                controller.currentStep.value++;
-              }
-            } else {
-              // if (controller.currentStep.value == 1) {
-              //   if (controller.yetkiliFormKey.currentState!.validate()) {
-              //     ScaffoldMessenger.of(context).showSnackBar(
-              //       const SnackBar(
-              //         backgroundColor: Colors.green,
-              //         content: Text(
-              //           'Yetkili bilgileri onaylandı',
-              //           style: TextStyle(color: Colors.white),
-              //         ),
+              // if (controller.birimFormKey.currentState!.validate()) {
+              //   ScaffoldMessenger.of(context).showSnackBar(
+              //     const SnackBar(
+              //       backgroundColor: Colors.green,
+              //       content: Text(
+              //         'Birim bilgileri onaylandı.',
+              //         style: TextStyle(color: Colors.white),
               //       ),
-              //     );
+              //     ),
+              //   );
 
-              //     print("2. buton aktif");
-              //     controller.currentStep.value++;
-              //   }
+              //   print("1. buton aktif");
+              controller.currentStep.value++;
               // }
+            } else {
+              if (controller.currentStep.value == 1) {
+                // if (controller.yetkiliFormKey.currentState!.validate()) {
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //     const SnackBar(
+                //       backgroundColor: Colors.green,
+                //       content: Text(
+                //         'Yetkili bilgileri onaylandı',
+                //         style: TextStyle(color: Colors.white),
+                //       ),
+                //     ),
+                //   );
+
+                //   print("2. buton aktif");
+                controller.currentStep.value++;
+                // }
+              }
             }
 
             if (controller.currentStep.value == 2) {
@@ -88,19 +87,29 @@ class SalonCreateView extends StatelessWidget {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                TextButton(
-                  onPressed: details.onStepCancel,
-                  child: Icon(Icons.arrow_back_outlined),
-                ),
-                SizedBox(
-                  width: 48.0,
-                ),
-                TextButton(
-                  onPressed: details.onStepContinue,
-                  child: Icon(
-                    Icons.done_outlined,
+                if (controller.currentStep.value > 0)
+                  TextButton(
+                    onPressed: details.onStepCancel,
+                    child: Icon(Icons.arrow_back_outlined),
                   ),
-                ),
+                if (controller.currentStep.value > 0)
+                  SizedBox(
+                    width: 48.0,
+                  ),
+                controller.currentStep.value == 2
+                    ? ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green,
+                        ),
+                        onPressed: () {},
+                        child: Text("Onayla"),
+                      )
+                    : TextButton(
+                        onPressed: details.onStepContinue,
+                        child: Icon(
+                          Icons.done_outlined,
+                        ),
+                      )
               ],
             );
           },
@@ -139,74 +148,66 @@ class SalonCreateView extends StatelessWidget {
                   onChanged: print,
                 ),
                 formSizedBox(),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Salon adını girmeniz gerekiyor.";
-                    }
-                  },
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    labelText: "Salon Adı",
-                  ),
-                  keyboardType: TextInputType.name,
-                  controller: controller.salonAdiCtrl,
+                textFormField(
+                  "Salon Adı",
+                  TextInputType.name,
+                  controller.salonAdiCtrl,
+                  null,
+                  salonAdiValidator,
                 ),
                 formSizedBox(),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Blok kapasitesini girmeniz gerekmekte.";
-                    }
-                  },
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    labelText: "Blok Kapasitesi",
-                  ),
-                  keyboardType: TextInputType.number,
-                  controller: controller.blokCtrl,
+                textFormField(
+                  "Blok Kapasitesi",
+                  TextInputType.number,
+                  controller.blokCtrl,
+                  inputNumber,
+                  blokKapasiteValidator,
                 ),
                 formSizedBox(),
-                //################################################################################################
-                // MultiSelectChipField
-                //################################################################################################
-
-                Center(
-                  child: MultiSelectChipField<dynamic>(
-                    key: controller.yetkiFormKey,
-                    autovalidateMode: AutovalidateMode.always,
-                    validator: (values) {
-                      if (values == null || values.isEmpty) {
-                        return "Salon yetkilerini seçiniz.";
-                      }
-                    },
-                    items: controller.yetkiItems,
-                    initialValue: [],
-                    title: Text(
-                      "Salon Yetkileri",
-                      style:
-                          TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                    ),
-                    showHeader: true,
-                    //headerColor: Color.fromARGB(255, 255, 255, 255),
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.only(topLeft: Radius.circular(15)),
-                    ),
-                    //selectedChipColor: Color.fromARGB(255, 5, 168, 5),
-                    //selectedTextStyle:
-                    //  TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                    onTap: (values) {
-                      controller.selectYetki = values;
-                      print(controller.selectYetki);
-                    },
-                  ),
+                textFormField(
+                  "Blok İsimleri",
+                  TextInputType.name,
+                  controller.blokCtrl,
+                  null,
+                  blokNameValidator,
                 ),
-
+                formSizedBox(),
+                textFormField(
+                  "Rezervasyon Süresi",
+                  TextInputType.datetime,
+                  controller.blokCtrl,
+                  null,
+                  rezTimeValidator,
+                ),
+                formSizedBox(),
+                MultiSelectChipField<dynamic>(
+                  key: controller.yetkiFormKey,
+                  autovalidateMode: AutovalidateMode.always,
+                  validator: (values) {
+                    if (values == null || values.isEmpty) {
+                      return "Salon yetkilerini seçiniz.";
+                    }
+                  },
+                  items: controller.yetkiItems,
+                  initialValue: [],
+                  title: Text(
+                    "Salon Yetkileri",
+                    style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                  ),
+                  showHeader: true,
+                  //headerColor: Color.fromARGB(255, 255, 255, 255),
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.only(topLeft: Radius.circular(15)),
+                  ),
+                  //selectedChipColor: Color.fromARGB(255, 5, 168, 5),
+                  //selectedTextStyle:
+                  //  TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                  onTap: (values) {
+                    controller.selectYetki = values;
+                    print(controller.selectYetki);
+                  },
+                ),
                 formSizedBox(),
               ],
             ),
@@ -265,22 +266,22 @@ class SalonCreateView extends StatelessWidget {
             children: [
               formTitle("Oluştur"),
               formSizedBox(),
-              birimListDetail(
+              listDetail(
                 "Salon Adı :",
                 controller.salonAdiCtrl.text,
                 iconList[0],
               ),
-              birimListDetail(
+              listDetail(
                 "Birim Adı :",
                 controller.birimCtrl.text,
                 iconList[0],
               ),
-              birimListDetail(
+              listDetail(
                 "Blok :",
                 controller.blokCtrl.text,
                 iconList[0],
               ),
-              birimListDetail(
+              listDetail(
                 "Sandalye :",
                 controller.sandalyeCtrl.text,
                 iconList[0],
@@ -292,5 +293,29 @@ class SalonCreateView extends StatelessWidget {
               ? StepState.complete
               : StepState.indexed),
     ];
+  }
+
+  String? blokKapasiteValidator(value) {
+    if (value == null || value.isEmpty) {
+      return "Salondaki blok kapasitesi Ör. 35 adet blok (Masa).";
+    }
+  }
+
+  String? blokNameValidator(value) {
+    if (value == null || value.isEmpty) {
+      return "Salondaki blok isimlendirmeleri - Ör. Masa (Masa1/Masa2 ... Masa35)";
+    }
+  }
+
+  String? rezTimeValidator(value) {
+    if (value == null || value.isEmpty) {
+      return "Rezervasyon süresi = Ör. 2.30 (İki buçuk saat)";
+    }
+  }
+
+  String? salonAdiValidator(value) {
+    if (value == null || value.isEmpty) {
+      return "Salon adını girmeniz gerekiyor.";
+    }
   }
 }

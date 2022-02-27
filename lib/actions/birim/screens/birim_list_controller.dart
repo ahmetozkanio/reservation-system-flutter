@@ -2,16 +2,16 @@ import 'package:get/get.dart';
 import '../api/birim_api.dart';
 
 import '../model/birim_model.dart';
-import 'birim_create_view.dart';
 
 class BirimListController extends GetxController {
   var isLoading = true.obs;
-  final RxList birimList = <Birim>[].obs;
-
+  var birimList = <Birim>[].obs;
+  List<Birim> searchBirimList = <Birim>[].obs;
   @override
   void onInit() {
     super.onInit();
     getBirimList();
+    searchBirimList = birimList;
   }
 
   @override
@@ -36,5 +36,11 @@ class BirimListController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  birimSearch(String? search) {
+    searchBirimList = birimList
+        .where((birim) => birim.adi!.toLowerCase().contains(search!))
+        .toList();
   }
 }

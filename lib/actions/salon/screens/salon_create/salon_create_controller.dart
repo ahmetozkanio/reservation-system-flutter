@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/actions/birim/model/birim_model.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-import '../../birim/api/birim_api.dart';
-import '../model/salon_yetki_model.dart';
+import '../../../birim/api/birim_api.dart';
+import '../../model/salon_yetki_model.dart';
 
 class SalonCreateController extends GetxController {
   var currentStep = 0.obs;

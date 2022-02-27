@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
-import 'package:library_reservation_liberta_flutter/actions/salon/screens/salon_create_view.dart';
 
-import '../../../widgets/appbar.dart';
+import '/widgets/appbar.dart';
 
+import 'salon_create/salon_create_view.dart';
 import 'salon_list_controller.dart';
 
 class SalonListView extends StatelessWidget {

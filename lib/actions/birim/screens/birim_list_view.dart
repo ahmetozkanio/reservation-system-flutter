@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/widgets/form_title.dart';
 
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:library_reservation_liberta_flutter/widgets/appbar.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import '../../../widgets/info_list_text.dart';
-import 'birim_create_view.dart';
+import '/widgets/appbar.dart';
+
+import '/widgets/info_list_text.dart';
+
+import 'birim_create/birim_create_view.dart';
 import 'birim_list_controller.dart';
 import 'utils/default_lists.dart';
 
@@ -20,39 +19,63 @@ class BirimListView extends StatelessWidget {
     Color.fromARGB(255, 24, 98, 121),
   ];
 
-  List<Widget> appBarActions = [
-    // Expanded(
-    //   child: FloatingSearchAppBar(
-    //     body: Text("ss"),
-    //   ),
-    // ),
-
-    InkWell(
-      onTap: () {
-        Get.to(() => BirimCreateView(), //next page class
-
-            transition: Transition.rightToLeft //transition effect
-            );
-      },
-      child: Container(
-        padding: EdgeInsets.only(
-          left: 16,
-          right: 16,
-        ),
-        child: Icon(Icons.create_outlined),
-      ),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    final BirimListController birimListController =
-        Get.put(BirimListController());
+    final BirimListController birimListController = Get.put(
+      BirimListController(),
+    );
+
+    TextField searchTextField() {
+      return TextField(
+        onChanged: (value) => birimListController.birimSearch(value),
+        decoration: InputDecoration(
+            filled: true,
+            //fillColor: Color.fromARGB(255, 255, 255, 255),
+            contentPadding: EdgeInsets.all(0),
+            prefixIcon: Icon(
+              Icons.search,
+              color: Color.fromARGB(255, 0, 0, 0),
+            ),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: BorderSide.none),
+            hintStyle:
+                TextStyle(fontSize: 14, color: Color.fromARGB(255, 0, 0, 0)),
+            hintText: "Birim Ara"),
+      );
+    }
+
+    List<Widget> appBarActions = [
+      Expanded(
+        child: Padding(
+          padding: EdgeInsets.only(left: 64, top: 6, bottom: 6, right: 8),
+          child: Container(
+            height: 56,
+            child: searchTextField(),
+          ),
+        ),
+      ),
+      InkWell(
+        onTap: () {
+          Get.to(() => BirimCreateView(), //next page class
+              transition: Transition.rightToLeft //transition effect
+              );
+        },
+        child: Container(
+          padding: EdgeInsets.only(
+            left: 16,
+            right: 16,
+          ),
+          child: Icon(Icons.create_outlined),
+        ),
+      ),
+    ];
 
     return Scaffold(
       appBar: globalAppBar("Birimler", appBarActions),
       body: Column(
         children: [
+          //formTitle("Birimler"),
           Expanded(
             child: Obx(
               () {
@@ -83,37 +106,37 @@ class BirimListView extends StatelessWidget {
                           ),
                           leading: const Icon(Icons.school_outlined),
                           children: [
-                            birimListDetail(
+                            listDetail(
                               titles[0],
                               birimListController.birimList[index].sehirAdi
                                   .toString(),
                               iconList[0],
                             ),
-                            birimListDetail(
+                            listDetail(
                               titles[1],
                               birimListController.birimList[index].ilceAdi
                                   .toString(),
                               iconList[0],
                             ),
-                            birimListDetail(
+                            listDetail(
                               titles[2],
                               birimListController.birimList[index].yetkiliKisi
                                   .toString(),
                               iconList[1],
                             ),
-                            birimListDetail(
+                            listDetail(
                               titles[3],
                               birimListController.birimList[index].email
                                   .toString(),
                               iconList[2],
                             ),
-                            birimListDetail(
+                            listDetail(
                               titles[4],
                               birimListController.birimList[index].cepTelefon
                                   .toString(),
                               iconList[3],
                             ),
-                            birimListDetail(
+                            listDetail(
                               titles[5],
                               birimListController.birimList[index].ofisTelefon
                                   .toString(),
