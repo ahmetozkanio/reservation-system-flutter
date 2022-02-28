@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 AppBar globalAppBar(String title, List<Widget>? actions) {
   return AppBar(
@@ -11,7 +12,7 @@ AppBar globalAppBar(String title, List<Widget>? actions) {
     elevation: 0.0,
     title: Text(
       title,
-      style: TextStyle(
+      style: GoogleFonts.roboto(
         color: Colors.black,
       ),
     ),

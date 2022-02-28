@@ -1,197 +1,125 @@
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
-class User {
-  final String name;
-  final String username;
-  final String image;
-  bool isFollowedByMe;
-
-  User(this.name, this.username, this.image, this.isFollowedByMe);
+class App extends StatefulWidget {
+  @override
+  _AppState createState() => _AppState();
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  List<User> _users = [
-    User(
-        'Elliana Palacios',
-        '@elliana',
-        'https://images.unsplash.com/photo-1504735217152-b768bcab5ebc?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=0ec8291c3fd2f774a365c8651210a18b',
-        false),
-    User(
-        'Kayley Dwyer',
-        '@kayley',
-        'https://images.unsplash.com/photo-1503467913725-8484b65b0715?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=cf7f82093012c4789841f570933f88e3',
-        false),
-    User(
-        'Kathleen Mcdonough',
-        '@kathleen',
-        'https://images.unsplash.com/photo-1507081323647-4d250478b919?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b717a6d0469694bbe6400e6bfe45a1da',
-        false),
-    User(
-        'Kathleen Dyer',
-        '@kathleen',
-        'https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=ddcb7ec744fc63472f2d9e19362aa387',
-        false),
-    User(
-        'Mikayla Marquez',
-        '@mikayla',
-        'https://images.unsplash.com/photo-1541710430735-5fca14c95b00?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-        false),
-    User(
-        'Kiersten Lange',
-        '@kiersten',
-        'https://images.unsplash.com/photo-1542534759-05f6c34a9e63?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-        false),
-    User(
-        'Carys Metz',
-        '@metz',
-        'https://images.unsplash.com/photo-1516239482977-b550ba7253f2?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-        false),
-    User(
-        'Ignacio Schmidt',
-        '@schmidt',
-        'https://images.unsplash.com/photo-1542973748-658653fb3d12?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-        false),
-    User(
-        'Clyde Lucas',
-        '@clyde',
-        'https://images.unsplash.com/photo-1569443693539-175ea9f007e8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-        false),
-    User(
-        'Mikayla Marquez',
-        '@mikayla',
-        'https://images.unsplash.com/photo-1541710430735-5fca14c95b00?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-        false)
-  ];
-
-  List<User> _foundedUsers = [];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    setState(() {
-      _foundedUsers = _users;
-    });
-  }
-
-  onSearch(String search) {
-    setState(() {
-      _foundedUsers = _users
-          .where((user) => user.name.toLowerCase().contains(search))
-          .toList();
-    });
-  }
+class _AppState extends State<App> {
+  TextEditingController textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.grey.shade900,
-        title: Container(
-          height: 38,
-          child: TextField(
-            onChanged: (value) => onSearch(value),
-            decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.grey[850],
-                contentPadding: EdgeInsets.all(0),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.grey.shade500,
-                ),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    borderSide: BorderSide.none),
-                hintStyle: TextStyle(
-                    fontSize: 14, color: Color.fromARGB(255, 255, 255, 255)),
-                hintText: "Search users"),
-          ),
-        ),
-      ),
-      body: Container(
-        color: Colors.grey.shade900,
-        child: _foundedUsers.length > 0
-            ? ListView.builder(
-                itemCount: _foundedUsers.length,
-                itemBuilder: (context, index) {
-                  return Slidable(
-                    child: userComponent(user: _foundedUsers[index]),
-                  );
-                })
-            : Center(
-                child: Text(
-                "No users found",
-                style: TextStyle(color: Colors.white),
-              )),
-      ),
-    );
-  }
+    return Padding(
+      padding: const EdgeInsets.only(top: 58.0, right: 10, left: 10),
 
-  userComponent({required User user}) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      padding: EdgeInsets.only(top: 10, bottom: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(children: [
-            Container(
-                width: 60,
-                height: 60,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: Image.network(user.image),
-                )),
-            SizedBox(width: 10),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(user.name,
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w500)),
-              SizedBox(
-                height: 5,
-              ),
-              Text(user.username, style: TextStyle(color: Colors.grey[500])),
-            ])
-          ]),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                user.isFollowedByMe = !user.isFollowedByMe;
-              });
-            },
-            child: AnimatedContainer(
-                height: 35,
-                width: 110,
-                duration: Duration(milliseconds: 300),
-                decoration: BoxDecoration(
-                    color: user.isFollowedByMe
-                        ? Colors.blue[700]
-                        : Color(0xffffff),
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: user.isFollowedByMe
-                          ? Colors.transparent
-                          : Colors.grey.shade700,
-                    )),
-                child: Center(
-                    child: Text(user.isFollowedByMe ? 'Unfollow' : 'Follow',
-                        style: TextStyle(
-                            color: user.isFollowedByMe
-                                ? Colors.white
-                                : Colors.white)))),
-          )
-        ],
+      /// In AnimSearchBar widget, the width, textController, onSuffixTap are required properties.
+      /// You have also control over the suffixIcon, prefixIcon, helpText and animationDurationInMilli
+      child: AnimSearchBar(
+        width: 400,
+        textController: textController,
+        onSuffixTap: () {
+          setState(() {
+            textController.clear();
+          });
+        },
       ),
     );
   }
 }
+
+
+
+
+
+// import 'package:flutter/material.dart';
+
+// class MyHomePages extends StatefulWidget {
+//   const MyHomePages({
+//     Key? key,
+//   }) : super(key: key);
+
+//   @override
+//   _MyHomePageState createState() => new _MyHomePageState();
+// }
+
+// class _MyHomePageState extends State<MyHomePages> {
+//   TextEditingController editingController = TextEditingController();
+
+//   final duplicateItems = List<String>.generate(10000, (i) => "Eleman $i");
+//   var items = <String>[];
+
+//   @override
+//   void initState() {
+//     items.addAll(duplicateItems);
+//     super.initState();
+//   }
+
+//   void filterSearchResults(String query) {
+//     List<String> dummySearchList = [];
+//     dummySearchList.addAll(duplicateItems);
+//     if (query.isNotEmpty) {
+//       List<String> dummyListData = [];
+//       dummySearchList.forEach((item) {
+//         if (item.contains(query)) {
+//           dummyListData.add(item);
+//         }
+//       });
+//       setState(() {
+//         items.clear();
+//         items.addAll(dummyListData);
+//       });
+//       return;
+//     } else {
+//       setState(() {
+//         items.clear();
+//         items.addAll(duplicateItems);
+//       });
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         backgroundColor: Colors.deepOrange,
+//         title: Text("Title"),
+//       ),
+//       body: Container(
+//         child: Column(
+//           children: [
+//             SizedBox(height: 10),
+//             Padding(
+//               padding: const EdgeInsets.all(10.0),
+//               child: TextField(
+//                 onChanged: (value) {
+//                   filterSearchResults(value);
+//                 },
+//                 controller: editingController,
+//                 decoration: const InputDecoration(
+//                     labelText: "Sınav ara",
+//                     hintText: "Sınavı olduğun tarihi yaz",
+//                     prefixIcon: Icon(Icons.search),
+//                     border: OutlineInputBorder(
+//                         borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+//               ),
+//             ),
+//             SizedBox(height: 10),
+//             Expanded(
+//               child: ListView.builder(
+//                 shrinkWrap: true,
+//                 itemCount: items.length,
+//                 itemBuilder: (context, index) {
+//                   return ListTile(
+//                     title: Text('Listedeki ${items[index]}'),
+//                   );
+//                 },
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

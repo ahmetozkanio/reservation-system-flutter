@@ -1,7 +1,8 @@
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:library_reservation_liberta_flutter/widgets/form_title.dart';
 
+import '../../../widgets/searchList.dart';
 import '/widgets/appbar.dart';
 
 import '/widgets/info_list_text.dart';
@@ -21,40 +22,67 @@ class BirimListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BirimListController birimListController = Get.put(
+    BirimListController birimListController = Get.put(
       BirimListController(),
     );
 
-    TextField searchTextField() {
-      return TextField(
-        onChanged: (value) => birimListController.birimSearch(value),
-        decoration: InputDecoration(
-            filled: true,
-            //fillColor: Color.fromARGB(255, 255, 255, 255),
-            contentPadding: EdgeInsets.all(0),
-            prefixIcon: Icon(
-              Icons.search,
-              color: Color.fromARGB(255, 0, 0, 0),
-            ),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
-                borderSide: BorderSide.none),
-            hintStyle:
-                TextStyle(fontSize: 14, color: Color.fromARGB(255, 0, 0, 0)),
-            hintText: "Birim Ara"),
-      );
-    }
+    // This function is called whenever the text field changes
+    // void search(String enteredKeyword) {
+    //   List<Map<String, dynamic>> results = [];
+    //   if (enteredKeyword.isEmpty) {
+    //     // if the search field is empty or only contains white-space, we'll display all users
+    //     results = birimListController.birimList.cast<Map<String, dynamic>>();
+    //   } else {
+    //     birimListController.searchBirimList = birimListController.birimList
+    //         .where((user) =>
+    //             user.adi!.toLowerCase().contains(enteredKeyword.toLowerCase()))
+    //         .toList();
+    //     // we use the toLowerCase() method to make it case-insensitive
+    //   }
+
+    //   // Refresh the UI
+
+    //   birimListController.searchBirimList = results.cast<Birim>();
+    // }
+
+    // search(String value) {
+    //   if (value.isNotEmpty) {
+    //     birimListController.searchBirimList = birimListController.birimList
+    //         .where((birim) => birim.adi!.toLowerCase().contains(value))
+    //         .toList();
+    //   } else {}
+    // }
+
+    // TextField searchTextField(Function search) {
+    //   return TextField(
+    //     onChanged: (value) => controller.searchBirim(value),
+    //     decoration: InputDecoration(
+    //         filled: true,
+    //         fillColor: Color.fromARGB(255, 255, 255, 255),
+    //         contentPadding: EdgeInsets.all(0),
+    //         prefixIcon: Icon(
+    //           Icons.search,
+    //           color: Color.fromARGB(255, 0, 0, 0),
+    //         ),
+    //         border: OutlineInputBorder(
+    //             borderRadius: BorderRadius.circular(50),
+    //             borderSide: BorderSide.none),
+    //         hintStyle:
+    //             TextStyle(fontSize: 14, color: Color.fromARGB(255, 0, 0, 0)),
+    //         hintText: "Birim Ara"),
+    //   );
+    // }
 
     List<Widget> appBarActions = [
-      Expanded(
-        child: Padding(
-          padding: EdgeInsets.only(left: 64, top: 6, bottom: 6, right: 8),
-          child: Container(
-            height: 56,
-            child: searchTextField(),
-          ),
-        ),
-      ),
+      // AnimSearchBar(
+      //   color: Colors.blue,
+      //   helpText: "Birim Ara",
+      //   width: 250,
+      //   textController: birimListController.searchTextCtrl,
+      //   onSuffixTap: () {
+      //     birimListController.searchTextCtrl.clear();
+      //   },
+      // ),
       InkWell(
         onTap: () {
           Get.to(() => BirimCreateView(), //next page class
@@ -82,70 +110,68 @@ class BirimListView extends StatelessWidget {
                 if (birimListController.isLoading.value)
                   return Center(child: CircularProgressIndicator());
                 else {
-                  return ListView.builder(
-                    itemCount: birimListController.birimList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Card(
-                        // color:
-                        //     birimListController.birimList[index].tableColor !=
-                        //             null
-                        //         ? HexColor(birimListController
-                        //             .birimList[index].tableBackgroundColor)
-                        //         : Colors.white,
-                        child: ExpansionTile(
-                          title: Text(
-                            birimListController.birimList[index].adi.toString(),
-                            // style: TextStyle(
-                            //   color: birimListController
-                            //               .birimList[index].tableColor !=
-                            //           null
-                            //       ? HexColor(birimListController
-                            //           .birimList[index].color)
-                            //       : Colors.black,
-                            // ),
-                          ),
-                          leading: const Icon(Icons.school_outlined),
-                          children: [
-                            listDetail(
-                              titles[0],
-                              birimListController.birimList[index].sehirAdi
+                  return Column(
+                    children: [
+                      searchTextField(
+                          birimListController.searchBirim, "Birim Ara"),
+                      Expanded(
+                          child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: birimListController.searchBirimList.length,
+                        itemBuilder: (context, index) {
+                          return ExpansionTile(
+                            title: Text(
+                              birimListController.searchBirimList[index].adi
                                   .toString(),
-                              iconList[0],
                             ),
-                            listDetail(
-                              titles[1],
-                              birimListController.birimList[index].ilceAdi
-                                  .toString(),
-                              iconList[0],
-                            ),
-                            listDetail(
-                              titles[2],
-                              birimListController.birimList[index].yetkiliKisi
-                                  .toString(),
-                              iconList[1],
-                            ),
-                            listDetail(
-                              titles[3],
-                              birimListController.birimList[index].email
-                                  .toString(),
-                              iconList[2],
-                            ),
-                            listDetail(
-                              titles[4],
-                              birimListController.birimList[index].cepTelefon
-                                  .toString(),
-                              iconList[3],
-                            ),
-                            listDetail(
-                              titles[5],
-                              birimListController.birimList[index].ofisTelefon
-                                  .toString(),
-                              iconList[4],
-                            )
-                          ],
-                        ),
-                      );
-                    },
+                            leading: const Icon(Icons.school_outlined),
+                            children: [
+                              listDetail(
+                                titles[0],
+                                birimListController
+                                    .searchBirimList[index].sehirAdi
+                                    .toString(),
+                                iconList[0],
+                              ),
+                              listDetail(
+                                titles[1],
+                                birimListController
+                                    .searchBirimList[index].ilceAdi
+                                    .toString(),
+                                iconList[0],
+                              ),
+                              listDetail(
+                                titles[2],
+                                birimListController
+                                    .searchBirimList[index].yetkiliKisi
+                                    .toString(),
+                                iconList[1],
+                              ),
+                              listDetail(
+                                titles[3],
+                                birimListController.searchBirimList[index].email
+                                    .toString(),
+                                iconList[2],
+                              ),
+                              listDetail(
+                                titles[4],
+                                birimListController
+                                    .searchBirimList[index].cepTelefon
+                                    .toString(),
+                                iconList[3],
+                              ),
+                              listDetail(
+                                titles[5],
+                                birimListController
+                                    .searchBirimList[index].ofisTelefon
+                                    .toString(),
+                                iconList[4],
+                              )
+                            ],
+                          );
+                        },
+                      )),
+                    ],
                   );
                 }
               },

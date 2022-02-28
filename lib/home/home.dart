@@ -15,8 +15,8 @@ class Home extends StatelessWidget {
         body: SliderDrawer(
       key: _key,
       appBar: SliderAppBar(
-        appBarColor: Color.fromARGB(255, 255, 255, 255),
-        drawerIconColor: Colors.black87,
+        // appBarColor: Color.fromARGB(255, 255, 255, 255),
+        // drawerIconColor: Colors.black87,
         title: const Text(
           "Ana Sayfa",
           style: TextStyle(

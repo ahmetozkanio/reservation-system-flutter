@@ -67,12 +67,19 @@ class DrawerMenu extends StatelessWidget {
                 color: Color.fromARGB(255, 135, 152, 161),
               )),
         ),
-        CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Icon(
-              Icons.settings,
-              color: Color.fromARGB(255, 135, 152, 161),
-            )),
+        InkWell(
+          onTap: () {
+            Get.isDarkMode
+                ? Get.changeTheme(ThemeData.light())
+                : Get.changeTheme(ThemeData.dark());
+          },
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Icon(
+                Icons.settings,
+                color: Color.fromARGB(255, 135, 152, 161),
+              )),
+        ),
       ],
       currentAccountPicture: CircleAvatar(
         backgroundColor: Color.fromARGB(255, 51, 50, 50),
@@ -88,22 +95,20 @@ class DrawerMenu extends StatelessWidget {
     );
   }
 
-  Card menuListItem(IconData icon, menuItems, Widget route) {
-    return Card(
-      child: ListTile(
-        leading: Icon(icon),
-        title: Text(
-          menuItems,
-          style: TextStyle(),
-        ),
-        onTap: () {
-          Get.to(() => route, //next page class
-              // duration:
-              //     Duration(seconds: 1), //duration of transitions, default 1 sec
-              transition: Transition.rightToLeft //transition effect
-              );
-        },
+  Widget menuListItem(IconData icon, menuItems, Widget route) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(
+        menuItems,
+        style: TextStyle(),
       ),
+      onTap: () {
+        Get.to(() => route, //next page class
+            // duration:
+            //     Duration(seconds: 1), //duration of transitions, default 1 sec
+            transition: Transition.rightToLeft //transition effect
+            );
+      },
     );
   }
 }

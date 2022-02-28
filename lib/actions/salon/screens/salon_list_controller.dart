@@ -4,12 +4,14 @@ import 'package:library_reservation_liberta_flutter/actions/salon/model/salon_mo
 
 class SalonListController extends GetxController {
   var isLoading = true.obs;
-  final RxList salonList = <Salon>[].obs;
-
+  var salonList = <Salon>[].obs;
+  var searchSalonList = <Salon>[].obs;
   @override
   void onInit() {
-    getSalonList();
     super.onInit();
+    getSalonList();
+
+    searchSalonList.addAll(salonList);
   }
 
   getSalonList() async {
@@ -19,9 +21,31 @@ class SalonListController extends GetxController {
 
       if (salons != null) {
         salonList.assignAll(salons);
+        searchSalonList.addAll(salonList);
       }
     } finally {
       isLoading(false);
+    }
+  }
+
+  searchSalon(String value) {
+    //var searchList = <Salon>[];
+
+    //searchList.addAll(searchSalonList);
+
+    if (value.isNotEmpty) {
+      var searchListData = <Salon>[];
+      for (var element in salonList) {
+        if (element.adi!.toLowerCase().contains(value.toLowerCase())) {
+          searchListData.add(element);
+        }
+      }
+      searchSalonList.clear();
+      searchSalonList.addAll(searchListData);
+      return;
+    } else {
+      searchSalonList.clear();
+      searchSalonList.addAll(salonList);
     }
   }
 }
