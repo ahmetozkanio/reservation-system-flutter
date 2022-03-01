@@ -17,12 +17,12 @@ class Home extends StatelessWidget {
       appBar: SliderAppBar(
         // appBarColor: Color.fromARGB(255, 255, 255, 255),
         // drawerIconColor: Colors.black87,
+        appBarColor: Theme.of(context).cardColor,
+        drawerIconColor: Theme.of(context).iconTheme.color!,
         title: const Text(
           "Ana Sayfa",
           style: TextStyle(
-            color: Color.fromARGB(255, 0, 0, 0),
             fontSize: 22,
-            fontWeight: FontWeight.w300,
           ),
         ),
       ),

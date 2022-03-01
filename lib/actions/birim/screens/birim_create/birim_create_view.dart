@@ -21,11 +21,11 @@ class BirimCreateView extends StatelessWidget with BirimCreateValidation {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: globalAppBar("Birim Oluşturma", null),
+      appBar: globalAppBar(context, "Birim Oluşturma", null),
       body: Obx(
         () => Stepper(
           type: StepperType.horizontal,
-          steps: buildStep(),
+          steps: buildStep(context),
           currentStep: controller.currentStep.value,
           onStepContinue: () {
             if (controller.currentStep.value == 0) {
@@ -131,15 +131,17 @@ class BirimCreateView extends StatelessWidget with BirimCreateValidation {
     );
   }
 
-  List<Step> buildStep() {
+  List<Step> buildStep(
+    context,
+  ) {
     return [
       stepOne(),
       stepTwo(),
-      stepThree(),
+      stepThree(context),
     ];
   }
 
-  Step stepThree() {
+  Step stepThree(context) {
     return Step(
         title: Text('Onay'),
         content: Column(
@@ -147,16 +149,19 @@ class BirimCreateView extends StatelessWidget with BirimCreateValidation {
             formTitle("Birim Bilgileri"),
             formSizedBox(),
             listDetail(
+              context,
               "Birim Adı :",
               controller.birimAdiCtrl.text,
               iconList[0],
             ),
             listDetail(
+              context,
               "Şehir :",
               controller.sehirName,
               iconList[0],
             ),
             listDetail(
+              context,
               "İlçe :",
               controller.ilceName,
               iconList[0],
@@ -164,21 +169,25 @@ class BirimCreateView extends StatelessWidget with BirimCreateValidation {
             formTitle("İletişim Bilgileri"),
             formSizedBox(),
             listDetail(
+              context,
               "Yetkili Adı :",
               controller.yetkiliAdiCtrl.text,
               iconList[1],
             ),
             listDetail(
+              context,
               "E-mail :",
               controller.yetkiliEmailCtrl.text,
               iconList[0],
             ),
             listDetail(
+              context,
               "Cep :",
               controller.yetkiliCepTelCtrl.text,
               iconList[0],
             ),
             listDetail(
+              context,
               "Ofis :",
               controller.yetkiliOfisTelCtrl.text,
               iconList[0],

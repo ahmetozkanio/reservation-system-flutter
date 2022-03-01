@@ -27,11 +27,11 @@ class SalonCreateView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: globalAppBar("Salon Oluşturma", null),
+      appBar: globalAppBar(context, "Salon Oluşturma", null),
       body: Obx(
         () => Stepper(
           type: StepperType.horizontal,
-          steps: buildStep(),
+          steps: buildStep(context),
           currentStep: controller.currentStep.value,
           onStepContinue: () {
             if (controller.currentStep.value == 0) {
@@ -124,7 +124,7 @@ class SalonCreateView extends StatelessWidget {
     );
   }
 
-  List<Step> buildStep() {
+  List<Step> buildStep(context) {
     return [
       Step(
           title: Text('Salon'),
@@ -267,21 +267,25 @@ class SalonCreateView extends StatelessWidget {
               formTitle("Oluştur"),
               formSizedBox(),
               listDetail(
+                context,
                 "Salon Adı :",
                 controller.salonAdiCtrl.text,
                 iconList[0],
               ),
               listDetail(
+                context,
                 "Birim Adı :",
                 controller.birimCtrl.text,
                 iconList[0],
               ),
               listDetail(
+                context,
                 "Blok :",
                 controller.blokCtrl.text,
                 iconList[0],
               ),
               listDetail(
+                context,
                 "Sandalye :",
                 controller.sandalyeCtrl.text,
                 iconList[0],

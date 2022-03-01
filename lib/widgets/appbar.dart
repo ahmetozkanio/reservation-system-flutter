@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-AppBar globalAppBar(String title, List<Widget>? actions) {
+AppBar globalAppBar(BuildContext context, String title, List<Widget>? actions) {
   return AppBar(
     iconTheme: const IconThemeData(
-      color: Colors.black,
-    ),
+        // color: Theme.of(context).text,
+        ),
     centerTitle: true,
     actions: actions,
     backgroundColor: Colors.transparent,
@@ -13,7 +13,7 @@ AppBar globalAppBar(String title, List<Widget>? actions) {
     title: Text(
       title,
       style: GoogleFonts.roboto(
-        color: Colors.black,
+        color: Theme.of(context).textTheme.titleSmall!.color,
       ),
     ),
   );

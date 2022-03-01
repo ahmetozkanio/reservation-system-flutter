@@ -21,7 +21,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: globalAppBar("Giriş", null),
+      appBar: globalAppBar(context, "Giriş", null),
       // AppBar(
       //   title:
       //       _formType == FormType.login ? Text('Giriş') : Text('Hesap Oluştur'),

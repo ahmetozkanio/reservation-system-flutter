@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:library_reservation_liberta_flutter/accounts/login/screens/login_view.dart';
+import 'package:library_reservation_liberta_flutter/home/utils/drawer_menu_controller.dart';
+import 'package:library_reservation_liberta_flutter/themes/enum.dart';
+import '../../themes/model/theme_model.dart';
+import '/accounts/login/screens/login_view.dart';
+import 'package:flutter/material.dart';
+import '/actions/salon/screens/salon_list_view.dart';
 
-import 'package:library_reservation_liberta_flutter/actions/salon/screens/salon_list_view.dart';
+import '/themes/panache/amber_theme.dart';
 
-import '../../actions/birim/screens/birim_list_view.dart';
+import '/actions/birim/screens/birim_list_view.dart';
 
-class DrawerMenu extends StatelessWidget {
+enum enumThemeData { amber, blue, blueGray }
+
+class ExampRadio{
+  value
+}
+
+
+class DrawerMenu extends StatefulWidget {
+  const DrawerMenu({Key? key}) : super(key: key);
+
+  @override
+  State<DrawerMenu> createState() => _DrawerMenuState();
+}
+
+class _DrawerMenuState extends State<DrawerMenu> {
   List<String> menuItems = [
     "Birimler",
     "Salonlar",
@@ -15,23 +34,35 @@ class DrawerMenu extends StatelessWidget {
     "Kitap Tavsiyeleri",
     "Sıkça Sorulan Sorular"
   ];
+
   List<IconData> iconData = [
     Icons.dashboard,
   ];
+
   List<String> menuItemss = [""];
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: drawerMenu(),
+      child: drawerMenu(context),
     );
   }
 
-  Drawer drawerMenu() {
+  Drawer drawerMenu(context) {
+    enumThemeData? character = enumThemeData.blue;
+String value = 'flutter';
+List<ExampRadio<String>> options = [
+  ExampRadio<String>(value: 'ion', title: 'Ionic'),
+  ExampRadio<String>(value: 'flu', title: 'Flutter'),
+  ExampRadio<String>(value: 'rea', title: 'React Native'),
+];
+
+    int? val = 2;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.all(0.0),
-        children: <Widget>[
-          userAccountDrawerCustom(),
+        children: [
+          userAccountDrawerCustom(context),
           menuListItem(iconData[0], menuItems[0], BirimListView()),
           menuItemsSizedBox(),
           menuListItem(iconData[0], menuItems[1], SalonListView()),
@@ -44,40 +75,46 @@ class DrawerMenu extends StatelessWidget {
           menuItemsSizedBox(),
           menuListItem(iconData[0], menuItems[5], BirimListView()),
           menuItemsSizedBox(),
+           SmartSelect<String>.single(
+    title: 'Frameworks',
+    value: value,
+    choiceItems: options,
+    onChange: (state) => setState(() => value = state.value)
+  );
         ],
       ),
     );
   }
 
-  UserAccountsDrawerHeader userAccountDrawerCustom() {
+  UserAccountsDrawerHeader userAccountDrawerCustom(context) {
     return UserAccountsDrawerHeader(
       accountEmail: Text('ahmetozkanio@yahoo.com'),
-      decoration: BoxDecoration(
-        color: Color.fromARGB(255, 135, 152, 161),
-      ),
+      // decoration: BoxDecoration(
+      //   color: Theme.of(context).textTheme.titleSmall!.color,
+      // ),
       accountName: Text('Ahmet Ozkan'),
       otherAccountsPictures: [
         InkWell(
           onTap: () =>
               Get.to(() => LoginView(), transition: Transition.upToDown),
           child: CircleAvatar(
-              backgroundColor: Colors.white,
+              backgroundColor: Theme.of(context).cardColor,
               child: Icon(
                 Icons.logout,
-                color: Color.fromARGB(255, 135, 152, 161),
+                //color: Theme.of(context).iconTheme.color,
               )),
         ),
         InkWell(
           onTap: () {
             Get.isDarkMode
-                ? Get.changeTheme(ThemeData.light())
+                ? Get.changeTheme(amberTheme)
                 : Get.changeTheme(ThemeData.dark());
           },
           child: CircleAvatar(
-              backgroundColor: Colors.white,
+              backgroundColor: Theme.of(context).cardColor,
               child: Icon(
                 Icons.settings,
-                color: Color.fromARGB(255, 135, 152, 161),
+                // color: Theme.of(context).iconTheme.color,
               )),
         ),
       ],
@@ -112,29 +149,3 @@ class DrawerMenu extends StatelessWidget {
     );
   }
 }
-
-
-//  Card(
-//             child: ExpansionTile(
-//               title: Text(menuItems[1]),
-//               leading: Icon(
-//                 Icons.meeting_room_outlined,
-//               ),
-//               children: <Widget>[
-//                 Container(
-//                   decoration: BoxDecoration(),
-//                   child: ListTile(
-//                     title: Center(
-//                       child: Text("Salon Oluştur"),
-//                     ),
-//                     onTap: () {},
-//                   ),
-//                 ),
-//                 ListTile(
-//                   title: Center(
-//                     child: Text("Salon Oluştur"),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),

@@ -68,6 +68,8 @@ dependencies:
   #color picker
   flutter_colorpicker: ^1.0.3
 
+  smart_select: ^4.3.2
+
   #theme
   theme_provider: ^0.5.0
   flex_color_scheme: ^4.2.0

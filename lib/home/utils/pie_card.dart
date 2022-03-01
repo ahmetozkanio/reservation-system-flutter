@@ -17,7 +17,7 @@ class PieChart2State extends State {
     return AspectRatio(
       aspectRatio: 3,
       child: Card(
-        color: Color.fromARGB(255, 255, 255, 255),
+        color: Theme.of(context).cardColor,
         child: Row(
           children: <Widget>[
             const SizedBox(
@@ -59,6 +59,7 @@ class PieChart2State extends State {
                   color: Color(0xff0293ee),
                   text: 'First',
                   isSquare: true,
+                  textColor: Color(0xff0293ee),
                 ),
                 SizedBox(
                   height: 4,
@@ -67,6 +68,7 @@ class PieChart2State extends State {
                   color: Color(0xfff8b250),
                   text: 'Second',
                   isSquare: true,
+                  textColor: Color(0xfff8b250),
                 ),
                 SizedBox(
                   height: 4,
@@ -75,6 +77,7 @@ class PieChart2State extends State {
                   color: Color(0xff845bef),
                   text: 'Third',
                   isSquare: true,
+                  textColor: Color(0xff845bef),
                 ),
                 SizedBox(
                   height: 4,
@@ -83,6 +86,7 @@ class PieChart2State extends State {
                   color: Color(0xff13d38e),
                   text: 'Fourth',
                   isSquare: true,
+                  textColor: Color(0xff13d38e),
                 ),
                 SizedBox(
                   height: 18,

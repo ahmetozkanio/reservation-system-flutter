@@ -100,7 +100,7 @@ class BirimListView extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: globalAppBar("Birimler", appBarActions),
+      appBar: globalAppBar(context, "Birimler", appBarActions),
       body: Column(
         children: [
           //formTitle("Birimler"),
@@ -112,8 +112,8 @@ class BirimListView extends StatelessWidget {
                 else {
                   return Column(
                     children: [
-                      searchTextField(
-                          birimListController.searchBirim, "Birim Ara"),
+                      searchTextField(context, birimListController.searchBirim,
+                          "Birim Ara"),
                       Expanded(
                           child: ListView.builder(
                         shrinkWrap: true,
@@ -127,6 +127,7 @@ class BirimListView extends StatelessWidget {
                             leading: const Icon(Icons.school_outlined),
                             children: [
                               listDetail(
+                                context,
                                 titles[0],
                                 birimListController
                                     .searchBirimList[index].sehirAdi
@@ -134,6 +135,7 @@ class BirimListView extends StatelessWidget {
                                 iconList[0],
                               ),
                               listDetail(
+                                context,
                                 titles[1],
                                 birimListController
                                     .searchBirimList[index].ilceAdi
@@ -141,6 +143,7 @@ class BirimListView extends StatelessWidget {
                                 iconList[0],
                               ),
                               listDetail(
+                                context,
                                 titles[2],
                                 birimListController
                                     .searchBirimList[index].yetkiliKisi
@@ -148,12 +151,14 @@ class BirimListView extends StatelessWidget {
                                 iconList[1],
                               ),
                               listDetail(
+                                context,
                                 titles[3],
                                 birimListController.searchBirimList[index].email
                                     .toString(),
                                 iconList[2],
                               ),
                               listDetail(
+                                context,
                                 titles[4],
                                 birimListController
                                     .searchBirimList[index].cepTelefon
@@ -161,6 +166,7 @@ class BirimListView extends StatelessWidget {
                                 iconList[3],
                               ),
                               listDetail(
+                                context,
                                 titles[5],
                                 birimListController
                                     .searchBirimList[index].ofisTelefon

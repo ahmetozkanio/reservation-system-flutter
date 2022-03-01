@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-Container searchTextField(Function(String) searchOnChange, String hintText) {
+Container searchTextField(
+    context, Function(String) searchOnChange, String hintText) {
   return Container(
     padding: EdgeInsets.only(left: 24, right: 24),
     height: 56,
@@ -14,13 +15,15 @@ Container searchTextField(Function(String) searchOnChange, String hintText) {
           contentPadding: EdgeInsets.all(0),
           prefixIcon: Icon(
             Icons.search,
-            color: Color.fromARGB(255, 0, 0, 0),
+            // color: Color.fromARGB(255, 0, 0, 0),
           ),
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(50),
-              borderSide: BorderSide.none),
-          hintStyle:
-              TextStyle(fontSize: 14, color: Color.fromARGB(255, 0, 0, 0)),
+            borderRadius: BorderRadius.circular(50),
+          ),
+          hintStyle: TextStyle(
+            fontSize: 14,
+            //  color: Color.fromARGB(255, 0, 0, 0),
+          ),
           hintText: hintText),
     ),
   );

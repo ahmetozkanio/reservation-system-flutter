@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-Color color = const Color.fromARGB(255, 24, 98, 121);
 EdgeInsets listP = EdgeInsets.only(right: 20, left: 72.0, bottom: 18.0);
-Container listDetail(String title, String indexName, IconData icon) {
+Container listDetail(context, String title, String indexName, IconData icon) {
+  Color icColor = Theme.of(context).iconTheme.color!;
   return Container(
     // color: Color.fromARGB(255, 214, 205, 205),
     padding: listP,
@@ -10,12 +10,14 @@ Container listDetail(String title, String indexName, IconData icon) {
       children: [
         Icon(
           icon,
-          color: color,
+          // color: icColor,
         ),
         Text(
           title,
           style: TextStyle(
-              color: color, fontSize: 16, fontWeight: FontWeight.bold),
+              //color: color,
+              fontSize: 16,
+              fontWeight: FontWeight.bold),
         ),
         SizedBox(
           width: 8,

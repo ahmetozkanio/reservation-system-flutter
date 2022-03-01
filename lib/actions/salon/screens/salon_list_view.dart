@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/widgets/searchList.dart';
 
+import '../../../widgets/info_list_text.dart';
 import '/widgets/appbar.dart';
 
 import 'salon_create/salon_create_view.dart';
@@ -50,7 +51,7 @@ class SalonListView extends StatelessWidget {
     final SalonListController salonListController =
         Get.put(SalonListController());
     return Scaffold(
-      appBar: globalAppBar("Salonlar", appBarActions),
+      appBar: globalAppBar(context, "Salonlar", appBarActions),
       body: Column(
         children: [
           Expanded(
@@ -63,12 +64,13 @@ class SalonListView extends StatelessWidget {
                 else {
                   return Column(
                     children: [
-                      searchTextField(
-                          salonListController.searchSalon, "Salon Ara"),
+                      searchTextField(context, salonListController.searchSalon,
+                          "Salon Ara"),
                       Expanded(
                         child: ListView.builder(
                           itemCount: salonListController.searchSalonList.length,
                           itemBuilder: (context, index) {
+                            var doNothing;
                             return Slidable(
                               // Specify a key if the Slidable is dismissible.
                               key: ValueKey(0),
@@ -134,36 +136,36 @@ class SalonListView extends StatelessWidget {
                                 ),
                                 leading: const Icon(Icons.school_outlined),
                                 children: [
-                                  birimListDetail(
+                                  listDetail(
+                                    context,
+                                    titles[0],
                                     salonListController
                                         .searchSalonList[index].birimAdi
                                         .toString(),
-                                    titles[0],
-                                    colorList[0],
                                     iconList[0],
                                   ),
-                                  birimListDetail(
+                                  listDetail(
+                                    context,
+                                    titles[1],
                                     salonListController
                                         .searchSalonList[index].yetki
                                         .toString(),
-                                    titles[1],
-                                    colorList[0],
                                     iconList[1],
                                   ),
-                                  birimListDetail(
+                                  listDetail(
+                                    context,
+                                    titles[2],
                                     salonListController
                                         .searchSalonList[index].blokKapasite
                                         .toString(),
-                                    titles[2],
-                                    colorList[0],
                                     iconList[3],
                                   ),
-                                  birimListDetail(
+                                  listDetail(
+                                    context,
+                                    titles[3],
                                     salonListController
                                         .searchSalonList[index].sandalyeKapasite
                                         .toString(),
-                                    titles[3],
-                                    colorList[0],
                                     iconList[2],
                                   ),
                                 ],
@@ -176,37 +178,6 @@ class SalonListView extends StatelessWidget {
                   );
                 }
               },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void doNothing(BuildContext context) {}
-  Container birimListDetail(
-      String indexName, String title, Color color, IconData icon) {
-    return Container(
-      // color: Color.fromARGB(255, 214, 205, 205),
-      padding: listP,
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: color,
-          ),
-          Text(
-            title,
-            style: TextStyle(
-                color: color, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            width: 8,
-          ),
-          Text(
-            indexName,
-            style: const TextStyle(
-              fontSize: 14,
             ),
           ),
         ],
