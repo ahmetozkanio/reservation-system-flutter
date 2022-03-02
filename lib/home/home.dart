@@ -26,7 +26,7 @@ class Home extends StatelessWidget {
           ),
         ),
       ),
-      slider: DrawerMenu(),
+      slider: const DrawerMenu(),
       child: HomeView(),
     ));
   }

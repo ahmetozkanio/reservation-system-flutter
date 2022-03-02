@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:library_reservation_liberta_flutter/home/utils/drawer_menu_controller.dart';
-import 'package:library_reservation_liberta_flutter/themes/enum.dart';
-import '../../themes/model/theme_model.dart';
+import 'package:library_reservation_liberta_flutter/settings/themes/screens/themes_view.dart';
+import '../../settings/themes/panache/amber_theme.dart';
 import '/accounts/login/screens/login_view.dart';
-import 'package:flutter/material.dart';
 import '/actions/salon/screens/salon_list_view.dart';
 
-import '/themes/panache/amber_theme.dart';
-
 import '/actions/birim/screens/birim_list_view.dart';
-
-enum enumThemeData { amber, blue, blueGray }
-
-class ExampRadio{
-  value
-}
-
 
 class DrawerMenu extends StatefulWidget {
   const DrawerMenu({Key? key}) : super(key: key);
@@ -49,15 +38,6 @@ class _DrawerMenuState extends State<DrawerMenu> {
   }
 
   Drawer drawerMenu(context) {
-    enumThemeData? character = enumThemeData.blue;
-String value = 'flutter';
-List<ExampRadio<String>> options = [
-  ExampRadio<String>(value: 'ion', title: 'Ionic'),
-  ExampRadio<String>(value: 'flu', title: 'Flutter'),
-  ExampRadio<String>(value: 'rea', title: 'React Native'),
-];
-
-    int? val = 2;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.all(0.0),
@@ -75,12 +55,6 @@ List<ExampRadio<String>> options = [
           menuItemsSizedBox(),
           menuListItem(iconData[0], menuItems[5], BirimListView()),
           menuItemsSizedBox(),
-           SmartSelect<String>.single(
-    title: 'Frameworks',
-    value: value,
-    choiceItems: options,
-    onChange: (state) => setState(() => value = state.value)
-  );
         ],
       ),
     );
@@ -109,6 +83,17 @@ List<ExampRadio<String>> options = [
             Get.isDarkMode
                 ? Get.changeTheme(amberTheme)
                 : Get.changeTheme(ThemeData.dark());
+          },
+          child: CircleAvatar(
+              backgroundColor: Theme.of(context).cardColor,
+              child: Icon(
+                Icons.settings,
+                // color: Theme.of(context).iconTheme.color,
+              )),
+        ),
+        InkWell(
+          onTap: () {
+            Get.to(() => ThemesView());
           },
           child: CircleAvatar(
               backgroundColor: Theme.of(context).cardColor,

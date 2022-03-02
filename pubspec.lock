@@ -191,6 +191,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.3.1"
+  group_button:
+    dependency: "direct main"
+    description:
+      name: group_button
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.5.0"
   hexcolor:
     dependency: "direct main"
     description:
@@ -399,13 +406,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  smart_select:
-    dependency: "direct main"
-    description:
-      name: smart_select
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.3.2"
   source_span:
     dependency: transitive
     description:
