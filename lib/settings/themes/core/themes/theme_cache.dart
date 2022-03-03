@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:library_reservation_liberta_flutter/settings/themes/panache/blue_theme.dart';
+import 'package:library_reservation_liberta_flutter/settings/themes/panaches/blue_theme.dart';
 import 'package:library_reservation_liberta_flutter/settings/themes/screens/themes_controller.dart';
 
 mixin ThemeCacheManager {

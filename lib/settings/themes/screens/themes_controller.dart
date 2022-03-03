@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/home/utils/drawer_menu_controller.dart';
-import 'package:library_reservation_liberta_flutter/settings/themes/panache/amber_theme.dart';
+import 'package:library_reservation_liberta_flutter/settings/themes/panaches/amber_theme.dart';
 
 import '../core/themes/theme_cache.dart';
-import '../panache/black_theme.dart';
-import '../panache/blue_theme.dart';
-import '../panache/bluegray_theme.dart';
-import '../panache/brown_theme.dart';
-import '../panache/cyan_theme.dart';
-import '../panache/deeporange_theme.dart';
-import '../panache/deeppurple_theme.dart';
-import '../panache/green_theme.dart';
-import '../panache/grey_theme.dart';
-import '../panache/indigo_theme.dart';
-import '../panache/lightblue_theme.dart';
-import '../panache/lightgreen_theme.dart';
-import '../panache/lime_theme.dart';
-import '../panache/orange_theme.dart';
-import '../panache/pink_theme.dart';
-import '../panache/purple_theme.dart';
-import '../panache/red_theme.dart';
-import '../panache/teal_theme.dart';
-import '../panache/yellow_theme.dart';
+import '../panaches/black_theme.dart';
+import '../panaches/blue_theme.dart';
+import '../panaches/bluegray_theme.dart';
+import '../panaches/brown_theme.dart';
+import '../panaches/cyan_theme.dart';
+import '../panaches/deeporange_theme.dart';
+import '../panaches/deeppurple_theme.dart';
+import '../panaches/green_theme.dart';
+import '../panaches/grey_theme.dart';
+import '../panaches/indigo_theme.dart';
+import '../panaches/lightblue_theme.dart';
+import '../panaches/lightgreen_theme.dart';
+import '../panaches/lime_theme.dart';
+import '../panaches/orange_theme.dart';
+import '../panaches/pink_theme.dart';
+import '../panaches/purple_theme.dart';
+import '../panaches/red_theme.dart';
+import '../panaches/teal_theme.dart';
+import '../panaches/yellow_theme.dart';
 
 class ThemesController extends GetxController with ThemeCacheManager {
   static var character = EnumThemeData.amberTheme;

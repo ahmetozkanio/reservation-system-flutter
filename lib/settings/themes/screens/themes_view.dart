@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:library_reservation_liberta_flutter/settings/themes/model/theme_model.dart';
-import 'package:library_reservation_liberta_flutter/settings/themes/panache/amber_theme.dart';
-import 'package:library_reservation_liberta_flutter/settings/themes/panache/black_theme.dart';
-import 'package:library_reservation_liberta_flutter/settings/themes/panache/blue_theme.dart';
-import 'package:library_reservation_liberta_flutter/widgets/appbar.dart';
 
 import '../core/themes/theme_cache.dart';
 import 'themes_controller.dart';
