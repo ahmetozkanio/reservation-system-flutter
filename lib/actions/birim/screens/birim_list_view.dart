@@ -103,7 +103,7 @@ class BirimListView extends StatelessWidget {
       appBar: globalAppBar(context, "Birimler", appBarActions),
       body: Column(
         children: [
-          //formTitle("Birimler"),
+          //formTitle("Birimler")sd,
           Expanded(
             child: Obx(
               () {
