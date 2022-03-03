@@ -4,25 +4,25 @@ import 'package:library_reservation_liberta_flutter/home/utils/drawer_menu_contr
 import 'package:library_reservation_liberta_flutter/settings/themes/panaches/amber_theme.dart';
 
 import '../core/themes/theme_cache.dart';
-import '../panaches/black_theme.dart';
-import '../panaches/blue_theme.dart';
-import '../panaches/bluegray_theme.dart';
-import '../panaches/brown_theme.dart';
-import '../panaches/cyan_theme.dart';
-import '../panaches/deeporange_theme.dart';
-import '../panaches/deeppurple_theme.dart';
-import '../panaches/green_theme.dart';
-import '../panaches/grey_theme.dart';
-import '../panaches/indigo_theme.dart';
-import '../panaches/lightblue_theme.dart';
-import '../panaches/lightgreen_theme.dart';
-import '../panaches/lime_theme.dart';
-import '../panaches/orange_theme.dart';
-import '../panaches/pink_theme.dart';
-import '../panaches/purple_theme.dart';
-import '../panaches/red_theme.dart';
-import '../panaches/teal_theme.dart';
-import '../panaches/yellow_theme.dart';
+import '../panachefile/black_theme.dart';
+import '../panachefile/blue_theme.dart';
+import '../panachefile/bluegray_theme.dart';
+import '../panachefile/brown_theme.dart';
+import '../panachefile/cyan_theme.dart';
+import '../panachefile/deeporange_theme.dart';
+import '../panachefile/deeppurple_theme.dart';
+import '../panachefile/green_theme.dart';
+import '../panachefile/grey_theme.dart';
+import '../panachefile/indigo_theme.dart';
+import '../panachefile/lightblue_theme.dart';
+import '../panachefile/lightgreen_theme.dart';
+import '../panachefile/lime_theme.dart';
+import '../panachefile/orange_theme.dart';
+import '../panachefile/pink_theme.dart';
+import '../panachefile/purple_theme.dart';
+import '../panachefile/red_theme.dart';
+import '../panachefile/teal_theme.dart';
+import '../panachefile/yellow_theme.dart';
 
 class ThemesController extends GetxController with ThemeCacheManager {
   static var character = EnumThemeData.amberTheme;
