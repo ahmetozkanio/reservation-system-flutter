@@ -11,13 +11,13 @@ mixin ThemeCacheManager {
     return true;
   }
 
-  // static String? getTheme() {
-  //   var themeData = themeBox.read("theme").toString().split(".");
-  // }
-  //   return themeData;
-  // }
+  static String? getTheme() {
+    var themeData = themeBox.read("theme").toString();
+    return themeData;
+  }
+}
 
   // Future<void> removeToken() async {
   //   await box.remove(CacheManagerKey.TOKEN.toString());
   // }
-}
+

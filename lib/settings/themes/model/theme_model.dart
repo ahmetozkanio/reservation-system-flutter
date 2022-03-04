@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../panaches/amber_theme.dart';
+import '../panachefile/amber_theme.dart';
 
 class ThemeModel {
   ThemeModel({

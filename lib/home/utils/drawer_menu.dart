@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/settings/themes/screens/themes_view.dart';
-import '../../settings/themes/panaches/amber_theme.dart';
+import '../../settings/themes/panachefile/amber_theme.dart';
 import '/accounts/login/screens/login_view.dart';
 import '/actions/salon/screens/salon_list_view.dart';
 

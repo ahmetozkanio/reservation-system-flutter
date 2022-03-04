@@ -12,6 +12,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HomeController controller = Get.put(HomeController());
     return Column(
       children: [
         SingleChildScrollView(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:library_reservation_liberta_flutter/home/utils/drawer_menu_controller.dart';
-import 'package:library_reservation_liberta_flutter/settings/themes/panaches/amber_theme.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../core/themes/theme_cache.dart';
+import '../panachefile/amber_theme.dart';
 import '../panachefile/black_theme.dart';
 import '../panachefile/blue_theme.dart';
 import '../panachefile/bluegray_theme.dart';
@@ -27,12 +27,27 @@ import '../panachefile/yellow_theme.dart';
 class ThemesController extends GetxController with ThemeCacheManager {
   static var character = EnumThemeData.amberTheme;
   var cacheTheme = ThemeData().obs;
-  // themeChange() {
-  //   saveTheme(character.toString());
-  // }
-  // static Future<bool> saveThemes(ThemeData themeData) {
-  //   return saveTheme(amberTheme);
-  // }
+  @override
+  void onInit() {
+    super.onInit();
+    print(ThemeCacheManager.getTheme());
+  }
+
+  static ThemeData? getStorageInitTheme() {
+    var initTheme = ThemeCacheManager.getTheme().toString().split(".");
+    var init = ThemeCacheManager.getTheme();
+    if (initTheme != null) {
+      //var enumThemeDataEnd = initTheme[1];
+
+      //var enumThemeDataList = EnumThemeData.values.toList();
+      for (var index in EnumThemeData.values) {
+        if (index.toString() == init) {
+          return themeSelect(index);
+        }
+      }
+    }
+    return null;
+  }
 
   static ThemeData themeSelect(EnumThemeData? enumThemeData) {
     switch (enumThemeData) {
@@ -80,8 +95,6 @@ class ThemesController extends GetxController with ThemeCacheManager {
         return amberTheme;
     }
   }
-
-  final isLogged = false.obs;
 
   saveThemes(EnumThemeData? enumThemeData) async {
     await saveTheme(enumThemeData);

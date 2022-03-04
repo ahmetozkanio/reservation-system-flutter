@@ -14,6 +14,13 @@ class ThemesView extends StatefulWidget {
 class _ThemesViewState extends State<ThemesView> {
   ThemesController themesController = ThemesController();
   ThemesController controller = Get.put(ThemesController());
+
+  @override
+  void initState() {
+    //print(ThemeCacheManager.getTheme());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,8 +79,6 @@ class _ThemesViewState extends State<ThemesView> {
                 Get.changeTheme(ThemesController.themeSelect(value));
                 themesController.saveThemes(value);
                 //themesController.saveTheme(value.toString( ));
-
-                print(ThemeCacheManager.themeBox.read("theme").toString());
               });
             }));
   }
