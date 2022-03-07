@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/settings/themes/screens/themes_controller.dart';
 import 'package:library_reservation_liberta_flutter/settings/themes/screens/themes_view.dart';
-import '../../settings/themes/panachefile/amber_theme.dart';
+
+import '../../settings/themes/initial_function/themes.dart';
+
 import '/accounts/login/screens/login_view.dart';
 import '/actions/salon/screens/salon_list_view.dart';
 
 import '/actions/birim/screens/birim_list_view.dart';
+import 'drawer_menu_controller.dart';
 
 class DrawerMenu extends StatefulWidget {
   const DrawerMenu({Key? key}) : super(key: key);
@@ -32,35 +36,43 @@ class _DrawerMenuState extends State<DrawerMenu> {
 
   @override
   Widget build(BuildContext context) {
+    DrawerMenuController controller = Get.put(DrawerMenuController());
     return Container(
-      child: drawerMenu(context),
+      child: drawerMenu(context, controller),
     );
   }
 
-  Drawer drawerMenu(context) {
+  Drawer drawerMenu(context, controller) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.all(0.0),
+      child: Column(
         children: [
-          userAccountDrawerCustom(context),
-          menuListItem(iconData[0], menuItems[0], BirimListView()),
-          menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[1], SalonListView()),
-          menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[2], BirimListView()),
-          menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[3], BirimListView()),
-          menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[4], BirimListView()),
-          menuItemsSizedBox(),
-          menuListItem(iconData[0], menuItems[5], BirimListView()),
-          menuItemsSizedBox(),
+          userAccountDrawerCustom(context, controller),
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.all(0.0),
+              children: [
+                menuListItem(iconData[0], menuItems[0], BirimListView()),
+                menuItemsSizedBox(),
+                menuListItem(iconData[0], menuItems[1], SalonListView()),
+                menuItemsSizedBox(),
+                menuListItem(iconData[0], menuItems[2], BirimListView()),
+                menuItemsSizedBox(),
+                menuListItem(iconData[0], menuItems[3], BirimListView()),
+                menuItemsSizedBox(),
+                menuListItem(iconData[0], menuItems[4], BirimListView()),
+                menuItemsSizedBox(),
+                menuListItem(iconData[0], menuItems[5], BirimListView()),
+                menuItemsSizedBox(),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 
-  UserAccountsDrawerHeader userAccountDrawerCustom(context) {
+  UserAccountsDrawerHeader userAccountDrawerCustom(context, controller) {
+    ThemesController themesController = ThemesController();
     return UserAccountsDrawerHeader(
       accountEmail: Text('ahmetozkanio@yahoo.com'),
       // decoration: BoxDecoration(
@@ -80,9 +92,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
         ),
         InkWell(
           onTap: () {
-            Get.isDarkMode
-                ? Get.changeTheme(amberTheme)
-                : Get.changeTheme(ThemeData.dark());
+            Get.to(() => ThemesView());
           },
           child: CircleAvatar(
               backgroundColor: Theme.of(context).cardColor,
@@ -93,14 +103,28 @@ class _DrawerMenuState extends State<DrawerMenu> {
         ),
         InkWell(
           onTap: () {
-            Get.to(() => ThemesView());
+            setState(() {
+              if (controller.icon == Icons.dark_mode_outlined) {
+                themesController.saveDarkTheme(
+                  EnumThemeData.darkTheme,
+                );
+                print("Dark Mode");
+                Get.changeTheme(ThemeData.dark());
+                controller.icon = Icons.wb_sunny_outlined;
+              } else {
+                print("Light Mode");
+                themesController.removeDarkTheme();
+                initialTheme();
+                controller.icon = Icons.dark_mode_outlined;
+              }
+            });
           },
           child: CircleAvatar(
-              backgroundColor: Theme.of(context).cardColor,
-              child: Icon(
-                Icons.settings,
-                // color: Theme.of(context).iconTheme.color,
-              )),
+            backgroundColor: Theme.of(context).cardColor,
+            child: Icon(
+              controller.icon,
+            ),
+          ),
         ),
       ],
       currentAccountPicture: CircleAvatar(

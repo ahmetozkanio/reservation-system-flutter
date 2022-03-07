@@ -6,14 +6,28 @@ import 'package:library_reservation_liberta_flutter/settings/themes/screens/them
 mixin ThemeCacheManager {
   static final GetStorage themeBox = GetStorage();
   Future<bool> saveTheme(EnumThemeData? themeData) async {
-    ThemeData defaultTheme = blueTheme;
     await themeBox.write("theme", themeData.toString());
+    return true;
+  }
+
+  Future<bool> saveDarkTheme(EnumThemeData? themeData) async {
+    await themeBox.write("themeDark", themeData.toString());
     return true;
   }
 
   static String? getTheme() {
     var themeData = themeBox.read("theme").toString();
     return themeData;
+  }
+
+  static String? getDarkTheme() {
+    var themeData = themeBox.read("themeDark").toString();
+    print(themeData);
+    return themeData;
+  }
+
+  Future<void> removeDarkTheme() async {
+    await themeBox.remove("themeDark".toString());
   }
 }
 

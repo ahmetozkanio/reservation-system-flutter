@@ -15,7 +15,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
+      children: [
         ListTile(
           title: const Text('Lafayette'),
           leading: Radio<SingingCharacter>(

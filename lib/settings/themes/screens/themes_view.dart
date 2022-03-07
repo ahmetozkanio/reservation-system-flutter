@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/home/drawer_menu/drawer_menu_controller.dart';
 
-import '../core/themes/theme_cache.dart';
+import '../core/theme_cache.dart';
 import 'themes_controller.dart';
 
 class ThemesView extends StatefulWidget {
@@ -13,7 +14,9 @@ class ThemesView extends StatefulWidget {
 
 class _ThemesViewState extends State<ThemesView> {
   ThemesController themesController = ThemesController();
+
   ThemesController controller = Get.put(ThemesController());
+  DrawerMenuController drawerMenuController = Get.put(DrawerMenuController());
 
   @override
   void initState() {
@@ -38,7 +41,7 @@ class _ThemesViewState extends State<ThemesView> {
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
             crossAxisCount: 4,
-            children: <Widget>[
+            children: [
               themesRadio(Colors.red, EnumThemeData.redTheme),
               themesRadio(Colors.pink, EnumThemeData.pinkTheme),
               themesRadio(Colors.purple, EnumThemeData.purpleTheme),
@@ -72,12 +75,13 @@ class _ThemesViewState extends State<ThemesView> {
             value: enumThemeData!,
             groupValue: ThemesController.character,
             onChanged: (value) {
-              // print(value);
               setState(() {
+                themesController.removeDarkTheme();
                 ThemesController.character = value!;
-
+                drawerMenuController.icon = Icons.dark_mode_outlined;
                 Get.changeTheme(ThemesController.themeSelect(value));
                 themesController.saveThemes(value);
+
                 //themesController.saveTheme(value.toString( ));
               });
             }));

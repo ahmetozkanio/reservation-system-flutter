@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../core/themes/theme_cache.dart';
+import '../core/theme_cache.dart';
 import '../panachefile/amber_theme.dart';
 import '../panachefile/black_theme.dart';
 import '../panachefile/blue_theme.dart';
@@ -25,21 +25,30 @@ import '../panachefile/teal_theme.dart';
 import '../panachefile/yellow_theme.dart';
 
 class ThemesController extends GetxController with ThemeCacheManager {
-  static var character = EnumThemeData.amberTheme;
-  var cacheTheme = ThemeData().obs;
+  static var character = EnumThemeData.blueTheme;
+  // var cacheTheme = ThemeData().obs;
+
   @override
   void onInit() {
     super.onInit();
+    radioThemeValue();
     print(ThemeCacheManager.getTheme());
   }
 
   static ThemeData? getStorageInitTheme() {
-    var initTheme = ThemeCacheManager.getTheme().toString().split(".");
+    // var initTheme = ThemeCacheManager.getTheme().toString().split(".");
     var init = ThemeCacheManager.getTheme();
-    if (initTheme != null) {
-      //var enumThemeDataEnd = initTheme[1];
-
-      //var enumThemeDataList = EnumThemeData.values.toList();
+    //print(init.toString());
+    var darkTheme = ThemeCacheManager.getDarkTheme();
+    //print(darkTheme);
+    if (darkTheme != null) {
+      for (var index in EnumThemeData.values) {
+        if (index.toString() == darkTheme) {
+          return themeSelect(index);
+        }
+      }
+    }
+    if (init != null) {
       for (var index in EnumThemeData.values) {
         if (index.toString() == init) {
           return themeSelect(index);
@@ -49,8 +58,21 @@ class ThemesController extends GetxController with ThemeCacheManager {
     return null;
   }
 
+  radioThemeValue() {
+    var init = ThemeCacheManager.getTheme();
+    if (init != null) {
+      for (var index in EnumThemeData.values) {
+        if (index.toString() == init) {
+          character = index;
+        }
+      }
+    }
+  }
+
   static ThemeData themeSelect(EnumThemeData? enumThemeData) {
     switch (enumThemeData) {
+      case EnumThemeData.darkTheme:
+        return ThemeData.dark();
       case EnumThemeData.redTheme:
         return redTheme;
       case EnumThemeData.pinkTheme:
@@ -92,30 +114,17 @@ class ThemesController extends GetxController with ThemeCacheManager {
       case EnumThemeData.greyTheme:
         return greyTheme;
       default:
-        return amberTheme;
+        return ThemeData.light();
     }
   }
 
   saveThemes(EnumThemeData? enumThemeData) async {
     await saveTheme(enumThemeData);
   }
-
-  // static String? checkTheme() {
-  //   final theme = getTheme();
-  //   if (theme != null) {
-  //     print(theme);
-  //     return theme;
-  //   }
-  //   return null;
-  // }
 }
 
-// static EnumThemeData? getThemes() {
-//   var theme = getTheme();
-//   return theme;
-// }
-
 enum EnumThemeData {
+  darkTheme,
   amberTheme,
   blackTheme,
   blueTheme,
