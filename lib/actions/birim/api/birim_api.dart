@@ -54,6 +54,28 @@ class BirimApi extends GetConnect {
 
     if (response.statusCode == 201) {
       return Future<bool>.value(true);
-    } else {}
+    } else {
+      Future<bool>.value(false);
+    }
+    return null;
+  }
+
+  static Future<bool> putDeleteBirim(int id) async {
+    final url = Uri.parse(BaseApi.apiBaseUrl + '/api/Birim/sil/$id');
+    final headers = {"Content-Type": "application/json-patch+json"};
+    Map jsonMap = {
+      "id": id,
+    };
+    String body = json.encode(jsonMap);
+
+    final response = await http.put(url, headers: headers, body: body);
+    print(response.body);
+    print(response.statusCode);
+
+    if (response.statusCode == 200 || response.statusCode == 204) {
+      return Future<bool>.value(true);
+    } else {
+      return Future<bool>.value(false);
+    }
   }
 }

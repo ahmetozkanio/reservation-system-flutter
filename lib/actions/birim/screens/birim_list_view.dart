@@ -1,8 +1,12 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
+import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/actions/birim/model/birim_model.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../../widgets/searchList.dart';
+import '../../../widgets/snackbar.dart';
 import '/widgets/appbar.dart';
 
 import '/widgets/info_list_text.dart';
@@ -26,63 +30,7 @@ class BirimListView extends StatelessWidget {
       BirimListController(),
     );
 
-    // This function is called whenever the text field changes
-    // void search(String enteredKeyword) {
-    //   List<Map<String, dynamic>> results = [];
-    //   if (enteredKeyword.isEmpty) {
-    //     // if the search field is empty or only contains white-space, we'll display all users
-    //     results = birimListController.birimList.cast<Map<String, dynamic>>();
-    //   } else {
-    //     birimListController.searchBirimList = birimListController.birimList
-    //         .where((user) =>
-    //             user.adi!.toLowerCase().contains(enteredKeyword.toLowerCase()))
-    //         .toList();
-    //     // we use the toLowerCase() method to make it case-insensitive
-    //   }
-
-    //   // Refresh the UI
-
-    //   birimListController.searchBirimList = results.cast<Birim>();
-    // }
-
-    // search(String value) {
-    //   if (value.isNotEmpty) {
-    //     birimListController.searchBirimList = birimListController.birimList
-    //         .where((birim) => birim.adi!.toLowerCase().contains(value))
-    //         .toList();
-    //   } else {}
-    // }
-
-    // TextField searchTextField(Function search) {
-    //   return TextField(
-    //     onChanged: (value) => controller.searchBirim(value),
-    //     decoration: InputDecoration(
-    //         filled: true,
-    //         fillColor: Color.fromARGB(255, 255, 255, 255),
-    //         contentPadding: EdgeInsets.all(0),
-    //         prefixIcon: Icon(
-    //           Icons.search,
-    //           color: Color.fromARGB(255, 0, 0, 0),
-    //         ),
-    //         border: OutlineInputBorder(
-    //             borderRadius: BorderRadius.circular(50),
-    //             borderSide: BorderSide.none),
-    //         hintStyle:
-    //             TextStyle(fontSize: 14, color: Color.fromARGB(255, 0, 0, 0)),
-    //         hintText: "Birim Ara"),
-    //   );
-    // }
-
     List<Widget> appBarActions = [
-      // AnimSearchBar(
-      //   color: Colors.blue,
-      //   helpText: "Birim Ara",
-      //   width: 250,
-      //   textController: birimListController.searchTextCtrl,
-      //   onSuffixTap: () {
-      //     birimListController.searchTextCtrl.clear();
-      //   },
-      // ),
       InkWell(
         onTap: () {
           Get.to(() => BirimCreateView(), //next page class
@@ -103,7 +51,6 @@ class BirimListView extends StatelessWidget {
       appBar: globalAppBar(context, "Birimler", appBarActions),
       body: Column(
         children: [
-          //formTitle("Birimler")sd,
           Expanded(
             child: Obx(
               () {
@@ -115,67 +62,117 @@ class BirimListView extends StatelessWidget {
                       searchTextField(context, birimListController.searchBirim,
                           "Birim Ara"),
                       Expanded(
-                          child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: birimListController.searchBirimList.length,
-                        itemBuilder: (context, index) {
-                          return ExpansionTile(
-                            title: Text(
-                              birimListController.searchBirimList[index].adi
-                                  .toString(),
-                            ),
-                            leading: const Icon(Icons.school_outlined),
-                            children: [
-                              listDetail(
-                                context,
-                                titles[0],
-                                birimListController
-                                    .searchBirimList[index].sehirAdi
-                                    .toString(),
-                                iconList[0],
-                              ),
-                              listDetail(
-                                context,
-                                titles[1],
-                                birimListController
-                                    .searchBirimList[index].ilceAdi
-                                    .toString(),
-                                iconList[0],
-                              ),
-                              listDetail(
-                                context,
-                                titles[2],
-                                birimListController
-                                    .searchBirimList[index].yetkiliKisi
-                                    .toString(),
-                                iconList[1],
-                              ),
-                              listDetail(
-                                context,
-                                titles[3],
-                                birimListController.searchBirimList[index].email
-                                    .toString(),
-                                iconList[2],
-                              ),
-                              listDetail(
-                                context,
-                                titles[4],
-                                birimListController
-                                    .searchBirimList[index].cepTelefon
-                                    .toString(),
-                                iconList[3],
-                              ),
-                              listDetail(
-                                context,
-                                titles[5],
-                                birimListController
-                                    .searchBirimList[index].ofisTelefon
-                                    .toString(),
-                                iconList[4],
-                              )
-                            ],
-                          );
-                        },
+                          child: RefreshIndicator(
+                        key: birimListController.refreshKey,
+                        onRefresh: birimListController.refreshBirimList,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: birimListController.searchBirimList.length,
+                          itemBuilder: (context, index) {
+                            var cardA;
+                            return ExpansionTileCard(
+                              key: cardA,
+                              leading: Icon(Icons.apartment),
+                              title: Text(birimListController
+                                  .searchBirimList[index].adi
+                                  .toString()),
+                              subtitle: Text(birimListController
+                                  .searchBirimList[index].sehirAdi
+                                  .toString()),
+                              children: [
+                                Divider(
+                                  thickness: 1.0,
+                                  height: 1.0,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                        vertical: 8.0,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          listDetail(
+                                            context,
+                                            titles[0],
+                                            birimListController
+                                                .searchBirimList[index].sehirAdi
+                                                .toString(),
+                                            iconList[0],
+                                          ),
+                                          sizedBoxList(),
+                                          listDetail(
+                                            context,
+                                            titles[1],
+                                            birimListController
+                                                .searchBirimList[index].ilceAdi
+                                                .toString(),
+                                            iconList[0],
+                                          ),
+                                          sizedBoxList(),
+                                          listDetail(
+                                            context,
+                                            titles[2],
+                                            birimListController
+                                                .searchBirimList[index]
+                                                .yetkiliKisi
+                                                .toString(),
+                                            iconList[1],
+                                          ),
+                                          sizedBoxList(),
+                                          listDetail(
+                                            context,
+                                            titles[3],
+                                            birimListController
+                                                .searchBirimList[index].email
+                                                .toString(),
+                                            iconList[2],
+                                          ),
+                                          sizedBoxList(),
+                                          listDetail(
+                                            context,
+                                            titles[4],
+                                            birimListController
+                                                .searchBirimList[index]
+                                                .cepTelefon
+                                                .toString(),
+                                            iconList[3],
+                                          ),
+                                          sizedBoxList(),
+                                          listDetail(
+                                            context,
+                                            titles[5],
+                                            birimListController
+                                                .searchBirimList[index]
+                                                .ofisTelefon
+                                                .toString(),
+                                            iconList[4],
+                                          )
+                                        ],
+                                      )),
+                                ),
+                                ButtonBar(
+                                  alignment: MainAxisAlignment.spaceAround,
+                                  buttonHeight: 32.0,
+                                  buttonMinWidth: 48.0,
+                                  children: [
+                                    updateListTileButton(
+                                        context,
+                                        birimListController,
+                                        birimListController
+                                            .searchBirimList[index].adi!),
+                                    deleteListTileButton(
+                                        context,
+                                        birimListController,
+                                        birimListController
+                                            .searchBirimList[index]),
+                                  ],
+                                ),
+                              ],
+                            );
+                          },
+                        ),
                       )),
                     ],
                   );
@@ -185,6 +182,95 @@ class BirimListView extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  TextButton deleteListTileButton(
+      context, BirimListController birimListController, Birim birim) {
+    return TextButton(
+      onPressed: () {
+        alertDelete(context, birim, birimListController);
+      },
+      child: Column(
+        children: [
+          Icon(Icons.delete, color: Colors.red),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2.0),
+          ),
+          Text(
+            'Sil',
+            style: TextStyle(color: Colors.red),
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextButton updateListTileButton(context, birimListController, birim) {
+    return TextButton(
+      // style: flatButtonStyle,
+      onPressed: () {},
+      child: Column(
+        children: <Widget>[
+          Icon(
+            Icons.update_sharp,
+            color: Colors.green,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2.0),
+          ),
+          Text(
+            'Güncelle',
+            style: TextStyle(color: Colors.green),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<bool?> alertDelete(
+      context, Birim birim, BirimListController birimListController) {
+    return Alert(
+      style: AlertStyle(
+          titleStyle: TextStyle(fontSize: 14),
+          descStyle: TextStyle(fontSize: 12)),
+      context: context,
+      type: AlertType.info,
+      title: birim.adi.toString(),
+      desc: "Birim silinecektir onaylıyor musunuz?",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "İptal",
+            style: TextStyle(color: Colors.white, fontSize: 12),
+          ),
+          onPressed: () => Get.back(),
+          color: Colors.grey,
+        ),
+        DialogButton(
+          child: Text(
+            "Onayla",
+            style: TextStyle(color: Colors.white, fontSize: 14),
+          ),
+          onPressed: () {
+            var response = birimListController.deleteBirim(birim.id!);
+            if (BirimListController.birimApiResponse) {
+              birimListController.getBirimList;
+              Navigator.pop(context);
+              successSnackbar("Başarılı.", "Birim başarıyla silindi.");
+            } else {
+              errorSnackbar("Hata!", "Birim silinemedi..");
+            }
+          },
+          color: Colors.green,
+        ),
+      ],
+    ).show();
+  }
+
+  SizedBox sizedBoxList() {
+    return SizedBox(
+      height: 4.0,
     );
   }
 

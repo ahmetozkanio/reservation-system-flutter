@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/widgets/snackbar.dart';
 import '../api/birim_api.dart';
 
 import '../model/birim_model.dart';
 
 class BirimListController extends GetxController {
   var isLoading = true.obs;
+  static bool birimApiResponse = false;
+  var refreshKey = GlobalKey<RefreshIndicatorState>();
+
   var birimList = <Birim>[].obs;
   var searchBirimList = <Birim>[].obs;
 
@@ -28,12 +32,28 @@ class BirimListController extends GetxController {
     super.onReady();
   }
 
+  Future<bool> deleteBirim(int id) async {
+    try {
+      bool deleteBirim = await BirimApi.putDeleteBirim(id);
+
+      if (deleteBirim) {
+        birimApiResponse = true;
+        getBirimList();
+
+        return deleteBirim;
+      } else {
+        return deleteBirim;
+      }
+    } finally {}
+  }
+
   getBirimList() async {
     try {
       isLoading(true);
       var birims = await BirimApi.getBirimListApi();
 
       if (birims != null) {
+        searchBirimList.clear();
         birimList.assignAll(birims);
         searchBirimList.addAll(birimList);
       }
@@ -42,11 +62,13 @@ class BirimListController extends GetxController {
     }
   }
 
+  Future<void> refreshBirimList() async {
+    refreshKey.currentState?.show(atTop: false);
+    await Future.delayed(Duration(seconds: 1));
+    await getBirimList();
+  }
+
   searchBirim(String value) {
-    // var searchList = <Birim>[];
-
-    // searchList.addAll(searchBirimList);
-
     if (value.isNotEmpty) {
       var searchListData = <Birim>[];
       for (var element in birimList) {
@@ -62,27 +84,4 @@ class BirimListController extends GetxController {
       searchBirimList.addAll(birimList);
     }
   }
-
-  // void filterSearchResults(String query) {
-  //   List<String> dummySearchList = [];
-  //   dummySearchList.addAll(duplicateItems);
-  //   if (query.isNotEmpty) {
-  //     List<String> dummyListData = [];
-  //     dummySearchList.forEach((item) {
-  //       if (item.contains(query)) {
-  //         dummyListData.add(item);
-  //       }
-  //     });
-  //     setState(() {
-  //       items.clear();
-  //       items.addAll(dummyListData);
-  //     });
-  //     return;
-  //   } else {
-  //     setState(() {
-  //       items.clear();
-  //       items.addAll(duplicateItems);
-  //     });
-  //   }
-  // }
 }

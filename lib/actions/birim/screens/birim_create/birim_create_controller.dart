@@ -10,7 +10,7 @@ class BirimCreateController extends GetxController {
 
   var currentStep = 0.obs;
 
-  static bool birimCreated = false;
+  static var birimCreated;
 
   final GlobalKey<FormState> birimFormKey = GlobalKey<FormState>().obs();
   final GlobalKey<FormState> yetkiliFormKey = GlobalKey<FormState>().obs();
@@ -48,6 +48,8 @@ class BirimCreateController extends GetxController {
 
   Future<bool> postBirim() async {
     try {
+      isLoading(true);
+
       var birimPost = await BirimApi.postBirimCreate(
           aktifMi,
           birimAdiCtrl.text,
@@ -60,29 +62,36 @@ class BirimCreateController extends GetxController {
 
       if (birimPost != null && birimPost == true) {
         birimCreated = true;
+
         return true;
       } else {
         return false;
       }
     } finally {
-      birimCreated = true;
+      //  birimCreated = true;
+      isLoading(false);
     }
   }
 
   getSehirIlceList() async {
     try {
+      isLoading(true);
       var sehir = await SehirApi.getSehirListApi();
 
       if (sehir != null) {
         sehirList.assignAll(sehir);
         print("Sehirler : " + sehir[0].adi.toString());
         sehirAdiList();
+        isLoading(false);
       }
-    } finally {}
+    } finally {
+      //isLoading(false);
+    }
   }
 
   getIlceList() async {
     try {
+      isLoading(true);
       ilceAdi.clear();
 
       if (postSehirId() != null) {
@@ -93,7 +102,9 @@ class BirimCreateController extends GetxController {
           ilceAdiList();
         }
       }
-    } finally {}
+    } finally {
+      isLoading(false);
+    }
   }
 
   List<String?> sehirAdiList() {

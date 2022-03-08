@@ -5,29 +5,34 @@ Container listDetail(context, String title, String indexName, IconData icon) {
   Color icColor = Theme.of(context).iconTheme.color!;
   return Container(
     // color: Color.fromARGB(255, 214, 205, 205),
-    padding: listP,
+    //padding: listP,
     child: Row(
       children: [
         Icon(
           icon,
-          // color: icColor,
+          color: Theme.of(context).primaryColor,
+        ),
+        SizedBox(
+          width: 3,
         ),
         Text(
           title,
+          textAlign: TextAlign.start,
           style: TextStyle(
-              //color: color,
-              fontSize: 16,
-              fontWeight: FontWeight.bold),
+            color: Theme.of(context).primaryColor,
+            fontSize: 14,
+          ),
         ),
         SizedBox(
           width: 8,
         ),
-        Text(
-          indexName,
-          style: const TextStyle(
-            fontSize: 14,
+        Expanded(
+          child: Text(
+            indexName,
+            textAlign: TextAlign.start,
+            overflow: TextOverflow.fade,
           ),
-        ),
+        )
       ],
     ),
   );

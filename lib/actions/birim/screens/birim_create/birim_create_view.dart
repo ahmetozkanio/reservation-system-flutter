@@ -2,6 +2,10 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/actions/birim/screens/birim_list_controller.dart';
+import 'package:library_reservation_liberta_flutter/actions/birim/screens/birim_list_view.dart';
+import 'package:library_reservation_liberta_flutter/home/home.dart';
+import '../../../../home/home_view.dart';
 import '/widgets/form_title.dart';
 import '/widgets/info_list_text.dart';
 import '/widgets/mask.dart';
@@ -16,16 +20,17 @@ import 'birim_create_controller.dart';
 class BirimCreateView extends StatelessWidget with BirimCreateValidation {
   BirimCreateView({Key? key}) : super(key: key);
 
-  BirimCreateController controller = Get.put(BirimCreateController());
-
   @override
   Widget build(BuildContext context) {
+    BirimCreateController controller = Get.put(BirimCreateController());
+    BirimListController controllerBirimList = Get.put(BirimListController());
+
     return Scaffold(
       appBar: globalAppBar(context, "Birim Oluşturma", null),
       body: Obx(
         () => Stepper(
           type: StepperType.horizontal,
-          steps: buildStep(context),
+          steps: buildStep(context, controller),
           currentStep: controller.currentStep.value,
           onStepContinue: () {
             if (controller.currentStep.value == 0) {
@@ -98,10 +103,14 @@ class BirimCreateView extends StatelessWidget with BirimCreateValidation {
                         onPressed: () {
                           controller.postBirim();
 
-                          print(BirimCreateController.birimCreated);
+                          print(controller.isLoading.value);
 
-                          if (BirimCreateController.birimCreated) {
-                            Get.back();
+                          if (controller.isLoading.value) {
+                            // controllerBirimList.getBirimList;
+                            //Duration(seconds: 1);
+
+                            Get.back(closeOverlays: true);
+
                             successSnackbar(
                                 "Başarılı.", "Birim bilgileri kayıt edildi.");
                           } else {
@@ -131,17 +140,15 @@ class BirimCreateView extends StatelessWidget with BirimCreateValidation {
     );
   }
 
-  List<Step> buildStep(
-    context,
-  ) {
+  List<Step> buildStep(context, controller) {
     return [
-      stepOne(),
-      stepTwo(),
-      stepThree(context),
+      stepOne(controller),
+      stepTwo(controller),
+      stepThree(context, controller),
     ];
   }
 
-  Step stepThree(context) {
+  Step stepThree(context, controller) {
     return Step(
         title: Text('Onay'),
         content: Column(
@@ -166,6 +173,7 @@ class BirimCreateView extends StatelessWidget with BirimCreateValidation {
               controller.ilceName,
               iconList[0],
             ),
+            formSizedBox(),
             formTitle("İletişim Bilgileri"),
             formSizedBox(),
             listDetail(
@@ -200,7 +208,7 @@ class BirimCreateView extends StatelessWidget with BirimCreateValidation {
             : StepState.indexed);
   }
 
-  Step stepTwo() {
+  Step stepTwo(controller) {
     return Step(
         title: Text('Yetkili'),
         content: Form(
@@ -249,7 +257,7 @@ class BirimCreateView extends StatelessWidget with BirimCreateValidation {
             : StepState.indexed);
   }
 
-  Step stepOne() {
+  Step stepOne(controller) {
     return Step(
         title: Text('Birim'),
         content: Form(
