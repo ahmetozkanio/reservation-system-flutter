@@ -13,7 +13,7 @@ SnackbarController successSnackbar(String title, String subtitle) {
     colorText: Colors.white,
     duration: Duration(seconds: 4),
     isDismissible: true,
-    dismissDirection: DismissDirection.horizontal,
+    dismissDirection: DismissDirection.vertical,
     forwardAnimationCurve: Curves.easeOutBack,
   );
 }
@@ -30,7 +30,7 @@ SnackbarController errorSnackbar(String title, String subtitle) {
     colorText: Colors.white,
     duration: Duration(seconds: 4),
     isDismissible: true,
-    dismissDirection: DismissDirection.horizontal,
+    dismissDirection: DismissDirection.vertical,
     forwardAnimationCurve: Curves.easeOutBack,
   );
 }

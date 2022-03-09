@@ -6,6 +6,7 @@ import 'package:library_reservation_liberta_flutter/actions/birim/screens/birim_
 import 'package:library_reservation_liberta_flutter/actions/birim/screens/birim_list_view.dart';
 import 'package:library_reservation_liberta_flutter/home/home.dart';
 import '../../../../home/home_view.dart';
+import '../../model/birim_model.dart';
 import '/widgets/form_title.dart';
 import '/widgets/info_list_text.dart';
 import '/widgets/mask.dart';
@@ -17,12 +18,28 @@ import '/actions/birim/screens/utils/default_lists.dart';
 import '/widgets/appbar.dart';
 import 'birim_create_controller.dart';
 
-class BirimCreateView extends StatelessWidget with BirimCreateValidation {
-  BirimCreateView({Key? key}) : super(key: key);
+class BirimCreateView extends StatefulWidget {
+  BirimCreateView(this.birim, {Key? key}) : super(key: key);
+  Birim? birim;
+  @override
+  State<BirimCreateView> createState() => BirimCreateViewState(birim);
+}
+
+class BirimCreateViewState extends State<BirimCreateView>
+    with BirimCreateValidation {
+  BirimCreateViewState(this.birim);
+
+  BirimCreateController controller = Get.put(BirimCreateController());
+  Birim? birim;
+
+  @override
+  void initState() {
+    controller.updateBirim(birim);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    BirimCreateController controller = Get.put(BirimCreateController());
     BirimListController controllerBirimList = Get.put(BirimListController());
 
     return Scaffold(
@@ -100,17 +117,16 @@ class BirimCreateView extends StatelessWidget with BirimCreateValidation {
                         style: ElevatedButton.styleFrom(
                           primary: Colors.green,
                         ),
-                        onPressed: () {
-                          controller.postBirim();
+                        onPressed: () async {
+                          var response = await controller.postBirim();
 
-                          print(controller.isLoading.value);
+                          print(response);
 
-                          if (controller.isLoading.value) {
-                            // controllerBirimList.getBirimList;
-                            //Duration(seconds: 1);
+                          if (response) {
+                            //
 
-                            Get.back(closeOverlays: true);
-
+                            Get.back();
+                            controllerBirimList.getBirimList;
                             successSnackbar(
                                 "Başarılı.", "Birim bilgileri kayıt edildi.");
                           } else {
@@ -277,31 +293,36 @@ class BirimCreateView extends StatelessWidget with BirimCreateValidation {
               DropdownSearch<String>(
                 mode: Mode.BOTTOM_SHEET,
                 showSelectedItems: true,
+                showSearchBox: true,
                 items: BirimCreateController.sehirAdi,
                 autoValidateMode: AutovalidateMode.onUserInteraction,
-                label: "Şehir",
-                hint: "",
+                label: "Sehir",
+                selectedItem: birim != null ? birim!.sehirAdi.toString() : '',
                 onChanged: (data) {
-                  controller.sehirName = data!;
-                  controller.getIlceList();
+                  controller.ilceList.clear();
 
-                  print(data);
+                  controller.sehirName = data!;
+
+                  controller.getIlceList();
                 },
                 validator: (value) {
                   if (value == null) {
                     return "Lütfen şehir seçiniz.";
                   }
+                  return null;
                 },
               ),
               formSizedBox(),
               DropdownSearch<String>(
                 mode: Mode.BOTTOM_SHEET,
                 showSelectedItems: true,
+                showSearchBox: true,
                 autoValidateMode: AutovalidateMode.onUserInteraction,
                 items: BirimCreateController.ilceAdi,
                 isFilteredOnline: true,
                 label: "İlçe",
                 hint: "",
+                selectedItem: birim != null ? birim!.ilceAdi.toString() : '',
                 onChanged: (data) {
                   controller.ilceName = data!;
                   print(data);

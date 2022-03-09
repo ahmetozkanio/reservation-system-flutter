@@ -11,6 +11,7 @@ import '/widgets/appbar.dart';
 
 import '/widgets/info_list_text.dart';
 
+import 'birim_create/birim_create_controller.dart';
 import 'birim_create/birim_create_view.dart';
 import 'birim_list_controller.dart';
 import 'utils/default_lists.dart';
@@ -33,7 +34,7 @@ class BirimListView extends StatelessWidget {
     List<Widget> appBarActions = [
       InkWell(
         onTap: () {
-          Get.to(() => BirimCreateView(), //next page class
+          Get.to(() => BirimCreateView(null), //next page class
               transition: Transition.rightToLeft //transition effect
               );
         },
@@ -161,7 +162,7 @@ class BirimListView extends StatelessWidget {
                                         context,
                                         birimListController,
                                         birimListController
-                                            .searchBirimList[index].adi!),
+                                            .searchBirimList[index]),
                                     deleteListTileButton(
                                         context,
                                         birimListController,
@@ -206,10 +207,12 @@ class BirimListView extends StatelessWidget {
     );
   }
 
-  TextButton updateListTileButton(context, birimListController, birim) {
+  TextButton updateListTileButton(
+      context, BirimListController birimListController, Birim birim) {
     return TextButton(
-      // style: flatButtonStyle,
-      onPressed: () {},
+      onPressed: () {
+        Get.to(() => BirimCreateView(birim));
+      },
       child: Column(
         children: <Widget>[
           Icon(
@@ -252,11 +255,11 @@ class BirimListView extends StatelessWidget {
             "Onayla",
             style: TextStyle(color: Colors.white, fontSize: 14),
           ),
-          onPressed: () {
-            var response = birimListController.deleteBirim(birim.id!);
-            if (BirimListController.birimApiResponse) {
+          onPressed: () async {
+            var response = await birimListController.deleteBirim(birim.id!);
+            if (response) {
+              Get.back();
               birimListController.getBirimList;
-              Navigator.pop(context);
               successSnackbar("Başarılı.", "Birim başarıyla silindi.");
             } else {
               errorSnackbar("Hata!", "Birim silinemedi..");
@@ -273,34 +276,4 @@ class BirimListView extends StatelessWidget {
       height: 4.0,
     );
   }
-
-  // Container birimListDetail(
-  //     String indexName, String title, Color color, IconData icon) {
-  //   return Container(
-  //     // color: Color.fromARGB(255, 214, 205, 205),
-  //     padding: listP,
-  //     child: Row(
-  //       children: [
-  //         Icon(
-  //           icon,
-  //           color: color,
-  //         ),
-  //         Text(
-  //           title,
-  //           style: TextStyle(
-  //               color: color, fontSize: 16, fontWeight: FontWeight.bold),
-  //         ),
-  //         SizedBox(
-  //           width: 8,
-  //         ),
-  //         Text(
-  //           indexName,
-  //           style: const TextStyle(
-  //             fontSize: 14,
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

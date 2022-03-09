@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/actions/birim/screens/birim_list_controller.dart';
+import '../../model/birim_model.dart';
 import '/actions/birim/api/birim_api.dart';
 import '/actions/sehirilce/api/ilce_api.dart';
 import '/actions/sehirilce/api/sehir_api.dart';
 import '/actions/sehirilce/models/sehir_model.dart';
 
 class BirimCreateController extends GetxController {
+  static Birim? updateBirimIndex;
+
   var isLoading = true.obs;
 
   var currentStep = 0.obs;
@@ -19,7 +23,6 @@ class BirimCreateController extends GetxController {
   bool aktifMi = true;
   String sehirName = "".obs();
   String ilceName = "".obs();
-
   TextEditingController yetkiliAdiCtrl = TextEditingController();
   TextEditingController yetkiliEmailCtrl = TextEditingController();
   TextEditingController yetkiliCepTelCtrl = TextEditingController();
@@ -35,6 +38,9 @@ class BirimCreateController extends GetxController {
 
   @override
   void onInit() {
+    sehirAdiList().clear();
+    sehirList.clear();
+    ilceAdi.clear();
     getSehirIlceList();
 
     super.onInit();
@@ -44,6 +50,21 @@ class BirimCreateController extends GetxController {
   void onClose() {
     ilceList.clear();
     super.onClose();
+  }
+
+  updateBirim(Birim? birim) {
+    //BirimListController birimListController = Get.find();
+    try {
+      if (birim != null) {
+        birimAdiCtrl.text = birim.adi!;
+        sehirName = birim.sehirAdi!;
+        ilceName = birim.ilceAdi!;
+        yetkiliAdiCtrl.text = birim.yetkiliKisi!;
+        yetkiliEmailCtrl.text = birim.email!;
+        yetkiliCepTelCtrl.text = birim.cepTelefon!;
+        yetkiliOfisTelCtrl.text = birim.ofisTelefon!;
+      }
+    } finally {}
   }
 
   Future<bool> postBirim() async {
@@ -140,61 +161,4 @@ class BirimCreateController extends GetxController {
     print("ilce id ${ilceId}");
     return ilceId;
   }
-  // String? validatePassword(
-  //   String value,
-  // ) {
-  //   if (value.length < 8) {
-  //     return "Password must be of 6 characters";
-  //   }
-  //   return null;
-  // }
-
-  // String? validateCustom(String value, Function function) {
-  //   return function(value);
-  // }
-
-  // var email = '';
-  // var password = '';
-
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   emailController = TextEditingController();
-  //   passwordController = TextEditingController();
-  // }
-
-  // @override
-  // void onReady() {
-  //   super.onReady();
-  // }
-
-  // @override
-  // void onClose() {
-  //   emailController.dispose();
-  //   passwordController.dispose();
-  // }
-
-  // String? validateEmail(String value) {
-  //   if (!GetUtils.isEmail(value)) {
-  //     return "Provide valid Email";
-  //   }
-  //   return null;
-  // }
-
-  // String? validatePassword(String value) {
-  //   if (value.length < 6) {
-  //     return "Password must be of 6 characters";
-  //   }
-  //   return null;
-  // }
-
-  // void checkLogin() {
-  //   final isValid = loginFormKey.currentState!.validate();
-  //   if (!isValid) {
-  //     return;
-  //   }
-  //   loginFormKey.currentState!.save();
-  //   print(emailController.text);
-  //   print(passwordController.text);
-  // }
 }

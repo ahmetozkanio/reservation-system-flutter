@@ -34,15 +34,15 @@ class BirimListController extends GetxController {
 
   Future<bool> deleteBirim(int id) async {
     try {
-      bool deleteBirim = await BirimApi.putDeleteBirim(id);
+      var deleteBirim = await BirimApi.putDeleteBirim(id);
 
       if (deleteBirim) {
         birimApiResponse = true;
         getBirimList();
 
-        return deleteBirim;
+        return true;
       } else {
-        return deleteBirim;
+        return false;
       }
     } finally {}
   }
@@ -72,7 +72,8 @@ class BirimListController extends GetxController {
     if (value.isNotEmpty) {
       var searchListData = <Birim>[];
       for (var element in birimList) {
-        if (element.adi!.toLowerCase().contains(value.toLowerCase())) {
+        if (element.adi != null &&
+            element.adi!.toLowerCase().contains(value.toLowerCase())) {
           searchListData.add(element);
         }
       }
