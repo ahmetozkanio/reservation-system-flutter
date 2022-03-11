@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:library_reservation_liberta_flutter/settings/themes/screens/themes_controller.dart';
-import 'package:library_reservation_liberta_flutter/settings/themes/screens/themes_view.dart';
+import 'package:library_reservation_liberta_flutter/settings/screens/settings_view.dart';
 
-import '../../settings/themes/initial_function/themes.dart';
-
+import '../../settings/actions/themes/initial_function/themes.dart';
+import '../../settings/actions/themes/screens/themes_controller.dart';
+import '../../settings/actions/themes/screens/themes_view.dart';
 import '/accounts/login/screens/login_view.dart';
 import '/actions/salon/screens/salon_list_view.dart';
 
@@ -51,17 +51,23 @@ class _DrawerMenuState extends State<DrawerMenu> {
             child: ListView(
               padding: EdgeInsets.all(0.0),
               children: [
-                menuListItem(iconData[0], menuItems[0], BirimListView()),
+                menuListItem("assets/icons/ic_university.png", menuItems[0],
+                    BirimListView()),
                 menuItemsSizedBox(),
-                menuListItem(iconData[0], menuItems[1], SalonListView()),
+                menuListItem("assets/icons/ic_university.png", menuItems[1],
+                    SalonListView()),
                 menuItemsSizedBox(),
-                menuListItem(iconData[0], menuItems[2], BirimListView()),
+                menuListItem("assets/icons/ic_university.png", menuItems[2],
+                    BirimListView()),
                 menuItemsSizedBox(),
-                menuListItem(iconData[0], menuItems[3], BirimListView()),
+                menuListItem("assets/icons/ic_university.png", menuItems[3],
+                    BirimListView()),
                 menuItemsSizedBox(),
-                menuListItem(iconData[0], menuItems[4], BirimListView()),
+                menuListItem("assets/icons/ic_university.png", menuItems[4],
+                    BirimListView()),
                 menuItemsSizedBox(),
-                menuListItem(iconData[0], menuItems[5], BirimListView()),
+                menuListItem("assets/icons/ic_university.png", menuItems[5],
+                    BirimListView()),
                 menuItemsSizedBox(),
               ],
             ),
@@ -92,7 +98,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
         ),
         InkWell(
           onTap: () {
-            Get.to(() => ThemesView());
+            Get.to(() => SettingsView());
           },
           child: CircleAvatar(
               backgroundColor: Theme.of(context).cardColor,
@@ -141,9 +147,9 @@ class _DrawerMenuState extends State<DrawerMenu> {
     );
   }
 
-  Widget menuListItem(IconData icon, menuItems, Widget route) {
+  Widget menuListItem(String icon, menuItems, Widget route) {
     return ListTile(
-      leading: Icon(icon),
+      leading: Container(width: 24, height: 24, child: Image.asset(icon)),
       title: Text(
         menuItems,
         style: TextStyle(),

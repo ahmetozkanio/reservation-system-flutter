@@ -34,7 +34,10 @@ class BirimCreateViewState extends State<BirimCreateView>
 
   @override
   void initState() {
-    controller.updateBirim(birim);
+    if (birim != null) {
+      controller.updateBirim(birim);
+      BirimCreateController.updateBirimIndex = birim;
+    }
     super.initState();
   }
 
@@ -43,7 +46,11 @@ class BirimCreateViewState extends State<BirimCreateView>
     BirimListController controllerBirimList = Get.put(BirimListController());
 
     return Scaffold(
-      appBar: globalAppBar(context, "Birim Oluşturma", null),
+      appBar: globalAppBar(
+        context,
+        birim != null ? "Birim Güncelle" : "Birim Oluşturma",
+        null,
+      ),
       body: Obx(
         () => Stepper(
           type: StepperType.horizontal,
@@ -61,6 +68,7 @@ class BirimCreateViewState extends State<BirimCreateView>
                     ),
                   ),
                 );
+                //controller.getIlceList();
                 controller.postIlceId();
                 print("1. buton aktif");
                 controller.currentStep.value++;
@@ -123,8 +131,6 @@ class BirimCreateViewState extends State<BirimCreateView>
                           print(response);
 
                           if (response) {
-                            //
-
                             Get.back();
                             controllerBirimList.getBirimList;
                             successSnackbar(
@@ -299,7 +305,7 @@ class BirimCreateViewState extends State<BirimCreateView>
                 label: "Sehir",
                 selectedItem: birim != null ? birim!.sehirAdi.toString() : '',
                 onChanged: (data) {
-                  controller.ilceList.clear();
+                  // controller.ilceList.clear();
 
                   controller.sehirName = data!;
 

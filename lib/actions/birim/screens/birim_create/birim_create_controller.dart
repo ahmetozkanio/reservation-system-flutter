@@ -38,11 +38,12 @@ class BirimCreateController extends GetxController {
 
   @override
   void onInit() {
-    sehirAdiList().clear();
-    sehirList.clear();
-    ilceAdi.clear();
-    getSehirIlceList();
-
+    //sehirAdiList().clear();
+    // sehirList.clear();
+    //  ilceAdi.clear();
+    if (updateBirimIndex == null) {
+      getSehirIlceList();
+    }
     super.onInit();
   }
 
@@ -58,11 +59,14 @@ class BirimCreateController extends GetxController {
       if (birim != null) {
         birimAdiCtrl.text = birim.adi!;
         sehirName = birim.sehirAdi!;
+
         ilceName = birim.ilceAdi!;
         yetkiliAdiCtrl.text = birim.yetkiliKisi!;
         yetkiliEmailCtrl.text = birim.email!;
         yetkiliCepTelCtrl.text = birim.cepTelefon!;
         yetkiliOfisTelCtrl.text = birim.ofisTelefon!;
+        getSehirIlceList();
+        // getIlceList();
       }
     } finally {}
   }
@@ -104,6 +108,10 @@ class BirimCreateController extends GetxController {
         print("Sehirler : " + sehir[0].adi.toString());
         sehirAdiList();
         isLoading(false);
+
+        if (updateBirimIndex != null) {
+          getIlceList();
+        }
       }
     } finally {
       //isLoading(false);
@@ -158,7 +166,7 @@ class BirimCreateController extends GetxController {
     for (var list in ilceList) {
       if (list.adi == ilceName) ilceId = list.id;
     }
-    print("ilce id ${ilceId}");
+    print("ilce id $ilceId");
     return ilceId;
   }
 }

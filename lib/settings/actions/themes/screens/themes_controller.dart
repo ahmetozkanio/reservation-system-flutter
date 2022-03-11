@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import '../core/theme_cache.dart';
 import '../panachefile/amber_theme.dart';
@@ -55,7 +54,6 @@ class ThemesController extends GetxController with ThemeCacheManager {
         }
       }
     }
-    return null;
   }
 
   radioThemeValue() {

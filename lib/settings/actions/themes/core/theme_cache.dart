@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:library_reservation_liberta_flutter/settings/themes/panachefile/blue_theme.dart';
-import 'package:library_reservation_liberta_flutter/settings/themes/screens/themes_controller.dart';
+
+import '../screens/themes_controller.dart';
 
 mixin ThemeCacheManager {
   static final GetStorage themeBox = GetStorage();

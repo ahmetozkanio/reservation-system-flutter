@@ -53,6 +53,9 @@ dependencies:
   # Pie Chart
   fl_chart: ^0.45.0
 
+  # Pagination
+  card_swiper: ^2.0.1
+
   # Google Fonts
   google_fonts: ^2.3.1
 
@@ -105,8 +108,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-    # - assets/images/
+  assets:
+    - assets/icons/
    
 
   # An image asset can refer to one or more resolution-specific "variants", see

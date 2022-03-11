@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/home/home_controller.dart';
-
-import 'utils/pie_card.dart';
+import 'package:library_reservation_liberta_flutter/home/utils/fl_charts/chart_model.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({Key? key}) : super(key: key);
@@ -169,11 +169,28 @@ class HomeView extends StatelessWidget {
             ),
           ]),
         ),
-        SizedBox(
-          width: 16.0,
-          height: 48.0,
+        // SizedBox(
+        //   width: 16.0,
+        //   height: 48.0,
+        // ),
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.all(24),
+            child: Swiper(
+              itemBuilder: (BuildContext context, int index) {
+                return ChartList.chartList[index];
+              },
+              itemCount: ChartList.chartList.length,
+              pagination: SwiperPagination(
+                builder: SwiperPagination.dots,
+              ),
+//control: SwiperControl(),
+            ),
+          ),
         ),
-        PieChartSample2(),
+
+        // PieChartSample2(),
+        //BarChartSample2()
       ],
     );
   }

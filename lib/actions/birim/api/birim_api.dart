@@ -60,6 +60,42 @@ class BirimApi extends GetConnect {
     return null;
   }
 
+  static Future<bool?> putUpdateBirim(
+    bool? aktifMi,
+    String adi,
+    int? sehirId,
+    int? ilceId,
+    String? yetkiliKisi,
+    String? email,
+    String? cepTelefon,
+    String? ofisTelefon,
+  ) async {
+    final url = Uri.parse(BaseApi.apiBaseUrl + '/api/Birim/kayit');
+    final headers = {"Content-Type": "application/json-patch+json"};
+    Map jsonMap = {
+      "aktifMi": aktifMi,
+      "adi": adi,
+      "sehirId": sehirId,
+      "ilceId": ilceId,
+      "yetkiliKisi": yetkiliKisi,
+      "email": email,
+      "cepTelefon": cepTelefon,
+      "ofisTelefon": ofisTelefon
+    };
+    String body = json.encode(jsonMap);
+
+    final response = await http.post(url, headers: headers, body: body);
+    print(response.body);
+    print(response.statusCode);
+
+    if (response.statusCode == 201) {
+      return Future<bool>.value(true);
+    } else {
+      Future<bool>.value(false);
+    }
+    return null;
+  }
+
   static Future<bool> putDeleteBirim(int id) async {
     final url = Uri.parse(BaseApi.apiBaseUrl + '/api/Birim/sil/$id');
     final headers = {"Content-Type": "application/json-patch+json"};
