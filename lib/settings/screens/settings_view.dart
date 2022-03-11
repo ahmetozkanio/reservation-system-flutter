@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/icon_widget.dart';
 import '../actions/themes/screens/themes_view.dart';
 import '/settings/screens/settings_controller.dart';
 
@@ -56,10 +57,7 @@ class SettingsView extends StatelessWidget {
                     onTap: () {},
                   ),
                   ListTile(
-                    leading: Container(
-                        width: 24,
-                        height: 24,
-                        child: Image.asset("assets/icons/ic_color_wheel.png")),
+                    leading: listTileIcon("assets/icons/ic_color_wheel.png"),
                     style: ListTileStyle.list,
                     title: Text("Temalar"),
                     onTap: () {

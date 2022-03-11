@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/widgets/searchList.dart';
 
 import '../../../widgets/info_list_text.dart';
+import '../../birim/screens/utils/default_lists.dart';
 import '/widgets/appbar.dart';
 
 import 'salon_create/salon_create_view.dart';
@@ -25,12 +26,12 @@ class SalonListView extends StatelessWidget {
   ];
 
   Color color = const Color.fromARGB(255, 24, 98, 121);
-  List<IconData> iconList = [
-    Icons.location_city_outlined,
-    Icons.person_outline_outlined,
-    Icons.chair_outlined,
-    Icons.table_chart_outlined
-  ];
+  // List<IconData> iconList = [
+  //   Icons.location_city_outlined,
+  //   Icons.person_outline_outlined,
+  //   Icons.chair_outlined,
+  //   Icons.table_chart_outlined
+  // ];
 
   List<Widget> appBarActions = [
     InkWell(

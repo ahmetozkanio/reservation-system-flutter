@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/actions/birim/model/birim_model.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+import '../../../widgets/icon_widget.dart';
 import '../../../widgets/searchList.dart';
 import '../../../widgets/snackbar.dart';
 import '/widgets/appbar.dart';
@@ -73,7 +74,8 @@ class BirimListView extends StatelessWidget {
                             var cardA;
                             return ExpansionTileCard(
                               key: cardA,
-                              leading: Icon(Icons.apartment),
+                              leading: listTileIcon(
+                                  "assets/icons/ic_university.png"),
                               title: Text(birimListController
                                   .searchBirimList[index].adi
                                   .toString()),
@@ -109,7 +111,7 @@ class BirimListView extends StatelessWidget {
                                             birimListController
                                                 .searchBirimList[index].ilceAdi
                                                 .toString(),
-                                            iconList[0],
+                                            iconList[1],
                                           ),
                                           sizedBoxList(),
                                           listDetail(
@@ -119,7 +121,7 @@ class BirimListView extends StatelessWidget {
                                                 .searchBirimList[index]
                                                 .yetkiliKisi
                                                 .toString(),
-                                            iconList[1],
+                                            iconList[2],
                                           ),
                                           sizedBoxList(),
                                           listDetail(
@@ -128,7 +130,7 @@ class BirimListView extends StatelessWidget {
                                             birimListController
                                                 .searchBirimList[index].email
                                                 .toString(),
-                                            iconList[2],
+                                            iconList[3],
                                           ),
                                           sizedBoxList(),
                                           listDetail(
@@ -138,7 +140,7 @@ class BirimListView extends StatelessWidget {
                                                 .searchBirimList[index]
                                                 .cepTelefon
                                                 .toString(),
-                                            iconList[3],
+                                            iconList[4],
                                           ),
                                           sizedBoxList(),
                                           listDetail(

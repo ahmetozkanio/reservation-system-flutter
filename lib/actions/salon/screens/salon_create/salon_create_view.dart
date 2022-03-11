@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/widgets/text_form_field.dart';
 import '../../../../widgets/mask.dart';
+import '../../../birim/screens/utils/default_lists.dart';
 import '/widgets/appbar.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
@@ -16,12 +17,12 @@ class SalonCreateView extends StatelessWidget {
 
   SalonCreateController controller = Get.put(SalonCreateController());
 
-  List<IconData> iconList = [
-    Icons.location_city_outlined,
-    Icons.person_outline_outlined,
-    Icons.chair_outlined,
-    Icons.table_chart_outlined
-  ];
+  // List<IconData> iconList = [
+  //   Icons.location_city_outlined,
+  //   Icons.person_outline_outlined,
+  //   Icons.chair_outlined,
+  //   Icons.table_chart_outlined
+  // ];
   //List<String> salonBlokList = [];
 
   @override

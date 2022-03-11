@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/settings/actions/themes/panachefile/dark_theme.dart';
 import 'package:library_reservation_liberta_flutter/settings/screens/settings_view.dart';
 
 import '../../settings/actions/themes/initial_function/themes.dart';
 import '../../settings/actions/themes/screens/themes_controller.dart';
 import '../../settings/actions/themes/screens/themes_view.dart';
+import '../../widgets/icon_widget.dart';
 import '/accounts/login/screens/login_view.dart';
 import '/actions/salon/screens/salon_list_view.dart';
 
@@ -115,7 +117,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                   EnumThemeData.darkTheme,
                 );
                 print("Dark Mode");
-                Get.changeTheme(ThemeData.dark());
+                Get.changeTheme(darkTheme);
                 controller.icon = Icons.wb_sunny_outlined;
               } else {
                 print("Light Mode");
@@ -149,7 +151,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
 
   Widget menuListItem(String icon, menuItems, Widget route) {
     return ListTile(
-      leading: Container(width: 24, height: 24, child: Image.asset(icon)),
+      leading: listTileIcon(icon),
       title: Text(
         menuItems,
         style: TextStyle(),

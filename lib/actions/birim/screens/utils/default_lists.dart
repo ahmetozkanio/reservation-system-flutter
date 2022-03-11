@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_reservation_liberta_flutter/widgets/icon_widget.dart';
 
 List<String> titles = [
   "Şehir :",
@@ -8,10 +9,10 @@ List<String> titles = [
   "Cep :",
   "Ofis :"
 ];
-List<IconData> iconList = [
-  Icons.location_city,
-  Icons.person_outline_outlined,
-  Icons.email_outlined,
-  Icons.phone_android_outlined,
-  Icons.phone_enabled_outlined,
+var iconList = [
+  listTileIcon("assets/icons/ic_city.png"),
+  listTileIcon("assets/icons/ic_downtown.png"),
+  listTileIcon("assets/icons/ic_user_profile.png"),
+  listTileIcon("assets/icons/ic_email.png"),
+  listTileIcon("assets/icons/ic_telephone.png"),
 ];

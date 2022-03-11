@@ -8,6 +8,7 @@ import '../panachefile/blue_theme.dart';
 import '../panachefile/bluegray_theme.dart';
 import '../panachefile/brown_theme.dart';
 import '../panachefile/cyan_theme.dart';
+import '../panachefile/dark_theme.dart';
 import '../panachefile/deeporange_theme.dart';
 import '../panachefile/deeppurple_theme.dart';
 import '../panachefile/green_theme.dart';

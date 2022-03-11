@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
-EdgeInsets listP = EdgeInsets.only(right: 20, left: 72.0, bottom: 18.0);
-Container listDetail(context, String title, String indexName, IconData icon) {
+import 'icon_widget.dart';
+
+EdgeInsets listP = EdgeInsets.only(right: 20, left: 32.0, bottom: 0.0);
+Container listDetail(context, String title, String indexName, Container icon) {
   Color icColor = Theme.of(context).iconTheme.color!;
   return Container(
     // color: Color.fromARGB(255, 214, 205, 205),
-    //padding: listP,
+    padding: listP,
     child: Row(
       children: [
-        Icon(
-          icon,
-          color: Theme.of(context).primaryColor,
-        ),
+        icon,
         SizedBox(
           width: 3,
         ),
@@ -19,7 +18,7 @@ Container listDetail(context, String title, String indexName, IconData icon) {
           title,
           textAlign: TextAlign.start,
           style: TextStyle(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).colorScheme.secondary,
             fontSize: 14,
           ),
         ),
