@@ -61,6 +61,7 @@ class BirimApi extends GetConnect {
   }
 
   static Future<bool?> putUpdateBirim(
+    int? id,
     bool? aktifMi,
     String adi,
     int? sehirId,
@@ -70,10 +71,11 @@ class BirimApi extends GetConnect {
     String? cepTelefon,
     String? ofisTelefon,
   ) async {
-    final url = Uri.parse(BaseApi.apiBaseUrl + '/api/Birim/kayit');
+    final url = Uri.parse(BaseApi.apiBaseUrl + '/api/Birim/guncelle/$id');
     final headers = {"Content-Type": "application/json-patch+json"};
     Map jsonMap = {
-      "aktifMi": aktifMi,
+      "id": id,
+      //"aktifMi": aktifMi,
       "adi": adi,
       "sehirId": sehirId,
       "ilceId": ilceId,
@@ -84,11 +86,11 @@ class BirimApi extends GetConnect {
     };
     String body = json.encode(jsonMap);
 
-    final response = await http.post(url, headers: headers, body: body);
+    final response = await http.put(url, headers: headers, body: body);
     print(response.body);
     print(response.statusCode);
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 204) {
       return Future<bool>.value(true);
     } else {
       Future<bool>.value(false);

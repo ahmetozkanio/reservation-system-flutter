@@ -8,7 +8,7 @@ import '/actions/sehirilce/api/sehir_api.dart';
 import '/actions/sehirilce/models/sehir_model.dart';
 
 class BirimCreateController extends GetxController {
-  static Birim? updateBirimIndex;
+  static Birim? updateBirimIndex; // Update- create  belirleme
 
   var isLoading = true.obs;
 
@@ -53,13 +53,12 @@ class BirimCreateController extends GetxController {
     super.onClose();
   }
 
-  updateBirim(Birim? birim) {
+  updateBirimInitial(Birim? birim) {
     //BirimListController birimListController = Get.find();
     try {
       if (birim != null) {
         birimAdiCtrl.text = birim.adi!;
         sehirName = birim.sehirAdi!;
-
         ilceName = birim.ilceAdi!;
         yetkiliAdiCtrl.text = birim.yetkiliKisi!;
         yetkiliEmailCtrl.text = birim.email!;
@@ -86,14 +85,37 @@ class BirimCreateController extends GetxController {
           yetkiliOfisTelCtrl.text);
 
       if (birimPost != null && birimPost == true) {
-        birimCreated = true;
-
         return true;
       } else {
         return false;
       }
     } finally {
       //  birimCreated = true;
+      isLoading(false);
+    }
+  }
+
+  Future<bool> updateBirim() async {
+    try {
+      isLoading(true);
+
+      var birimUpdate = await BirimApi.putUpdateBirim(
+          updateBirimIndex?.id,
+          aktifMi,
+          birimAdiCtrl.text,
+          sehirId,
+          ilceId,
+          yetkiliAdiCtrl.text,
+          yetkiliEmailCtrl.text,
+          yetkiliCepTelCtrl.text,
+          yetkiliOfisTelCtrl.text);
+
+      if (birimUpdate != null && birimUpdate == true) {
+        return true;
+      } else {
+        return false;
+      }
+    } finally {
       isLoading(false);
     }
   }

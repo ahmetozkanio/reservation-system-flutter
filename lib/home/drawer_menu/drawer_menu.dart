@@ -54,7 +54,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 menuListItem("assets/icons/ic_university.png", menuItems[0],
                     BirimListView()),
                 menuItemsSizedBox(),
-                menuListItem("assets/icons/ic_university.png", menuItems[1],
+                menuListItem("assets/icons/ic_meeting_room.png", menuItems[1],
                     SalonListView()),
                 menuItemsSizedBox(),
                 menuListItem("assets/icons/ic_university.png", menuItems[2],

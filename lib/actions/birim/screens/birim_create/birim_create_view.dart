@@ -35,7 +35,7 @@ class BirimCreateViewState extends State<BirimCreateView>
   @override
   void initState() {
     if (birim != null) {
-      controller.updateBirim(birim);
+      controller.updateBirimInitial(birim);
       BirimCreateController.updateBirimIndex = birim;
     }
     super.initState();
@@ -122,12 +122,15 @@ class BirimCreateViewState extends State<BirimCreateView>
                   ),
                 controller.currentStep.value == 2
                     ? ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
-                        ),
                         onPressed: () async {
-                          var response = await controller.postBirim();
-
+                          bool response;
+                          if (birim == null) {
+                            //create
+                            response = await controller.postBirim();
+                          } else {
+                            //update
+                            response = await controller.updateBirim();
+                          }
                           print(response);
 
                           if (response) {
