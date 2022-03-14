@@ -17,7 +17,7 @@ class PieChart2State extends State {
     return AspectRatio(
       aspectRatio: 3,
       child: Card(
-        color: Theme.of(context).cardColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Row(
           children: <Widget>[
             const SizedBox(
@@ -49,6 +49,9 @@ class PieChart2State extends State {
                       sections: showingSections()),
                 ),
               ),
+            ),
+            SizedBox(
+              width: 28,
             ),
             Column(
               mainAxisSize: MainAxisSize.max,
@@ -105,8 +108,8 @@ class PieChart2State extends State {
   List<PieChartSectionData> showingSections() {
     return List.generate(4, (i) {
       final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 25.0 : 16.0;
-      final radius = isTouched ? 60.0 : 50.0;
+      final fontSize = isTouched ? 18.0 : 14.0;
+      final radius = isTouched ? 55.0 : 45.0;
       switch (i) {
         case 0:
           return PieChartSectionData(

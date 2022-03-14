@@ -14,16 +14,15 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeBaseController controller = Get.put((HomeBaseController()));
+
     return GetMaterialApp(
       home: Scaffold(
           body: SliderDrawer(
         key: _key,
         appBar: SliderAppBar(
-          // appBarColor: Color.fromARGB(255, 255, 255, 255),
-          // drawerIconColor: Colors.black87,
-          appBarColor: Theme.of(context).cardColor,
-          drawerIconColor: Theme.of(context).iconTheme.color!,
-          title: const Text(
+          // appBarColor: ,
+          // drawerIconColor: Theme.of(context).cardColor,
+          title: Text(
             "Ana Sayfa",
             style: TextStyle(
               fontSize: 22,

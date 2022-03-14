@@ -54,7 +54,8 @@ dependencies:
   fl_chart: ^0.45.0
 
   # Pagination
-  card_swiper: ^2.0.1
+  #card_swiper: ^2.0.1
+  smooth_page_indicator: ^1.0.0+2
 
   # Google Fonts
   google_fonts: ^2.3.1

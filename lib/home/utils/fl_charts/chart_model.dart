@@ -8,8 +8,8 @@ import 'bar_chart1/bar_chart1_view.dart';
 class ChartList {
   static final List<Widget> chartList = [
     PieChartSample2(),
-    BarChartSample1(),
     LineChartSample2(),
-    BarChartSample2()
+    BarChartSample2(),
+    BarChartSample1(),
   ];
 }
