@@ -195,11 +195,14 @@ class HomeView extends StatelessWidget {
             ),
           ),
           Container(
+            padding: EdgeInsets.all(8.0),
             child: SmoothPageIndicator(
               controller: pageController,
               count: ChartList.chartList.length,
               textDirection: TextDirection.ltr,
               effect: WormEffect(
+                  dotHeight: 8,
+                  dotWidth: 8,
                   dotColor: Color.fromARGB(255, 219, 218, 218),
                   activeDotColor: Theme.of(context).primaryColor),
             ),
