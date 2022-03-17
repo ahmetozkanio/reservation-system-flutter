@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:library_reservation_liberta_flutter/home/home_controller.dart';
 import 'package:library_reservation_liberta_flutter/home/utils/fl_charts/chart_model.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -12,7 +13,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     HomeController controller = Get.put(HomeController());
     return Container(
-      //color: Theme.of(context).scaffoldBackgroundColor,
+      color: Theme.of(context).secondaryHeaderColor,
       child: Column(
         children: [
           Container(
@@ -48,14 +49,17 @@ class HomeView extends StatelessWidget {
                         contentPadding: EdgeInsets.all(18.0),
                         title: Text(
                           "Liberta",
-                          style: TextStyle(
+                          style: GoogleFonts.fredokaOne(
                               color: Colors.white,
                               fontSize: 24.0,
-                              fontWeight: FontWeight.w900),
+                              fontWeight: FontWeight.w500),
                         ),
                         subtitle: Text(
                           "Yazilim",
-                          style: TextStyle(color: Colors.white, fontSize: 18.0),
+                          style: GoogleFonts.fredokaOne(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                          ),
                         ),
                       ),
                     ),

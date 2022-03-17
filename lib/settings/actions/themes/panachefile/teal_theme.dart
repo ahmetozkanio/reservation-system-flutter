@@ -9,7 +9,7 @@ final ThemeData tealTheme = ThemeData(
   primaryColorDark: Color(0xff00796b),
   accentColor: Color(0xff009688),
   accentColorBrightness: Brightness.dark,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color(0xffe0f2f1),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),

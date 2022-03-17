@@ -28,6 +28,10 @@ class ThemesController extends GetxController with ThemeCacheManager {
   static var character = EnumThemeData.blueTheme;
   // var cacheTheme = ThemeData().obs;
 
+  static backgroundColor(context) {
+    return Theme.of(context).secondaryHeaderColor;
+  }
+
   @override
   void onInit() {
     super.onInit();

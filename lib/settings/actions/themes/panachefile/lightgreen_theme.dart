@@ -9,7 +9,7 @@ final ThemeData lightGreenTheme = ThemeData(
   primaryColorDark: Color(0xff689f38),
   accentColor: Color(0xff8bc34a),
   accentColorBrightness: Brightness.light,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color(0xfff1f8e9),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),

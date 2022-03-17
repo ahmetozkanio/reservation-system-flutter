@@ -9,7 +9,7 @@ final ThemeData deepPurpleTheme = ThemeData(
   primaryColorDark: Color(0xff512da8),
   accentColor: Color(0xff673ab7),
   accentColorBrightness: Brightness.dark,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color(0xffede7f6),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),

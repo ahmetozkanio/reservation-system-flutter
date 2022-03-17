@@ -9,7 +9,7 @@ final ThemeData cyanTheme = ThemeData(
   primaryColorDark: Color(0xff0097a7),
   accentColor: Color(0xff00bcd4),
   accentColorBrightness: Brightness.light,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color(0xffe0f7fa),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),

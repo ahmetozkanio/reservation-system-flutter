@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../widgets/icon_widget.dart';
+import '../../widgets/list_divider.dart';
 import '../actions/themes/screens/themes_view.dart';
 import '/settings/screens/settings_controller.dart';
 
@@ -19,6 +20,7 @@ class SettingsView extends StatelessWidget {
         title: const Text("Ayarlar"),
       ),
       body: Container(
+        color: Theme.of(context).secondaryHeaderColor,
         padding: EdgeInsets.only(top: 8),
         child: ListView(
           children: [
@@ -56,6 +58,7 @@ class SettingsView extends StatelessWidget {
                     title: Text("Profil"),
                     onTap: () {},
                   ),
+                  listDivider(context),
                   ListTile(
                     leading: listTileIcon("assets/icons/ic_color_wheel.png"),
                     style: ListTileStyle.list,

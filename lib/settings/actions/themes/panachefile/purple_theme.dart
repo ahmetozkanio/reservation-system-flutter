@@ -9,7 +9,7 @@ final ThemeData purpleTheme = ThemeData(
   primaryColorDark: Color(0xff7b1fa2),
   accentColor: Color(0xff9c27b0),
   accentColorBrightness: Brightness.dark,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color(0xfff3e5f5),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),

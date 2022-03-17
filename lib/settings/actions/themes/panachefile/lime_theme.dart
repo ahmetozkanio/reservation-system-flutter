@@ -9,7 +9,7 @@ final ThemeData limeTheme = ThemeData(
   primaryColorDark: Color(0xffafb42b),
   accentColor: Color(0xffcddc39),
   accentColorBrightness: Brightness.light,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color(0xfff9fbe7),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),

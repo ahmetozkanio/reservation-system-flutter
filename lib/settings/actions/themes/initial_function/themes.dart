@@ -7,11 +7,9 @@ import '../screens/themes_controller.dart';
 
 initialTheme() {
   var themeData = ThemesController.getStorageInitTheme();
-
   if (themeData != null) {
     Get.changeTheme(themeData);
-    //Home sliderApp Bar Theme
-
+    return themeData;
   } else {
     Get.changeTheme(ThemeData.light());
   }

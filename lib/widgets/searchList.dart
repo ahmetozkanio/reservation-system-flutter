@@ -4,7 +4,7 @@ Container searchTextField(
     context, Function(String) searchOnChange, String hintText) {
   return Container(
     padding: EdgeInsets.only(left: 24, right: 24),
-    height: 56,
+    height: 32.0,
     child: TextField(
       onChanged: (value) {
         searchOnChange(value);
@@ -15,13 +15,14 @@ Container searchTextField(
           contentPadding: EdgeInsets.all(0),
           prefixIcon: Icon(
             Icons.search,
+            size: 18,
             // color: Color.fromARGB(255, 0, 0, 0),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50),
           ),
           hintStyle: TextStyle(
-            fontSize: 14,
+            fontSize: 12,
             //  color: Color.fromARGB(255, 0, 0, 0),
           ),
           hintText: hintText),

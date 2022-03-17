@@ -8,7 +8,8 @@ AppBar globalAppBar(BuildContext context, String title, List<Widget>? actions) {
         ),
     centerTitle: true,
     actions: actions,
-    backgroundColor: Colors.transparent,
+    //backgroundColor: Colors.transparent,
+    backgroundColor: Theme.of(context).secondaryHeaderColor,
     elevation: 0.0,
     title: Text(
       title,

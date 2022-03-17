@@ -9,7 +9,7 @@ final ThemeData redTheme = ThemeData(
   primaryColorDark: Color(0xffd32f2f),
   accentColor: Color(0xfff44336),
   accentColorBrightness: Brightness.dark,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color(0xffffebee),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),

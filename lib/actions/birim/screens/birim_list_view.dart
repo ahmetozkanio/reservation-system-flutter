@@ -51,139 +51,145 @@ class BirimListView extends StatelessWidget {
 
     return Scaffold(
       appBar: globalAppBar(context, "Birimler", appBarActions),
-      body: Column(
-        children: [
-          Expanded(
-            child: Obx(
-              () {
-                if (birimListController.isLoading.value)
-                  return Center(child: CircularProgressIndicator());
-                else {
-                  return Column(
-                    children: [
-                      searchTextField(context, birimListController.searchBirim,
-                          "Birim Ara"),
-                      Expanded(
-                          child: RefreshIndicator(
-                        key: birimListController.refreshKey,
-                        onRefresh: birimListController.refreshBirimList,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: birimListController.searchBirimList.length,
-                          itemBuilder: (context, index) {
-                            var cardA;
-                            return ExpansionTileCard(
-                              key: cardA,
-                              leading: listTileIcon(
-                                  "assets/icons/ic_university.png"),
-                              title: Text(birimListController
-                                  .searchBirimList[index].adi
-                                  .toString()),
-                              subtitle: Text(birimListController
-                                  .searchBirimList[index].sehirAdi
-                                  .toString()),
-                              children: [
-                                Divider(
-                                  thickness: 1.0,
-                                  height: 1.0,
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 16,
-                                        vertical: 8.0,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          listDetail(
-                                            context,
-                                            titles[0],
-                                            birimListController
-                                                .searchBirimList[index].sehirAdi
-                                                .toString(),
-                                            iconList[0],
-                                          ),
-                                          sizedBoxList(),
-                                          listDetail(
-                                            context,
-                                            titles[1],
-                                            birimListController
-                                                .searchBirimList[index].ilceAdi
-                                                .toString(),
-                                            iconList[1],
-                                          ),
-                                          sizedBoxList(),
-                                          listDetail(
-                                            context,
-                                            titles[2],
-                                            birimListController
-                                                .searchBirimList[index]
-                                                .yetkiliKisi
-                                                .toString(),
-                                            iconList[2],
-                                          ),
-                                          sizedBoxList(),
-                                          listDetail(
-                                            context,
-                                            titles[3],
-                                            birimListController
-                                                .searchBirimList[index].email
-                                                .toString(),
-                                            iconList[3],
-                                          ),
-                                          sizedBoxList(),
-                                          listDetail(
-                                            context,
-                                            titles[4],
-                                            birimListController
-                                                .searchBirimList[index]
-                                                .cepTelefon
-                                                .toString(),
-                                            iconList[4],
-                                          ),
-                                          sizedBoxList(),
-                                          listDetail(
-                                            context,
-                                            titles[5],
-                                            birimListController
-                                                .searchBirimList[index]
-                                                .ofisTelefon
-                                                .toString(),
-                                            iconList[4],
-                                          )
-                                        ],
-                                      )),
-                                ),
-                                ButtonBar(
-                                  alignment: MainAxisAlignment.spaceAround,
-                                  buttonHeight: 32.0,
-                                  buttonMinWidth: 48.0,
-                                  children: [
-                                    updateListTileButton(
-                                        context,
-                                        birimListController,
-                                        birimListController
-                                            .searchBirimList[index]),
-                                    deleteListTileButton(
-                                        context,
-                                        birimListController,
-                                        birimListController
-                                            .searchBirimList[index]),
-                                  ],
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      )),
-                    ],
-                  );
-                }
-              },
+      body: Container(
+        color: Theme.of(context).secondaryHeaderColor,
+        child: Column(
+          children: [
+            Expanded(
+              child: Obx(
+                () {
+                  if (birimListController.isLoading.value)
+                    return Center(child: CircularProgressIndicator());
+                  else {
+                    return Column(
+                      children: [
+                        searchTextField(context,
+                            birimListController.searchBirim, "Birim Ara"),
+                        Expanded(
+                            child: RefreshIndicator(
+                          key: birimListController.refreshKey,
+                          onRefresh: birimListController.refreshBirimList,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount:
+                                birimListController.searchBirimList.length,
+                            itemBuilder: (context, index) {
+                              var cardA;
+                              return ExpansionTileCard(
+                                key: cardA,
+                                leading: listTileIcon(
+                                    "assets/icons/ic_university.png"),
+                                title: Text(birimListController
+                                    .searchBirimList[index].adi
+                                    .toString()),
+                                subtitle: Text(birimListController
+                                    .searchBirimList[index].sehirAdi
+                                    .toString()),
+                                children: [
+                                  Divider(
+                                    thickness: 1.0,
+                                    height: 1.0,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                          vertical: 8.0,
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            listDetail(
+                                              context,
+                                              titles[0],
+                                              birimListController
+                                                  .searchBirimList[index]
+                                                  .sehirAdi
+                                                  .toString(),
+                                              iconList[0],
+                                            ),
+                                            sizedBoxList(),
+                                            listDetail(
+                                              context,
+                                              titles[1],
+                                              birimListController
+                                                  .searchBirimList[index]
+                                                  .ilceAdi
+                                                  .toString(),
+                                              iconList[1],
+                                            ),
+                                            sizedBoxList(),
+                                            listDetail(
+                                              context,
+                                              titles[2],
+                                              birimListController
+                                                  .searchBirimList[index]
+                                                  .yetkiliKisi
+                                                  .toString(),
+                                              iconList[2],
+                                            ),
+                                            sizedBoxList(),
+                                            listDetail(
+                                              context,
+                                              titles[3],
+                                              birimListController
+                                                  .searchBirimList[index].email
+                                                  .toString(),
+                                              iconList[3],
+                                            ),
+                                            sizedBoxList(),
+                                            listDetail(
+                                              context,
+                                              titles[4],
+                                              birimListController
+                                                  .searchBirimList[index]
+                                                  .cepTelefon
+                                                  .toString(),
+                                              iconList[4],
+                                            ),
+                                            sizedBoxList(),
+                                            listDetail(
+                                              context,
+                                              titles[5],
+                                              birimListController
+                                                  .searchBirimList[index]
+                                                  .ofisTelefon
+                                                  .toString(),
+                                              iconList[4],
+                                            )
+                                          ],
+                                        )),
+                                  ),
+                                  ButtonBar(
+                                    alignment: MainAxisAlignment.spaceAround,
+                                    buttonHeight: 32.0,
+                                    buttonMinWidth: 48.0,
+                                    children: [
+                                      updateListTileButton(
+                                          context,
+                                          birimListController,
+                                          birimListController
+                                              .searchBirimList[index]),
+                                      deleteListTileButton(
+                                          context,
+                                          birimListController,
+                                          birimListController
+                                              .searchBirimList[index]),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        )),
+                      ],
+                    );
+                  }
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -9,7 +9,7 @@ final ThemeData orangeTheme = ThemeData(
   primaryColorDark: Color(0xfff57c00),
   accentColor: Color(0xffff9800),
   accentColorBrightness: Brightness.light,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color(0xfffff3e0),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),

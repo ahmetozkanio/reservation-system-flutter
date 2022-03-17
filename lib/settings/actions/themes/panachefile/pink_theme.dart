@@ -9,7 +9,7 @@ final ThemeData pinkTheme = ThemeData(
   primaryColorDark: Color(0xffc2185b),
   accentColor: Color(0xffe91e63),
   accentColorBrightness: Brightness.dark,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color(0xfffce4ec),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),

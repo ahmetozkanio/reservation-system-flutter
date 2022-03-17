@@ -9,7 +9,7 @@ final ThemeData greenTheme = ThemeData(
   primaryColorDark: Color(0xff388e3c),
   accentColor: Color(0xff4caf50),
   accentColorBrightness: Brightness.dark,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color.fromARGB(255, 168, 229, 173),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),

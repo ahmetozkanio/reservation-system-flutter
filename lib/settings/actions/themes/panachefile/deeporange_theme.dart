@@ -9,7 +9,7 @@ final ThemeData deepOrangeTheme = ThemeData(
   primaryColorDark: Color(0xffe64a19),
   accentColor: Color(0xffff5722),
   accentColorBrightness: Brightness.dark,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color(0xfffbe9e7),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),

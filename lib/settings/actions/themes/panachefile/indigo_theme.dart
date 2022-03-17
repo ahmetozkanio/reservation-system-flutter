@@ -9,7 +9,7 @@ final ThemeData indigoTheme = ThemeData(
   primaryColorDark: Color(0xff303f9f),
   accentColor: Color(0xff3f51b5),
   accentColorBrightness: Brightness.dark,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color(0xffe8eaf6),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),

@@ -9,7 +9,7 @@ final ThemeData blueGrayTheme = ThemeData(
   primaryColorDark: Color(0xff455a64),
   accentColor: Color(0xff607d8b),
   accentColorBrightness: Brightness.dark,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color(0xffeceff1),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),

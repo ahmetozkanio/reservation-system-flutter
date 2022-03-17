@@ -20,7 +20,7 @@ final ThemeData yellowTheme = ThemeData(
   primaryColorDark: Color(0xff997500),
   accentColor: Color(0xffffc300),
   accentColorBrightness: Brightness.light,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color(0xfffff9e5),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),

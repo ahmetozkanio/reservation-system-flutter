@@ -10,6 +10,6 @@ class ChartList {
     PieChartSample2(),
     LineChartSample2(),
     BarChartSample2(),
-    BarChartSample1(),
+    //BarChartSample1(), hatali
   ];
 }

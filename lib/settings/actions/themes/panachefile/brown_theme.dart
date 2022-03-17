@@ -9,7 +9,7 @@ final ThemeData brownTheme = ThemeData(
   primaryColorDark: Color(0xff5d4037),
   accentColor: Color(0xff795548),
   accentColorBrightness: Brightness.dark,
-  canvasColor: Color(0xfffafafa),
+  canvasColor: Color(0xffefebe9),
   scaffoldBackgroundColor: Color(0xfffafafa),
   bottomAppBarColor: Color(0xffffffff),
   cardColor: Color(0xffffffff),
