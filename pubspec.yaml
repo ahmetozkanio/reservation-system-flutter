@@ -41,6 +41,8 @@ dependencies:
   # GetX 
   get: ^4.6.1
   get_storage: ^2.0.3
+  
+
 
   #List items Controller
   flutter_slidable: ^1.2.0
@@ -86,6 +88,16 @@ dependencies:
   
   mask_text_input_formatter: ^2.1.0
   email_validator: ^2.0.1
+
+  # Splash Screen
+  flutter_native_splash: ^2.1.1
+
+flutter_native_splash:
+  # $flutter pub run flutter_native_splash:create ---(create .png files)
+  color: "#ffffff"
+  image: assets/ic_splash.png
+  ios: true
+  android: true
 dev_dependencies:
   flutter_test:
     sdk: flutter
