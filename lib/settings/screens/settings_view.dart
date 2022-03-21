@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
 
 import '../../widgets/icon_widget.dart';
 import '../../widgets/list_divider.dart';
@@ -20,34 +21,14 @@ class SettingsView extends StatelessWidget {
         title: const Text("Ayarlar"),
       ),
       body: Container(
-        color: Theme.of(context).secondaryHeaderColor,
+        decoration: pageBackgroundGradient(context),
+        // color: Theme.of(context).secondaryHeaderColor,
         padding: EdgeInsets.only(top: 8),
         child: ListView(
           children: [
             Card(
               child: Column(
                 children: [
-                  // InkWell(
-                  //     onTap: () {},
-                  //     child: Padding(
-                  //       padding: const EdgeInsets.all(8.0),
-                  //       child: Column(
-                  //         children: [
-                  //           Row(
-                  //             children: [
-                  //               Icon(Icons.verified_user),
-                  //               SizedBox(
-                  //                 width: 24,
-                  //               ),
-                  //               Text("data"),
-                  //             ],
-                  //           ),
-                  //           Divider(
-                  //             height: 5,
-                  //           )
-                  //         ],
-                  //       ),
-                  //     )),
                   ListTile(
                     leading: Container(
                       width: 24,

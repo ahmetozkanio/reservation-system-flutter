@@ -12,19 +12,13 @@ import 'home_view.dart';
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
-  GlobalKey<SliderDrawerState> _key = GlobalKey<SliderDrawerState>();
-
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Ana Sayfa"),
-        ),
-        body: HomeView(),
-        drawer: const DrawerMenu(),
-      ),
-    );
+    HomeBaseController homeBaseController = Get.put(
+      HomeBaseController(),
+    ); //Tema başlatma için gerekli
+
+    return GetMaterialApp(home: HomeView());
   }
 
   // Scaffold homeViewScaffold(BuildContext context) {

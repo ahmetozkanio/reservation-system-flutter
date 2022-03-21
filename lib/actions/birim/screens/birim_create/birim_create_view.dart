@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/actions/birim/screens/birim_list_controller.dart';
 import 'package:library_reservation_liberta_flutter/actions/birim/screens/birim_list_view.dart';
 import 'package:library_reservation_liberta_flutter/home/home.dart';
+import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
 import '../../../../home/home_view.dart';
 import '../../model/birim_model.dart';
 import '/widgets/form_title.dart';
@@ -53,7 +54,8 @@ class BirimCreateViewState extends State<BirimCreateView>
       ),
       body: Obx(
         () => Container(
-          color: Theme.of(context).secondaryHeaderColor,
+          decoration: pageBackgroundGradient(context),
+          // color: Theme.of(context).secondaryHeaderColor,
           child: Stepper(
             type: StepperType.horizontal,
             steps: buildStep(context, controller),

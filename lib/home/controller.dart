@@ -9,9 +9,7 @@ class HomeBaseController extends GetxController {
   void onInit() {
     // Theme Storage initial
     initialTheme();
-    Future.delayed(Duration(seconds: 3), () {
-      Get.to(HomeView());
-    });
+
     super.onInit();
   }
 }

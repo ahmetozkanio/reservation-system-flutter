@@ -3,6 +3,7 @@ import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/actions/birim/model/birim_model.dart';
+import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../../widgets/icon_widget.dart';
@@ -52,7 +53,8 @@ class BirimListView extends StatelessWidget {
     return Scaffold(
       appBar: globalAppBar(context, "Birimler", appBarActions),
       body: Container(
-        color: Theme.of(context).secondaryHeaderColor,
+        decoration: pageBackgroundGradient(context),
+        // color: Theme.of(context).secondaryHeaderColor,
         child: Column(
           children: [
             Expanded(

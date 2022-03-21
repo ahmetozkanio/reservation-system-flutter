@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/widgets/appbar.dart';
+import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
 
 import 'login_controller.dart';
 
@@ -27,8 +28,9 @@ class _LoginViewState extends State<LoginView> {
       //       _formType == FormType.login ? Text('Giriş') : Text('Hesap Oluştur'),
       // ),
       body: Container(
+          decoration: pageBackgroundGradient(context),
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          color: Theme.of(context).secondaryHeaderColor,
+          // color: Theme.of(context).secondaryHeaderColor,
           child: loginForm()),
     );
   }

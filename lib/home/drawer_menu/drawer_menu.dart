@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/settings/actions/themes/panachefile/dark_theme.dart';
 import 'package:library_reservation_liberta_flutter/settings/screens/settings_view.dart';
+import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
 
 import '../../settings/actions/themes/initial_function/themes.dart';
 import '../../settings/actions/themes/screens/themes_controller.dart';
@@ -46,35 +47,38 @@ class _DrawerMenuState extends State<DrawerMenu> {
 
   Drawer drawerMenu(context, controller) {
     return Drawer(
-      child: Column(
-        children: [
-          userAccountDrawerCustom(context, controller),
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.all(0.0),
-              children: [
-                menuListItem("assets/icons/ic_university.png", menuItems[0],
-                    BirimListView()),
-                menuItemsSizedBox(),
-                menuListItem("assets/icons/ic_meeting_room.png", menuItems[1],
-                    SalonListView()),
-                menuItemsSizedBox(),
-                menuListItem("assets/icons/ic_university.png", menuItems[2],
-                    BirimListView()),
-                menuItemsSizedBox(),
-                menuListItem("assets/icons/ic_university.png", menuItems[3],
-                    BirimListView()),
-                menuItemsSizedBox(),
-                menuListItem("assets/icons/ic_university.png", menuItems[4],
-                    BirimListView()),
-                menuItemsSizedBox(),
-                menuListItem("assets/icons/ic_university.png", menuItems[5],
-                    BirimListView()),
-                menuItemsSizedBox(),
-              ],
+      child: Container(
+        //decoration: pageBackgroundGradient(context),
+        child: Column(
+          children: [
+            userAccountDrawerCustom(context, controller),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.all(0.0),
+                children: [
+                  menuListItem("assets/icons/ic_university.png", menuItems[0],
+                      BirimListView()),
+                  menuItemsSizedBox(),
+                  menuListItem("assets/icons/ic_meeting_room.png", menuItems[1],
+                      SalonListView()),
+                  menuItemsSizedBox(),
+                  menuListItem("assets/icons/ic_university.png", menuItems[2],
+                      BirimListView()),
+                  menuItemsSizedBox(),
+                  menuListItem("assets/icons/ic_university.png", menuItems[3],
+                      BirimListView()),
+                  menuItemsSizedBox(),
+                  menuListItem("assets/icons/ic_university.png", menuItems[4],
+                      BirimListView()),
+                  menuItemsSizedBox(),
+                  menuListItem("assets/icons/ic_university.png", menuItems[5],
+                      BirimListView()),
+                  menuItemsSizedBox(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

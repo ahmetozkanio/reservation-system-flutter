@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/home/drawer_menu/drawer_menu_controller.dart';
+import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
 
 import '../core/theme_cache.dart';
 import 'themes_controller.dart';
@@ -32,7 +33,8 @@ class _ThemesViewState extends State<ThemesView> {
         title: const Text("Temalar"),
       ),
       body: Container(
-          color: Theme.of(context).secondaryHeaderColor,
+          decoration: pageBackgroundGradient(context),
+          //color: Theme.of(context).secondaryHeaderColor,
           //padding: const EdgeInsets.all(48),
           child: Padding(
             padding: const EdgeInsets.all(48.0),
