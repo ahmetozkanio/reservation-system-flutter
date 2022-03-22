@@ -20,13 +20,14 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   // final HomeController homeViewController = Get.put(HomeController());
-  final pageController = PageController(viewportFraction: 0.8, keepPage: true);
+  final chartPageController =
+      PageController(viewportFraction: 0.8, keepPage: true);
 
   GlobalKey<SliderDrawerState> _key = GlobalKey<SliderDrawerState>();
 
   @override
   Widget build(BuildContext context) {
-    //HomeController controller = Get.put(HomeController());
+    HomeController homeController = Get.put(HomeController());
     return Scaffold(
       body: SliderDrawer(
         key: _key,
@@ -41,7 +42,7 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
         slider: const DrawerMenu(),
-        child: homeViewBody(context),
+        child: homeViewBody(context, homeController),
       ),
     );
     // drawer: DrawerMenu(),
@@ -49,20 +50,52 @@ class _HomeViewState extends State<HomeView> {
     // body: homeViewBody(context),
   }
 
-  Container homeViewBody(BuildContext context) {
-    int _selectedIndex = 0;
-    const List<Widget> _widgetOptions = <Widget>[
-      Text(
-        'Home',
+  Container homeViewBody(BuildContext context, homeController) {
+    List<Widget> _widgetOptions = <Widget>[
+      Expanded(
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                height: 2.0,
+                padding: EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 23,
+                  child: PageView.builder(
+                    controller: chartPageController,
+                    itemCount: ChartList.chartList.length,
+                    itemBuilder: (context, index) {
+                      return ChartList
+                          .chartList[index % ChartList.chartList.length];
+                    },
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(8.0),
+              child: SmoothPageIndicator(
+                controller: chartPageController,
+                count: ChartList.chartList.length,
+                textDirection: TextDirection.ltr,
+                effect: WormEffect(
+                    dotHeight: 8,
+                    dotWidth: 8,
+                    dotColor: Color.fromARGB(255, 219, 218, 218),
+                    activeDotColor: Theme.of(context).primaryColor),
+              ),
+            ),
+          ],
+        ),
       ),
       Text(
-        'Likes',
+        'Text2',
       ),
       Text(
-        'Search',
+        'Text3',
       ),
       Text(
-        'Profile',
+        'Text4',
       ),
     ];
     return Container(
@@ -79,11 +112,12 @@ class _HomeViewState extends State<HomeView> {
             padding: EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
             scrollDirection: Axis.horizontal,
             child: GNav(
-                selectedIndex: _selectedIndex,
+                selectedIndex: homeController.gnavIndex.value,
                 onTabChange: (index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
+                  homeController.gnavIndex.value = index;
+                  // setState(() {
+                  //   _selectedIndex = index;
+                  // });
                 },
                 // rippleColor: Color.fromARGB(
                 //     255, 66, 66, 66), // tab button ripple color when pressed
@@ -117,51 +151,53 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   GButton(
                     icon: Icons.heart_broken,
-                    text: 'Likes',
+                    text: 'Popüler Kitaplar',
                   ),
                   GButton(
-                    icon: Icons.search,
-                    text: 'Profile',
+                    icon: Icons.receipt_long_outlined,
+                    text: 'Rezervasyonlar',
                   ),
                   GButton(
-                    icon: Icons.person,
-                    text: 'Profile',
+                    icon: Icons.access_alarm,
+                    text: 'Kayıtlar',
                   ),
                 ]),
           ),
-          // Center(
-          //   child: _widgetOptions.elementAt(_selectedIndex),
+          Obx(
+            () => Container(
+              child: _widgetOptions.elementAt(homeController.gnavIndex.value),
+            ),
+          ),
+          // Expanded(
+          //   child: Container(
+          //     height: 2.0,
+          //     padding: EdgeInsets.all(8.0),
+          //     child: SizedBox(
+          //       height: 23,
+          //       child: PageView.builder(
+          //         controller: chartPageController,
+          //         itemCount: ChartList.chartList.length,
+          //         itemBuilder: (context, index) {
+          //           return ChartList
+          //               .chartList[index % ChartList.chartList.length];
+          //         },
+          //       ),
+          //     ),
+          //   ),
           // ),
-          Expanded(
-            child: Container(
-              height: 2.0,
-              padding: EdgeInsets.all(8.0),
-              child: SizedBox(
-                height: 23,
-                child: PageView.builder(
-                  controller: pageController,
-                  itemCount: ChartList.chartList.length,
-                  itemBuilder: (context, index) {
-                    return ChartList
-                        .chartList[index % ChartList.chartList.length];
-                  },
-                ),
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(8.0),
-            child: SmoothPageIndicator(
-              controller: pageController,
-              count: ChartList.chartList.length,
-              textDirection: TextDirection.ltr,
-              effect: WormEffect(
-                  dotHeight: 8,
-                  dotWidth: 8,
-                  dotColor: Color.fromARGB(255, 219, 218, 218),
-                  activeDotColor: Theme.of(context).primaryColor),
-            ),
-          ),
+          // Container(
+          //   padding: EdgeInsets.all(8.0),
+          //   child: SmoothPageIndicator(
+          //     controller: chartPageController,
+          //     count: ChartList.chartList.length,
+          //     textDirection: TextDirection.ltr,
+          //     effect: WormEffect(
+          //         dotHeight: 8,
+          //         dotWidth: 8,
+          //         dotColor: Color.fromARGB(255, 219, 218, 218),
+          //         activeDotColor: Theme.of(context).primaryColor),
+          //   ),
+          // ),
           SizedBox(
             height: 64.0,
           ),
@@ -172,6 +208,7 @@ class _HomeViewState extends State<HomeView> {
 
   Container cardInfoView() {
     return Container(
+      padding: EdgeInsets.only(left: 8.0),
       child: SingleChildScrollView(
         padding: EdgeInsets.only(left: 24, top: 16.0),
         scrollDirection: Axis.horizontal,
