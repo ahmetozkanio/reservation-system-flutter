@@ -3,14 +3,14 @@ import 'package:get/get.dart';
 
 import 'package:library_reservation_liberta_flutter/accounts/login/api/login_api.dart';
 
-import '../../../core/auth_manager.dart';
+import '../../../core/login/auth_manager.dart';
 import '../model/login_request_model.dart';
 
 class LoginController extends GetxController {
   final LoginService _loginService = Get.put(LoginService());
   late final AuthenticationManager _authManager = Get.find();
 
-  TextEditingController tcCtrl = TextEditingController();
+  TextEditingController emailCtrl = TextEditingController();
   TextEditingController sifreCtrl = TextEditingController();
 
   @override
@@ -18,13 +18,18 @@ class LoginController extends GetxController {
     super.onInit();
   }
 
-  Future<void> loginUser(String tc, String sifre) async {
-    final response =
-        await _loginService.fetchLogin(LoginRequestModel(tc: tc, sifre: sifre));
+  Future<void> loginUser(String email, String sifre) async {
+    final response = await _loginService
+        .fetchLogin(LoginRequestModel(email: email, sifre: sifre));
 
     if (response != null) {
       /// Set isLogin to true
-      _authManager.login(response.token);
+      _authManager.login(
+        response.token,
+        response.userId!,
+        response.email!,
+        response.role!,
+      );
     } else {
       /// Show user a dialog about the error response
       Get.defaultDialog(
@@ -56,4 +61,5 @@ class LoginController extends GetxController {
   //         });
   //   }
   // }
+
 }

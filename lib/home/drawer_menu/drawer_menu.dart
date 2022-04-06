@@ -4,6 +4,7 @@ import 'package:library_reservation_liberta_flutter/settings/actions/themes/pana
 import 'package:library_reservation_liberta_flutter/settings/screens/settings_view.dart';
 import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
 
+import '../../core/login/auth_manager.dart';
 import '../../settings/actions/themes/initial_function/themes.dart';
 import '../../settings/actions/themes/screens/themes_controller.dart';
 import '../../settings/actions/themes/screens/themes_view.dart';
@@ -22,6 +23,7 @@ class DrawerMenu extends StatefulWidget {
 }
 
 class _DrawerMenuState extends State<DrawerMenu> {
+  late final AuthenticationManager _authManager = Get.find();
   List<String> menuItems = [
     "Birimler",
     "Salonlar",
@@ -93,8 +95,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
       accountName: Text('Ahmet Ozkan'),
       otherAccountsPictures: [
         InkWell(
-          onTap: () =>
-              Get.to(() => LoginView(), transition: Transition.upToDown),
+          onTap: () => _authManager.logOut(),
           child: CircleAvatar(
               backgroundColor: Theme.of(context).cardColor,
               child: Icon(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/home/splash_view.dart';
 import 'package:library_reservation_liberta_flutter/settings/actions/themes/initial_function/themes.dart';
 import 'package:library_reservation_liberta_flutter/widgets/appbar.dart';
 
@@ -18,7 +19,10 @@ class Home extends StatelessWidget {
       HomeBaseController(),
     ); //Tema başlatma için gerekli
 
-    return GetMaterialApp(home: HomeView());
+    return GetMaterialApp(
+      title: "Kutuphane Rezervasyonu",
+      home: SplashView(),
+    );
   }
 
   // Scaffold homeViewScaffold(BuildContext context) {
