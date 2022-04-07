@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/widgets/appbar.dart';
 import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
-
 import 'login_controller.dart';
 
 class LoginView extends StatefulWidget {
@@ -23,10 +22,18 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            _formType == FormType.login ? Text('Giriş') : Text('Hesap Oluştur'),
+        elevation: 0,
+        backgroundColor: Theme.of(context).secondaryHeaderColor,
+        // title: _formType == FormType.login
+        //     ? Text(
+        //         '',
+        //       )
+        //     : Text(
+        //         '',
+        //       ),
       ),
       body: Container(
+        alignment: Alignment.center,
         decoration: pageBackgroundGradient(context),
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         // color: Theme.of(context).secondaryHeaderColor,
@@ -39,11 +46,18 @@ class _LoginViewState extends State<LoginView> {
     return Form(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       key: formKey,
-      child: Padding(
+      child: ListView(
         padding: const EdgeInsets.all(16.0),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        shrinkWrap: true,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        children: [
+          Center(
+              child: Text(
+            "Giriş",
+            style: TextStyle(fontSize: 24.0),
+          )),
           SizedBox(
-            height: 8,
+            height: 16,
           ),
           TextFormField(
             decoration: InputDecoration(
@@ -52,9 +66,9 @@ class _LoginViewState extends State<LoginView> {
                 size: 20,
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(8),
               ),
-              labelText: "e-mail",
+              labelText: "E-mail",
             ),
             // maxLength: 11,
             // keyboardType: TextInputType.number,
@@ -78,7 +92,100 @@ class _LoginViewState extends State<LoginView> {
                 size: 20,
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              labelText: "Şifre",
+            ),
+            obscureText: true,
+            keyboardType: TextInputType.visiblePassword,
+            controller: controller.sifreCtrl,
+            validator: (value) {
+              return (value == null || value.isEmpty)
+                  ? 'Lütfen şifrenizi giriniz.'
+                  : null;
+            },
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Obx(() => controller.loadingCircle.value
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : SizedBox()),
+          ElevatedButton(
+            onPressed: () async {
+              if (formKey.currentState?.validate() ?? false) {
+                await controller.loginUser(
+                    controller.emailCtrl.text, controller.sifreCtrl.text);
+              }
+            },
+            child: Text('Giriş Yap'),
+          ),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                _formType = FormType.register;
+              });
+            },
+            child: Text('Yeni Kayıt Oluştur.'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Form registerForm() {
+    return Form(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      key: formKey,
+      child: ListView(
+        padding: const EdgeInsets.all(16.0),
+        shrinkWrap: true,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        children: [
+          Center(
+              child: Text(
+            "Kayıt Oluştur",
+            style: TextStyle(fontSize: 24.0),
+          )),
+          SizedBox(
+            height: 16,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.person,
+                size: 20,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              labelText: "E-mail",
+            ),
+            // maxLength: 11,
+            // keyboardType: TextInputType.number,
+            // inputFormatters: <TextInputFormatter>[
+            //   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+            // ],
+            controller: controller.emailCtrl,
+            validator: (value) {
+              return (value == null || value.isEmpty)
+                  ? 'T.C. kimlik numaranızı giriniz.'
+                  : null;
+            },
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.lock,
+                size: 20,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
               ),
               labelText: "Şifre",
             ),
@@ -101,102 +208,18 @@ class _LoginViewState extends State<LoginView> {
                     controller.emailCtrl.text, controller.sifreCtrl.text);
               }
             },
-            child: Text('Giriş'),
+            child: Text('Kayıt Ol'),
           ),
           TextButton(
             onPressed: () {
               setState(() {
-                _formType = FormType.register;
+                _formType = FormType.login;
               });
             },
-            child: Text('Yeni Kayıt Oluştur.'),
-          )
-        ]),
+            child: Text('Giriş Yap'),
+          ),
+        ],
       ),
-    );
-  }
-
-  Form registerForm() {
-    return Form(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      key: formKey,
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        TextFormField(
-          controller: controller.emailCtrl,
-          validator: (value) {
-            return (value == null || value.isEmpty)
-                ? 'Please Enter Email'
-                : null;
-          },
-          decoration: InputDecoration(
-            prefixIcon: Icon(
-              Icons.lock,
-              size: 20,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            labelText: "Şifre",
-          ),
-        ),
-        SizedBox(
-          height: 8,
-        ),
-        TextFormField(
-          validator: (value) {
-            return (value == null || value.isEmpty)
-                ? 'Please Enter Password'
-                : null;
-          },
-          controller: controller.sifreCtrl,
-          decoration: InputDecoration(
-            prefixIcon: Icon(
-              Icons.lock,
-              size: 20,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            labelText: "Şifre",
-          ),
-        ),
-        SizedBox(
-          height: 8,
-        ),
-        TextFormField(
-          validator: (value) {
-            // return (value == null || value.isEmpty || value != passwordCtr.text)
-            //     ? 'Passwords does not match'
-            //     : null;
-          },
-          decoration: InputDecoration(
-            prefixIcon: Icon(
-              Icons.lock,
-              size: 20,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            labelText: "Şifre",
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            // if (formKey.currentState?.validate() ?? false) {
-            //   await _viewModel.registerUser(emailCtr.text, passwordCtr.text);
-            // }
-          },
-          child: Text('Register'),
-        ),
-        TextButton(
-          onPressed: () {
-            setState(() {
-              _formType = FormType.login;
-            });
-          },
-          child: Text('Login'),
-        )
-      ]),
     );
   }
 }

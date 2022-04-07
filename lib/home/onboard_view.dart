@@ -12,8 +12,6 @@ class OnBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     AuthenticationManager _authManager = Get.find();
 
-    return Obx(() {
-      return _authManager.isLogged.value ? HomeView() : LoginView();
-    });
+    return _authManager.isLogged.value ? HomeView() : LoginView();
   }
 }

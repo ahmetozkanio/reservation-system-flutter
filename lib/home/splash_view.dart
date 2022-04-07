@@ -11,10 +11,9 @@ class SplashView extends StatelessWidget {
   Future<void> initializeSettings() async {
     _authmanager.checkLoginStatus();
 
-    //Simulate other services for 3 seconds
     await Future.delayed(
       const Duration(
-        seconds: 3,
+        seconds: 2,
       ),
     );
   }
@@ -24,11 +23,13 @@ class SplashView extends StatelessWidget {
     return FutureBuilder(
         future: initializeSettings(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting)
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return waitingView();
-          else if (snapshot.hasError) return errorView(snapshot);
+          } else if (snapshot.hasError) {
+            return errorView(snapshot);
+          }
 
-          return OnBoard();
+          return const OnBoard();
         });
   }
 }
@@ -48,7 +49,7 @@ Scaffold waitingView() {
           padding: EdgeInsets.all(16.0),
           child: CircularProgressIndicator(),
         ),
-        Text('Loading...'),
+        Text('Yükleniyor...'),
       ],
     ),
   ));

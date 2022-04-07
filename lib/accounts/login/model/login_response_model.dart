@@ -1,5 +1,5 @@
 class LoginResponseModel {
-  String? userId;
+  late String userId;
   String? email;
   late String token;
   int? role;

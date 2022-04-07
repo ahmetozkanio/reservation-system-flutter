@@ -88,7 +88,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
   UserAccountsDrawerHeader userAccountDrawerCustom(context, controller) {
     ThemesController themesController = ThemesController();
     return UserAccountsDrawerHeader(
-      accountEmail: Text('ahmetozkanio@yahoo.com'),
+      accountEmail: Obx(() => Text(controller.userEmail.value ?? "")),
       // decoration: BoxDecoration(
       //   color: Theme.of(context).textTheme.titleSmall!.color,
       // ),
