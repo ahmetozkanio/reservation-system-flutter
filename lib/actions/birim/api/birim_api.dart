@@ -22,6 +22,7 @@ class BirimApi extends GetConnect {
     } catch (e) {
       print("BirimApi : " + e.toString());
     }
+    return null;
   }
 
   static Future<bool?> postBirimCreate(

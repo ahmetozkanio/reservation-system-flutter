@@ -31,7 +31,7 @@ class BirimCreateController extends GetxController {
   int? sehirId;
   int? ilceId;
 
-  var sehirList = <Sehir>[].obs;
+  // var sehirList = <Sehir>[].obs;
   var ilceList = [].obs;
   static var sehirAdi = <String>[].obs;
   static var ilceAdi = <String>[].obs;
@@ -42,7 +42,7 @@ class BirimCreateController extends GetxController {
     // sehirList.clear();
     //  ilceAdi.clear();
     if (updateBirimIndex == null) {
-      getSehirIlceList();
+      // getSehirIlceList();
     }
     super.onInit();
   }
@@ -64,7 +64,7 @@ class BirimCreateController extends GetxController {
         yetkiliEmailCtrl.text = birim.email!;
         yetkiliCepTelCtrl.text = birim.cepTelefon!;
         yetkiliOfisTelCtrl.text = birim.ofisTelefon!;
-        getSehirIlceList();
+        // getSehirIlceList();
         // getIlceList();
       }
     } finally {}
@@ -120,75 +120,75 @@ class BirimCreateController extends GetxController {
     }
   }
 
-  getSehirIlceList() async {
-    try {
-      isLoading(true);
-      var sehir = await SehirApi.getSehirListApi();
+  // getSehirIlceList() async {
+  //   try {
+  //     isLoading(true);
+  //     var sehir = await SehirApi.getSehirList();
 
-      if (sehir != null) {
-        sehirList.assignAll(sehir);
-        print("Sehirler : " + sehir[0].adi.toString());
-        sehirAdiList();
-        isLoading(false);
+  //     if (sehir != null) {
+  //       sehirList.assignAll(sehir);
+  //       print("Sehirler : " + sehir[0].adi.toString());
+  //       sehirAdiList();
+  //       isLoading(false);
 
-        if (updateBirimIndex != null) {
-          getIlceList();
-        }
-      }
-    } finally {
-      //isLoading(false);
-    }
-  }
+  //       if (updateBirimIndex != null) {
+  //         getIlceList();
+  //       }
+  //     }
+  //   } finally {
+  //     //isLoading(false);
+  //   }
+  // }
 
-  getIlceList() async {
-    try {
-      isLoading(true);
-      ilceAdi.clear();
+  // getIlceList() async {
+  //   try {
+  //     isLoading(true);
+  //     ilceAdi.clear();
 
-      if (postSehirId() != null) {
-        var ilce = await IlceApi.getIlceListApi(postSehirId()!);
-        if (ilce != null) {
-          ilceList.assignAll(ilce);
-          print("Ilceler : " + ilce[0].adi.toString());
-          ilceAdiList();
-        }
-      }
-    } finally {
-      isLoading(false);
-    }
-  }
+  //     if (postSehirId() != null) {
+  //       var ilce = await IlceApi.getIlceListApi(postSehirId()!);
+  //       if (ilce != null) {
+  //         ilceList.assignAll(ilce);
+  //         print("Ilceler : " + ilce[0].adi.toString());
+  //         ilceAdiList();
+  //       }
+  //     }
+  //   } finally {
+  //     isLoading(false);
+  //   }
+  // }
 
-  List<String?> sehirAdiList() {
-    for (var list in sehirList) {
-      if (list.adi != null) {
-        sehirAdi.add(list.adi!);
-      }
-    }
-    return sehirAdi;
-  }
+  // List<String?> sehirAdiList() {
+  //   for (var list in sehirList) {
+  //     if (list.adi != null) {
+  //       sehirAdi.add(list.adi!);
+  //     }
+  //   }
+  //   return sehirAdi;
+  // }
 
-  List<String?> ilceAdiList() {
-    for (var list in ilceList) {
-      if (list.adi != null) {
-        ilceAdi.add(list.adi!);
-      }
-    }
-    return ilceAdi;
-  }
+  // List<String?> ilceAdiList() {
+  //   for (var list in ilceList) {
+  //     if (list.adi != null) {
+  //       ilceAdi.add(list.adi!);
+  //     }
+  //   }
+  //   return ilceAdi;
+  // }
 
-  int? postSehirId() {
-    for (var list in sehirList) {
-      if (list.adi == sehirName) sehirId = list.id;
-    }
-    return sehirId;
-  }
+  // int? postSehirId() {
+  //   for (var list in sehirList) {
+  //     if (list.adi == sehirName) sehirId = list.id;
+  //   }
+  //   return sehirId;
+  // }
 
-  int? postIlceId() {
-    print("postIlceId cagirildi");
-    for (var list in ilceList) {
-      if (list.adi == ilceName) ilceId = list.id;
-    }
-    print("ilce id $ilceId");
-    return ilceId;
-  }
+  // int? postIlceId() {
+  //   print("postIlceId cagirildi");
+  //   for (var list in ilceList) {
+  //     if (list.adi == ilceName) ilceId = list.id;
+  //   }
+  //   print("ilce id $ilceId");
+  //   return ilceId;
+  // }
 }

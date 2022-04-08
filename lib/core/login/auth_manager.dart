@@ -40,4 +40,8 @@ class AuthenticationManager extends GetxController with AuthCacheManager {
       isLogged.value = true;
     }
   }
+
+  getUserToken() {
+    return getToken();
+  }
 }

@@ -61,7 +61,9 @@ class BirimListView extends StatelessWidget {
               child: Obx(
                 () {
                   if (birimListController.isLoading.value)
-                    return Center(child: CircularProgressIndicator());
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
                   else {
                     return Column(
                       children: [

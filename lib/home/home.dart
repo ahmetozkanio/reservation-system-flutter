@@ -17,38 +17,11 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     HomeBaseController homeBaseController = Get.put(
       HomeBaseController(),
-    ); //Tema başlatma için gerekli
+    );
 
     return GetMaterialApp(
       title: "Kutuphane Rezervasyonu",
       home: SplashView(),
     );
   }
-
-  // Scaffold homeViewScaffold(BuildContext context) {
-  //   return Scaffold(
-  //      // appBar: globalAppBar(context, "title", null),
-  //       body: SliderDrawer(
-  //         key: _key,
-
-  //          SliderAppBar(
-  //           appBarColor: ThemesController.backgroundColor(context),
-  //           // drawerIconColor: Theme.of(context).cardColor,
-  //           title: Text(
-  //             "Ana Sayfa",
-  //             style: TextStyle(
-  //               fontSize: 22,
-  //             ),
-  //           ),
-  //         ),
-  //         slider: const DrawerMenu(),
-  //         child: HomeView(),
-  //       ));
-  // }
-  // Scaffold(
-  //   appBar: AppBar(
-  //     title: Text("Appbar"),
-  //   ),
-  //   drawer: const DrawerMenu(),
-  // );
 }

@@ -2,7 +2,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:library_reservation_liberta_flutter/settings/actions/themes/panachefile/red_theme.dart';
 
 mixin AuthCacheManager {
-  final authBox = GetStorage();
+  var authBox = GetStorage();
 
   Future<bool> saveLoginInfo(
       String token, String eMail, String userId, int role) async {

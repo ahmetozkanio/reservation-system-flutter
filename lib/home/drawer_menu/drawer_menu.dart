@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/actions/kurum/screens/kurum_list_view.dart';
 import 'package:library_reservation_liberta_flutter/settings/actions/themes/panachefile/dark_theme.dart';
 import 'package:library_reservation_liberta_flutter/settings/screens/settings_view.dart';
 import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
@@ -25,6 +26,7 @@ class DrawerMenu extends StatefulWidget {
 class _DrawerMenuState extends State<DrawerMenu> {
   late final AuthenticationManager _authManager = Get.find();
   List<String> menuItems = [
+    "Kurumlar",
     "Birimler",
     "Salonlar",
     "Bloklar",
@@ -59,7 +61,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 padding: EdgeInsets.all(0.0),
                 children: [
                   menuListItem("assets/icons/ic_university.png", menuItems[0],
-                      BirimListView()),
+                      KurumListView()),
                   menuItemsSizedBox(),
                   menuListItem("assets/icons/ic_meeting_room.png", menuItems[1],
                       SalonListView()),

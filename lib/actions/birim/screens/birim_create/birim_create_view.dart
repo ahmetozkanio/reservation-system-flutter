@@ -73,7 +73,7 @@ class BirimCreateViewState extends State<BirimCreateView>
                     ),
                   );
                   //controller.getIlceList();
-                  controller.postIlceId();
+                  // controller.postIlceId();
                   print("1. buton aktif");
                   controller.currentStep.value++;
                 }
