@@ -8,7 +8,7 @@ import '../../model/salon_yetki_model.dart';
 
 class SalonCreateController extends GetxController {
   var currentStep = 0.obs;
-  var birimList = <Birim>[].obs;
+  // var birimList = <Birim>[].obs;
   static var birimListAdi = <String>[].obs;
   static var salonBlokList = [].obs;
 
@@ -39,34 +39,34 @@ class SalonCreateController extends GetxController {
 
   @override
   void onInit() {
-    getBirimList();
+    // getBirimList();
     super.onInit();
   }
 
   @override
   void onClose() {
     birimListAdi.clear();
-    birimList.clear();
+    // birimList.clear();
     salonBlokList.clear();
     super.onClose();
   }
 
-  getBirimList() async {
-    try {
-      var birims = await BirimApi.getBirimListApi();
-      if (birims != null) {
-        birimList.assignAll(birims);
-        birimAdi();
-      }
-    } finally {}
-  }
+  // getBirimList() async {
+  //   try {
+  //     var birims = await BirimApi.getBirimListApi();
+  //     if (birims != null) {
+  //       birimList.assignAll(birims);
+  //       birimAdi();
+  //     }
+  //   } finally {}
+  // }
 
   List<String?> birimAdi() {
-    for (var list in birimList) {
-      if (list.adi != null) {
-        birimListAdi.add(list.adi!);
-      }
-    }
+    // for (var list in birimList) {
+    //   if (list.adi != null) {
+    //     birimListAdi.add(list.adi!);
+    //   }
+    // }
     return birimListAdi;
   }
 

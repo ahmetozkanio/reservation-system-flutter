@@ -3,24 +3,37 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../core/login/auth_manager.dart';
 import '../model/birim_model.dart';
 import '/api/base_api.dart';
 
-class BirimApi extends GetConnect {
-  static Future<List<Birim>?> getBirimListApi() async {
+class BirimApi {
+  final AuthenticationManager _authenticationManager = Get.find();
+  Future<List<BirimModel>?> getBirimListApi() async {
+    final Uri _birimListUrl =
+        Uri.parse(BaseApi.apiBaseUrl + "Birim/BirimListesi");
+
     try {
-      var response =
-          await http.get(Uri.parse(BaseApi.apiBaseUrl + "/api/Birim/list"));
-      print("Birim Api" + response.statusCode.toString());
+      String? _userToken = _authenticationManager.getToken();
+      final response = await http.get(
+        _birimListUrl,
+        headers: {
+          'Authorization': 'Bearer $_userToken',
+          "contentType": "application/json",
+        },
+      );
 
       if (response.statusCode == 200) {
-        var jsonString = response.body;
-        return birimFromJson(jsonString);
-      } else {
-        return null;
+        Map<String, dynamic> json = jsonDecode(response.body);
+        List<dynamic> body = json['data'];
+        print(body);
+        List<BirimModel>? data =
+            body.map((dynamic item) => BirimModel.fromJson(item)).toList();
+
+        return data;
       }
     } catch (e) {
-      print("BirimApi : " + e.toString());
+      print("BirimListApi : " + e.toString());
     }
     return null;
   }

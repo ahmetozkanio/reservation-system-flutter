@@ -1,4 +1,3 @@
-import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +12,6 @@ import '/widgets/appbar.dart';
 
 import '/widgets/info_list_text.dart';
 
-import 'birim_create/birim_create_controller.dart';
 import 'birim_create/birim_create_view.dart';
 import 'birim_list_controller.dart';
 import 'utils/default_lists.dart';
@@ -53,7 +51,7 @@ class BirimListView extends StatelessWidget {
     return Scaffold(
       appBar: globalAppBar(context, "Birimler", appBarActions),
       body: Container(
-        decoration: pageBackgroundGradient(context),
+        // decoration: pageBackgroundGradient(context),
         // color: Theme.of(context).secondaryHeaderColor,
         child: Column(
           children: [
@@ -69,8 +67,12 @@ class BirimListView extends StatelessWidget {
                       children: [
                         searchTextField(context,
                             birimListController.searchBirim, "Birim Ara"),
+                        SizedBox(
+                          height: 8,
+                        ),
                         Expanded(
                             child: RefreshIndicator(
+                          // color: Theme.of(context).cardColor,
                           key: birimListController.refreshKey,
                           onRefresh: birimListController.refreshBirimList,
                           child: ListView.builder(
@@ -78,16 +80,15 @@ class BirimListView extends StatelessWidget {
                             itemCount:
                                 birimListController.searchBirimList.length,
                             itemBuilder: (context, index) {
-                              var cardA;
                               return ExpansionTileCard(
-                                key: cardA,
+                                baseColor: Theme.of(context).cardColor,
                                 leading: listTileIcon(
                                     "assets/icons/ic_university.png"),
                                 title: Text(birimListController
-                                    .searchBirimList[index].adi
+                                    .searchBirimList[index].birimAdi
                                     .toString()),
                                 subtitle: Text(birimListController
-                                    .searchBirimList[index].sehirAdi
+                                    .searchBirimList[index].birimUnvan
                                     .toString()),
                                 children: [
                                   Divider(
@@ -103,64 +104,64 @@ class BirimListView extends StatelessWidget {
                                         ),
                                         child: Column(
                                           children: [
-                                            listDetail(
-                                              context,
-                                              titles[0],
-                                              birimListController
-                                                  .searchBirimList[index]
-                                                  .sehirAdi
-                                                  .toString(),
-                                              iconList[0],
-                                            ),
-                                            sizedBoxList(),
-                                            listDetail(
-                                              context,
-                                              titles[1],
-                                              birimListController
-                                                  .searchBirimList[index]
-                                                  .ilceAdi
-                                                  .toString(),
-                                              iconList[1],
-                                            ),
-                                            sizedBoxList(),
-                                            listDetail(
-                                              context,
-                                              titles[2],
-                                              birimListController
-                                                  .searchBirimList[index]
-                                                  .yetkiliKisi
-                                                  .toString(),
-                                              iconList[2],
-                                            ),
-                                            sizedBoxList(),
-                                            listDetail(
-                                              context,
-                                              titles[3],
-                                              birimListController
-                                                  .searchBirimList[index].email
-                                                  .toString(),
-                                              iconList[3],
-                                            ),
-                                            sizedBoxList(),
-                                            listDetail(
-                                              context,
-                                              titles[4],
-                                              birimListController
-                                                  .searchBirimList[index]
-                                                  .cepTelefon
-                                                  .toString(),
-                                              iconList[4],
-                                            ),
-                                            sizedBoxList(),
-                                            listDetail(
-                                              context,
-                                              titles[5],
-                                              birimListController
-                                                  .searchBirimList[index]
-                                                  .ofisTelefon
-                                                  .toString(),
-                                              iconList[4],
-                                            )
+                                            // listDetail(
+                                            //   context,
+                                            //   titles[0],
+                                            //   birimListController
+                                            //       .searchBirimList[index]
+                                            //       .sehirAdi
+                                            //       .toString(),
+                                            //   iconList[0],
+                                            // ),
+                                            // sizedBoxList(),
+                                            // listDetail(
+                                            //   context,
+                                            //   titles[1],
+                                            //   birimListController
+                                            //       .searchBirimList[index]
+                                            //       .ilceAdi
+                                            //       .toString(),
+                                            //   iconList[1],
+                                            // ),
+                                            // sizedBoxList(),
+                                            // listDetail(
+                                            //   context,
+                                            //   titles[2],
+                                            //   birimListController
+                                            //       .searchBirimList[index]
+                                            //       .yetkiliKisi
+                                            //       .toString(),
+                                            //   iconList[2],
+                                            // ),
+                                            // sizedBoxList(),
+                                            // listDetail(
+                                            //   context,
+                                            //   titles[3],
+                                            //   birimListController
+                                            //       .searchBirimList[index].email
+                                            //       .toString(),
+                                            //   iconList[3],
+                                            // ),
+                                            // sizedBoxList(),
+                                            // listDetail(
+                                            //   context,
+                                            //   titles[4],
+                                            //   birimListController
+                                            //       .searchBirimList[index]
+                                            //       .cepTelefon
+                                            //       .toString(),
+                                            //   iconList[4],
+                                            // ),
+                                            // sizedBoxList(),
+                                            // listDetail(
+                                            //   context,
+                                            //   titles[5],
+                                            //   birimListController
+                                            //       .searchBirimList[index]
+                                            //       .ofisTelefon
+                                            //       .toString(),
+                                            //   iconList[4],
+                                            // )
                                           ],
                                         )),
                                   ),
@@ -199,7 +200,7 @@ class BirimListView extends StatelessWidget {
   }
 
   TextButton deleteListTileButton(
-      context, BirimListController birimListController, Birim birim) {
+      context, BirimListController birimListController, BirimModel birim) {
     return TextButton(
       onPressed: () {
         alertDelete(context, birim, birimListController);
@@ -220,7 +221,7 @@ class BirimListView extends StatelessWidget {
   }
 
   TextButton updateListTileButton(
-      context, BirimListController birimListController, Birim birim) {
+      context, BirimListController birimListController, BirimModel birim) {
     return TextButton(
       onPressed: () {
         Get.to(() => BirimCreateView(birim));
@@ -244,14 +245,14 @@ class BirimListView extends StatelessWidget {
   }
 
   Future<bool?> alertDelete(
-      context, Birim birim, BirimListController birimListController) {
+      context, BirimModel birim, BirimListController birimListController) {
     return Alert(
       style: AlertStyle(
           titleStyle: TextStyle(fontSize: 14),
           descStyle: TextStyle(fontSize: 12)),
       context: context,
       type: AlertType.info,
-      title: birim.adi.toString(),
+      title: birim.birimAdi.toString(),
       desc: "Birim silinecektir onaylıyor musunuz?",
       buttons: [
         DialogButton(
@@ -268,14 +269,14 @@ class BirimListView extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontSize: 14),
           ),
           onPressed: () async {
-            var response = await birimListController.deleteBirim(birim.id!);
-            if (response) {
-              Get.back();
-              birimListController.getBirimList;
-              successSnackbar("Başarılı.", "Birim başarıyla silindi.");
-            } else {
-              errorSnackbar("Hata!", "Birim silinemedi..");
-            }
+            // var response = await birimListController.deleteBirim(birim.birimId!);
+            // if (response) {
+            //   Get.back();
+            //   birimListController.getBirimList;
+            //   successSnackbar("Başarılı.", "Birim başarıyla silindi.");
+            // } else {
+            //   errorSnackbar("Hata!", "Birim silinemedi..");
+            // }
           },
           color: Colors.green,
         ),

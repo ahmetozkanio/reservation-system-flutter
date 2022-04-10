@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 
 import 'package:library_reservation_liberta_flutter/home/drawer_menu/drawer_menu.dart';
+import 'package:library_reservation_liberta_flutter/home/user/home_view_user.dart';
 
 import 'Admin/home_view_admin.dart';
 
@@ -33,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
         slider: const DrawerMenu(),
-        child: HomeViewAdmin(),
+        child: HomeViewUser(),
       ),
     );
   }

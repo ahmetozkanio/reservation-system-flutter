@@ -20,7 +20,7 @@ class KurumListView extends StatelessWidget {
     return Scaffold(
       appBar: globalAppBar(context, "Kurumlar", null),
       body: Container(
-        decoration: pageBackgroundGradient(context),
+        // decoration: pageBackgroundGradient(context),
         // color: Theme.of(context).secondaryHeaderColor,
         child: Column(
           children: [
@@ -47,8 +47,7 @@ class KurumListView extends StatelessWidget {
                                 _kurumListController.searchKurumList.length,
                             itemBuilder: (context, index) {
                               return ExpansionTileCard(
-                                baseColor:
-                                    Theme.of(context).secondaryHeaderColor,
+                                baseColor: Theme.of(context).cardColor,
                                 initialPadding: const EdgeInsets.only(
                                   bottom: 1,
                                 ),

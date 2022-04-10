@@ -7,50 +7,43 @@ import '../model/birim_model.dart';
 
 class BirimListController extends GetxController {
   var isLoading = true.obs;
-  static bool birimApiResponse = false;
+
   var refreshKey = GlobalKey<RefreshIndicatorState>();
 
-  var birimList = <Birim>[].obs;
-  var searchBirimList = <Birim>[].obs;
+  var birimList = <BirimModel>[].obs;
+  var searchBirimList = <BirimModel>[].obs;
 
-  TextEditingController searchTextCtrl = TextEditingController();
   @override
   void onInit() {
-    super.onInit();
     getBirimList();
-    searchBirimList.addAll(birimList);
+    // searchBirimList.addAll(birimList);
+    super.onInit();
   }
 
   @override
   void onClose() {
     super.onClose();
-    birimList.clear();
+    // birimList.clear();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  // Future<bool> deleteBirim(int id) async {
+  //   try {
+  //     var deleteBirim = await BirimApi.putDeleteBirim(id);
 
-  Future<bool> deleteBirim(int id) async {
-    try {
-      var deleteBirim = await BirimApi.putDeleteBirim(id);
+  //     if (deleteBirim) {
+  //       birimApiResponse = true;
+  //       getBirimList();
 
-      if (deleteBirim) {
-        birimApiResponse = true;
-        getBirimList();
-
-        return true;
-      } else {
-        return false;
-      }
-    } finally {}
-  }
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   } finally {}
+  // }
 
   getBirimList() async {
     try {
-      isLoading(true);
-      var birims = await BirimApi.getBirimListApi();
+      var birims = await BirimApi().getBirimListApi();
 
       if (birims != null) {
         searchBirimList.clear();
@@ -58,7 +51,7 @@ class BirimListController extends GetxController {
         searchBirimList.addAll(birimList);
       }
     } finally {
-      isLoading(false);
+      isLoading.value = false;
     }
   }
 
@@ -70,10 +63,10 @@ class BirimListController extends GetxController {
 
   searchBirim(String value) {
     if (value.isNotEmpty) {
-      var searchListData = <Birim>[];
+      var searchListData = <BirimModel>[];
       for (var element in birimList) {
-        if (element.adi != null &&
-            element.adi!.toLowerCase().contains(value.toLowerCase())) {
+        if (element.birimAdi != null &&
+            element.birimAdi.toLowerCase().contains(value.toLowerCase())) {
           searchListData.add(element);
         }
       }

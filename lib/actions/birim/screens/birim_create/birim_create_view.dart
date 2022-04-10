@@ -21,7 +21,7 @@ import 'birim_create_controller.dart';
 
 class BirimCreateView extends StatefulWidget {
   BirimCreateView(this.birim, {Key? key}) : super(key: key);
-  Birim? birim;
+  BirimModel? birim;
   @override
   State<BirimCreateView> createState() => BirimCreateViewState(birim);
 }
@@ -31,12 +31,12 @@ class BirimCreateViewState extends State<BirimCreateView>
   BirimCreateViewState(this.birim);
 
   BirimCreateController controller = Get.put(BirimCreateController());
-  Birim? birim;
+  BirimModel? birim;
 
   @override
   void initState() {
     if (birim != null) {
-      controller.updateBirimInitial(birim);
+      // controller.updateBirimInitial(birim);
       BirimCreateController.updateBirimIndex = birim;
     }
     super.initState();
@@ -127,25 +127,25 @@ class BirimCreateViewState extends State<BirimCreateView>
                   controller.currentStep.value == 2
                       ? ElevatedButton(
                           onPressed: () async {
-                            bool response;
-                            if (birim == null) {
-                              //create
-                              response = await controller.postBirim();
-                            } else {
-                              //update
-                              response = await controller.updateBirim();
-                            }
-                            print(response);
+                            // bool response;
+                            // if (birim == null) {
+                            //   //create
+                            //   response = await controller.postBirim();
+                            // } else {
+                            //   //update
+                            //   // response = await controller.updateBirim();
+                            // }
+                            // print(response);
 
-                            if (response) {
-                              Get.back();
-                              controllerBirimList.getBirimList;
-                              successSnackbar(
-                                  "Başarılı.", "Birim bilgileri kayıt edildi.");
-                            } else {
-                              errorSnackbar("Basarisiz.",
-                                  "Sorun olustu tekrar deneyiniz.");
-                            }
+                            // if (response) {
+                            //   Get.back();
+                            //   controllerBirimList.getBirimList;
+                            //   successSnackbar(
+                            //       "Başarılı.", "Birim bilgileri kayıt edildi.");
+                            // } else {
+                            //   errorSnackbar("Basarisiz.",
+                            //       "Sorun olustu tekrar deneyiniz.");
+                            // }
                           },
                           child: Text("Onayla"),
                         )
@@ -346,8 +346,8 @@ class BirimCreateViewState extends State<BirimCreateView>
                     items: BirimCreateController.sehirAdi,
                     autoValidateMode: AutovalidateMode.onUserInteraction,
                     label: "Sehir",
-                    selectedItem:
-                        birim != null ? birim!.sehirAdi.toString() : '',
+                    // selectedItem:
+                    // birim != null ? birim!.sehirAdi.toString() : '',
                     onChanged: (data) {
                       // controller.ilceList.clear();
 
@@ -372,8 +372,8 @@ class BirimCreateViewState extends State<BirimCreateView>
                     isFilteredOnline: true,
                     label: "İlçe",
                     hint: "",
-                    selectedItem:
-                        birim != null ? birim!.ilceAdi.toString() : '',
+                    // selectedItem:
+                    //     birim != null ? birim!.ilceAdi.toString() : '',
                     onChanged: (data) {
                       controller.ilceName = data!;
                       print(data);

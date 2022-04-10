@@ -8,7 +8,7 @@ import '/actions/sehirilce/api/sehir_api.dart';
 import '/actions/sehirilce/models/sehir_model.dart';
 
 class BirimCreateController extends GetxController {
-  static Birim? updateBirimIndex; // Update- create  belirleme
+  static BirimModel? updateBirimIndex; // Update- create  belirleme
 
   var isLoading = true.obs;
 
@@ -53,22 +53,22 @@ class BirimCreateController extends GetxController {
     super.onClose();
   }
 
-  updateBirimInitial(Birim? birim) {
-    //BirimListController birimListController = Get.find();
-    try {
-      if (birim != null) {
-        birimAdiCtrl.text = birim.adi!;
-        sehirName = birim.sehirAdi!;
-        ilceName = birim.ilceAdi!;
-        yetkiliAdiCtrl.text = birim.yetkiliKisi!;
-        yetkiliEmailCtrl.text = birim.email!;
-        yetkiliCepTelCtrl.text = birim.cepTelefon!;
-        yetkiliOfisTelCtrl.text = birim.ofisTelefon!;
-        // getSehirIlceList();
-        // getIlceList();
-      }
-    } finally {}
-  }
+  // updateBirimInitial(BirimModel? birim) {
+  //   //BirimListController birimListController = Get.find();
+  //   try {
+  //     if (birim != null) {
+  //       birimAdiCtrl.text = birim.adi!;
+  //       sehirName = birim.sehirAdi!;
+  //       ilceName = birim.ilceAdi!;
+  //       yetkiliAdiCtrl.text = birim.yetkiliKisi!;
+  //       yetkiliEmailCtrl.text = birim.email!;
+  //       yetkiliCepTelCtrl.text = birim.cepTelefon!;
+  //       yetkiliOfisTelCtrl.text = birim.ofisTelefon!;
+  //       // getSehirIlceList();
+  //       // getIlceList();
+  //     }
+  //   } finally {}
+  // }
 
   Future<bool> postBirim() async {
     try {
@@ -95,30 +95,30 @@ class BirimCreateController extends GetxController {
     }
   }
 
-  Future<bool> updateBirim() async {
-    try {
-      isLoading(true);
+  // Future<bool> updateBirim() async {
+  //   try {
+  //     isLoading(true);
 
-      var birimUpdate = await BirimApi.putUpdateBirim(
-          updateBirimIndex?.id,
-          aktifMi,
-          birimAdiCtrl.text,
-          sehirId,
-          ilceId,
-          yetkiliAdiCtrl.text,
-          yetkiliEmailCtrl.text,
-          yetkiliCepTelCtrl.text,
-          yetkiliOfisTelCtrl.text);
+  //     var birimUpdate = await BirimApi.putUpdateBirim(
+  //         updateBirimIndex?.id,
+  //         aktifMi,
+  //         birimAdiCtrl.text,
+  //         sehirId,
+  //         ilceId,
+  //         yetkiliAdiCtrl.text,
+  //         yetkiliEmailCtrl.text,
+  //         yetkiliCepTelCtrl.text,
+  //         yetkiliOfisTelCtrl.text);
 
-      if (birimUpdate != null && birimUpdate == true) {
-        return true;
-      } else {
-        return false;
-      }
-    } finally {
-      isLoading(false);
-    }
-  }
+  //     if (birimUpdate != null && birimUpdate == true) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   } finally {
+  //     isLoading(false);
+  //   }
+  // }
 
   // getSehirIlceList() async {
   //   try {
