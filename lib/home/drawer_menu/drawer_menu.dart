@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/actions/fakulte/screens/fakulte_list_view.dart';
 import 'package:library_reservation_liberta_flutter/actions/kurum/screens/kurum_list_view.dart';
 import 'package:library_reservation_liberta_flutter/settings/actions/themes/panachefile/dark_theme.dart';
 import 'package:library_reservation_liberta_flutter/settings/screens/settings_view.dart';
@@ -27,6 +28,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
   late final AuthenticationManager _authManager = Get.find();
   List<String> menuItems = [
     "Kurumlar",
+    "Fakülteler",
     "Birimler",
     "Salonlar",
     "Bloklar",
@@ -64,13 +66,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       KurumListView()),
                   menuItemsSizedBox(),
                   menuListItem("assets/icons/ic_meeting_room.png", menuItems[1],
-                      SalonListView()),
+                      FakulteListView()),
                   menuItemsSizedBox(),
                   menuListItem("assets/icons/ic_university.png", menuItems[2],
                       BirimListView()),
                   menuItemsSizedBox(),
                   menuListItem("assets/icons/ic_university.png", menuItems[3],
-                      BirimListView()),
+                      SalonListView()),
                   menuItemsSizedBox(),
                   menuListItem("assets/icons/ic_university.png", menuItems[4],
                       BirimListView()),
@@ -107,7 +109,10 @@ class _DrawerMenuState extends State<DrawerMenu> {
         ),
         InkWell(
           onTap: () {
-            Get.to(() => SettingsView());
+            Get.to(
+              () => SettingsView(),
+              transition: Transition.rightToLeft,
+            );
           },
           child: CircleAvatar(
               backgroundColor: Theme.of(context).cardColor,

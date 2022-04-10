@@ -1,45 +1,37 @@
+import 'dart:convert';
+
+import 'package:get/get.dart';
 import 'package:get/get_connect.dart';
 import 'package:http/http.dart' as http;
 import 'package:library_reservation_liberta_flutter/actions/sehirilce/models/sehir_model.dart';
 import 'package:library_reservation_liberta_flutter/core/login/auth_cache_manager.dart';
 
+import '../../../core/login/auth_manager.dart';
 import '../models/sehir_model.dart';
 import '/api/base_api.dart';
 
-// class SehirApi {
-//   static Future<List<Sehir>?> getSehirListApi() async {
-//     try {
-//       var response = await http
-//           .get(Uri.parse(BaseApi.apiBaseUrl + "SehirIlce/SehirListesi/"));
-//       print(" Sehirler" + response.statusCode.toString());
+class SehirApi {
+  final AuthenticationManager _authenticationManager = Get.find();
 
-//       if (response.statusCode == 200) {
-//         var jsonString = response.body;
-//         return sehirFromJson(jsonString);
-//       } else {
-//         return null;
-//       }
-//     } catch (e) {
-//       print("Sehir : " + e.toString());
-//     }
-//   }
-// }
+  final Uri sehirListUrl =
+      Uri.parse(BaseApi.apiBaseUrl + "sehirIlce/sehirListesi");
 
-class SehirApi extends GetConnect with AuthCacheManager {
-  String sehirUrl = BaseApi.apiBaseUrl + 'SehirIlce/SehirListesi/';
-
-  Future<SehirModel?> getSehirList() async {
-    String? userToken = getToken();
-    final response = await get(
-      sehirUrl,
-      contentType: " application/json",
+  Future<List<SehirModel>?> getSehirList() async {
+    String? userToken = _authenticationManager.getToken();
+    final response = await http.get(
+      sehirListUrl,
       headers: {
+        'contentType': " application/json",
         'Authorization': 'Bearer $userToken',
       },
     );
 
     if (response.statusCode == 200) {
-      return SehirModel.fromJson(response.body);
+      Map<String, dynamic> json = jsonDecode(response.body);
+      List<dynamic> body = json['data'];
+      List<SehirModel>? data =
+          body.map((dynamic item) => SehirModel.fromJson(item)).toList();
+      return data;
     } else {
       return null;
     }

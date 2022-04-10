@@ -25,8 +25,6 @@ class KurumApi {
       );
       //print("kurumApi : " + response.bodyString.toString());
       if (response.statusCode == 200) {
-        var jsonString = response.body;
-        print(jsonString);
         Map<String, dynamic> json = jsonDecode(response.body);
         List<dynamic> body = json['data'];
         print(body);
