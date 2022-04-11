@@ -24,43 +24,8 @@ class HomeViewAdmin extends StatelessWidget {
 Container homeViewAdminBody(BuildContext context, _controllerAdmin) {
   final chartPageController =
       PageController(viewportFraction: 0.8, keepPage: true);
-  List<Widget> _widgetOptions = [
-    Expanded(
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-              height: 2.0,
-              padding: EdgeInsets.all(8.0),
-              child: SizedBox(
-                height: 23,
-                child: PageView.builder(
-                  controller: chartPageController,
-                  itemCount: ChartList.chartList.length,
-                  itemBuilder: (context, index) {
-                    return ChartList
-                        .chartList[index % ChartList.chartList.length];
-                  },
-                ),
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(8.0),
-            child: SmoothPageIndicator(
-              controller: chartPageController,
-              count: ChartList.chartList.length,
-              textDirection: TextDirection.ltr,
-              effect: WormEffect(
-                  dotHeight: 8,
-                  dotWidth: 8,
-                  dotColor: Color.fromARGB(255, 219, 218, 218),
-                  activeDotColor: Theme.of(context).primaryColor),
-            ),
-          ),
-        ],
-      ),
-    ),
+  List<Widget> _googleNavBarWidgets = [
+    chartView(chartPageController, context),
     Text(
       'Text2',
     ),
@@ -81,98 +46,110 @@ Container homeViewAdminBody(BuildContext context, _controllerAdmin) {
         // SizedBox(
         //   height: 16.0,
         // ),
-        SingleChildScrollView(
-          padding: EdgeInsets.only(left: 8.0, top: 16.0, right: 8.0),
-          scrollDirection: Axis.horizontal,
-          child: GNav(
-              selectedIndex: _controllerAdmin.gnavIndex.value,
-              onTabChange: (index) {
-                _controllerAdmin.gnavIndex.value = index;
-                // setState(() {
-                //   _selectedIndex = index;
-                // });
-              },
-              // rippleColor: Color.fromARGB(
-              //     255, 66, 66, 66), // tab button ripple color when pressed
-              // hoverColor:
-              //     Color.fromARGB(255, 97, 97, 97), // tab button hover color
-              haptic: true, // haptic feedback
-              tabBorderRadius: 15,
-              tabActiveBorder: Border.all(
-                  color: Theme.of(context).backgroundColor,
-                  width: 1), // tab button border
-              // tabBorder: Border.all(
-              //     color: Colors.grey, width: 1), // tab button border
-              // tabShadow: [
-              //   BoxShadow(color: Colors.grey.withOpacity(0.5), blurRadius: 8)
-              // ], // tab button shadow
-              curve: Curves.easeOutExpo, // tab animation curves
-              duration: Duration(milliseconds: 900), // tab animation duration
-              gap: 8, // the tab button gap between icon and text
-              color: Colors.grey[400], // unselected icon color
-              activeColor: Theme.of(context)
-                  .primaryColor, // selected icon and text color
-              iconSize: 24, // tab button icon size
-              // tabBackgroundColor: Colors.purple
-              //     .withOpacity(0.1), // selected tab background color
-              padding: EdgeInsets.symmetric(
-                  horizontal: 20, vertical: 5), // navigation bar padding
-              tabs: [
-                GButton(
-                  icon: Icons.show_chart_outlined,
-                  text: 'Veriler',
-                ),
-                GButton(
-                  icon: Icons.heart_broken,
-                  text: 'Popüler Kitaplar',
-                ),
-                GButton(
-                  icon: Icons.receipt_long_outlined,
-                  text: 'Rezervasyonlar',
-                ),
-                GButton(
-                  icon: Icons.access_alarm,
-                  text: 'Kayıtlar',
-                ),
-              ]),
-        ),
+        googleNavbar(_controllerAdmin, context),
         Obx(
           () => Container(
-            child: _widgetOptions.elementAt(_controllerAdmin.gnavIndex.value),
+            child: _googleNavBarWidgets
+                .elementAt(_controllerAdmin.gnavIndex.value),
           ),
         ),
-        // Expanded(
-        //   child: Container(
-        //     height: 2.0,
-        //     padding: EdgeInsets.all(8.0),
-        //     child: SizedBox(
-        //       height: 23,
-        //       child: PageView.builder(
-        //         controller: chartPageController,
-        //         itemCount: ChartList.chartList.length,
-        //         itemBuilder: (context, index) {
-        //           return ChartList
-        //               .chartList[index % ChartList.chartList.length];
-        //         },
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        // Container(
-        //   padding: EdgeInsets.all(8.0),
-        //   child: SmoothPageIndicator(
-        //     controller: chartPageController,
-        //     count: ChartList.chartList.length,
-        //     textDirection: TextDirection.ltr,
-        //     effect: WormEffect(
-        //         dotHeight: 8,
-        //         dotWidth: 8,
-        //         dotColor: Color.fromARGB(255, 219, 218, 218),
-        //         activeDotColor: Theme.of(context).primaryColor),
-        //   ),
-        // ),
+
         SizedBox(
           height: 64.0,
+        ),
+      ],
+    ),
+  );
+}
+
+SingleChildScrollView googleNavbar(_controllerAdmin, BuildContext context) {
+  return SingleChildScrollView(
+    padding: EdgeInsets.only(left: 8.0, top: 16.0, right: 8.0),
+    scrollDirection: Axis.horizontal,
+    child: GNav(
+        selectedIndex: _controllerAdmin.gnavIndex.value,
+        onTabChange: (index) {
+          _controllerAdmin.gnavIndex.value = index;
+        },
+        // rippleColor: Color.fromARGB(
+        //     255, 66, 66, 66), // tab button ripple color when pressed
+        // hoverColor:
+        //     Color.fromARGB(255, 97, 97, 97), // tab button hover color
+        haptic: true, // haptic feedback
+        tabBorderRadius: 15,
+        tabActiveBorder: Border.all(
+            color: Theme.of(context).backgroundColor,
+            width: 1), // tab button border
+        // tabBorder: Border.all(
+        //     color: Colors.grey, width: 1), // tab button border
+        // tabShadow: [
+        //   BoxShadow(color: Colors.grey.withOpacity(0.5), blurRadius: 8)
+        // ], // tab button shadow
+        curve: Curves.easeOutExpo, // tab animation curves
+        duration: Duration(milliseconds: 900), // tab animation duration
+        gap: 8, // the tab button gap between icon and text
+        color: Colors.grey[400], // unselected icon color
+        activeColor:
+            Theme.of(context).primaryColor, // selected icon and text color
+        iconSize: 24, // tab button icon size
+        // tabBackgroundColor: Colors.purple
+        //     .withOpacity(0.1), // selected tab background color
+        padding: EdgeInsets.symmetric(
+            horizontal: 20, vertical: 5), // navigation bar padding
+        tabs: [
+          GButton(
+            icon: Icons.show_chart_outlined,
+            text: 'Veriler',
+          ),
+          GButton(
+            icon: Icons.heart_broken,
+            text: 'Popüler Kitaplar',
+          ),
+          GButton(
+            icon: Icons.receipt_long_outlined,
+            text: 'Rezervasyonlar',
+          ),
+          GButton(
+            icon: Icons.access_alarm,
+            text: 'Kayıtlar',
+          ),
+        ]),
+  );
+}
+
+Expanded chartView(PageController chartPageController, BuildContext context) {
+  return Expanded(
+    child: Column(
+      children: [
+        Expanded(
+          child: Container(
+            height: 2.0,
+            padding: EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: 23,
+              child: PageView.builder(
+                controller: chartPageController,
+                itemCount: ChartList.chartList.length,
+                itemBuilder: (context, index) {
+                  return ChartList
+                      .chartList[index % ChartList.chartList.length];
+                },
+              ),
+            ),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.all(8.0),
+          child: SmoothPageIndicator(
+            controller: chartPageController,
+            count: ChartList.chartList.length,
+            textDirection: TextDirection.ltr,
+            effect: WormEffect(
+                dotHeight: 8,
+                dotWidth: 8,
+                dotColor: Color.fromARGB(255, 219, 218, 218),
+                activeDotColor: Theme.of(context).primaryColor),
+          ),
         ),
       ],
     ),

@@ -34,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
         slider: const DrawerMenu(),
-        child: HomeViewUser(),
+        child: HomeViewAdmin(),
       ),
     );
   }
