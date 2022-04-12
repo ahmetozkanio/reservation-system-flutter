@@ -17,8 +17,20 @@ class KurumListView extends StatelessWidget {
   Widget build(BuildContext context) {
     KurumListController _kurumListController = Get.put(KurumListController());
 
+    List<Widget> appBarActions = [
+      IconButton(
+          onPressed: () {},
+          icon: Icon(
+            Icons.create_rounded,
+          ))
+    ];
+
     return Scaffold(
-      appBar: globalAppBar(context, "Kurumlar", null),
+      appBar: globalAppBar(
+        context,
+        "Kurumlar",
+        appBarActions,
+      ),
       body: Container(
         // decoration: pageBackgroundGradient(context),
         // color: Theme.of(context).secondaryHeaderColor,

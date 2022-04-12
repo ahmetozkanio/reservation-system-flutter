@@ -11,6 +11,7 @@ class AuthenticationManager extends GetxController with AuthCacheManager {
   void logOut() {
     isLogged.value = false;
     removeUserCacheInfo();
+    Get.clearRouteTree();
     Get.offAll(() => SplashView());
   }
 
