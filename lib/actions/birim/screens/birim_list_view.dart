@@ -84,12 +84,16 @@ class BirimListView extends StatelessWidget {
                                 baseColor: Theme.of(context).cardColor,
                                 leading: listTileIcon(
                                     "assets/icons/ic_university.png"),
-                                title: Text(birimListController
-                                    .searchBirimList[index].birimAdi
-                                    .toString()),
-                                subtitle: Text(birimListController
-                                    .searchBirimList[index].birimUnvan
-                                    .toString()),
+                                title: Text(
+                                  birimListController
+                                      .searchBirimList[index].birimAdi
+                                      .toString(),
+                                ),
+                                subtitle: Text(
+                                  birimListController
+                                      .searchBirimList[index].birimUnvan
+                                      .toString(),
+                                ),
                                 children: [
                                   Divider(
                                     thickness: 1.0,

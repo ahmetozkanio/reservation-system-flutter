@@ -30,7 +30,7 @@ class HomeView extends StatelessWidget {
           ),
         ),
         slider: const DrawerMenu(),
-        child: HomeViewAdmin(),
+        child: HomeViewUser(),
       ),
     );
   }
