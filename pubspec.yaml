@@ -60,6 +60,8 @@ dependencies:
   # Pagination
   #card_swiper: ^2.0.1
   smooth_page_indicator: ^1.0.0+2
+  
+  flip_card: ^0.6.0
 
   # Google Fonts
   google_fonts: ^2.3.1
@@ -71,7 +73,6 @@ dependencies:
   multi_select_flutter: ^4.0.0
   
   #search bar
-
   anim_search_bar: ^2.0.2
   
   #Hex color

@@ -1,7 +1,7 @@
-import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
 import 'package:library_reservation_liberta_flutter/widgets/searchList.dart';
+import 'package:flip_card/flip_card.dart';
 
 class HomeViewUser extends StatelessWidget {
   const HomeViewUser({Key? key}) : super(key: key);
@@ -128,7 +128,7 @@ class HomeViewUser extends StatelessWidget {
               child: Row(
                 children: [
                   SizedBox(
-                      height: 34,
+                      height: 28.0,
                       width: MediaQuery.of(context).size.width / 1.3,
                       child: searchTextField(
                           context, searchOnChanged, "Salon Ara")),
@@ -136,7 +136,29 @@ class HomeViewUser extends StatelessWidget {
                     width: 24,
                     height: 24,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 129, 99, 99),
+                      color: Color.fromARGB(255, 218, 218, 218),
+                      borderRadius: BorderRadius.all(Radius.elliptical(24, 24)),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
+                  Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 218, 218, 218),
+                      borderRadius: BorderRadius.all(Radius.elliptical(24, 24)),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
+                  Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 218, 218, 218),
                       borderRadius: BorderRadius.all(Radius.elliptical(24, 24)),
                     ),
                   ),
@@ -149,19 +171,131 @@ class HomeViewUser extends StatelessWidget {
               ),
               sliver: SliverGrid(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+                  crossAxisCount: 1,
                   mainAxisSpacing: 8.0,
                   crossAxisSpacing: 8.0,
-                  childAspectRatio: 1.0,
+                  childAspectRatio: 2,
                 ),
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    return Card(
-                      color: Colors.teal[100 * (index % 9)],
-                      child: Container(
-                          alignment: Alignment.center,
-                          child: Text('grid item $index')),
-                    );
+                    return FlipCard(
+                        fill: Fill
+                            .fillBack, // Fill the back side of the card to make in the same size as the front.
+                        direction: FlipDirection.HORIZONTAL, // default
+                        front: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(11),
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.teal[100 * (index % 9)],
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(11),
+                              ),
+                            ),
+                            width: double.infinity,
+                            height: double.infinity,
+                            padding: EdgeInsets.all(12.0),
+                            child: Stack(
+                              children: [
+                                Container(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    'SALON ON $index',
+                                  ),
+                                ),
+                                Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: 38,
+                                      height: 38,
+                                      decoration: BoxDecoration(
+                                        color: Color.fromARGB(255, 245, 40, 25),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.elliptical(32, 32)),
+                                      ),
+                                    )),
+                                Positioned(
+                                  bottom: 3,
+                                  right: 3,
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width: 32,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.elliptical(32, 32)),
+                                    ),
+                                    child: Text(
+                                      "%98",
+                                      style: TextStyle(fontSize: 11.0),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        back: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(11),
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.teal[100 * (index % 9)],
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(11),
+                              ),
+                            ),
+                            width: double.infinity,
+                            height: double.infinity,
+                            padding: EdgeInsets.all(12.0),
+                            child: Stack(
+                              children: [
+                                Container(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    'SALON ARKA $index',
+                                  ),
+                                ),
+                                Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: 38,
+                                      height: 38,
+                                      decoration: BoxDecoration(
+                                        color: Color.fromARGB(255, 245, 40, 25),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.elliptical(32, 32)),
+                                      ),
+                                    )),
+                                Positioned(
+                                  bottom: 3,
+                                  right: 3,
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width: 32,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.elliptical(32, 32)),
+                                    ),
+                                    child: Text(
+                                      "%98",
+                                      style: TextStyle(fontSize: 11.0),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ));
                   },
                   childCount: 11,
                 ),
@@ -171,3 +305,56 @@ class HomeViewUser extends StatelessWidget {
         ),
       );
 }
+
+//  Expanded(
+//                       child: GestureDetector(
+//                         onTap: () {},
+//                         child: Container(
+//                           color: Colors.white,
+//                           width: double.infinity,
+//                           height: double.infinity,
+//                           // width: MediaQuery.of(context).size.width,
+//                           decoration: BoxDecoration(
+//                             borderRadius: const BorderRadius.all(
+//                               Radius.circular(11),
+//                             ),
+//                           ),
+//                           child: Align(
+//                             alignment: Alignment.bottomCenter,
+//                             child: Container(
+//                               height: MediaQuery.of(context).size.width / 9,
+//                               child: Align(
+//                                 child: Text(
+//                                   "title",
+//                                   textAlign: TextAlign.center,
+//                                   style: TextStyle(
+//                                     fontSize: 13,
+//                                     color: Theme.of(context)
+//                                         .textTheme
+//                                         .bodyLarge!
+//                                         .color,
+//                                     decoration: TextDecoration.none,
+//                                     fontWeight: FontWeight.normal,
+//                                   ),
+//                                 ),
+//                               ),
+//                               decoration: const BoxDecoration(
+//                                 borderRadius: BorderRadius.only(
+//                                   topLeft: Radius.circular(0),
+//                                   topRight: Radius.circular(0),
+//                                   bottomLeft: Radius.circular(11),
+//                                   bottomRight: Radius.circular(11),
+//                                 ),
+//                                 boxShadow: [
+//                                   BoxShadow(
+//                                       color: Color.fromRGBO(0, 0, 0, 0.25),
+//                                       offset: Offset(0, 4),
+//                                       blurRadius: 4)
+//                                 ],
+//                                 color: Color.fromRGBO(255, 251, 251, 1),
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                     );
