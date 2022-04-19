@@ -21,7 +21,7 @@ class Home extends StatelessWidget {
 
     return GetMaterialApp(
       title: "Kutuphane Rezervasyonu",
-      home: SplashView(),
+      home: HomeView(), //SplashView()
     );
   }
 }

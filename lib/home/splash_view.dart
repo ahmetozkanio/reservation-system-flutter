@@ -13,7 +13,7 @@ class SplashView extends StatelessWidget {
 
     await Future.delayed(
       const Duration(
-        seconds: 2,
+        seconds: 0,
       ),
     );
   }
