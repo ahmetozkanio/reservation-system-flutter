@@ -101,11 +101,12 @@ class _DrawerMenuState extends State<DrawerMenu> {
         InkWell(
           onTap: () => _authManager.logOut(),
           child: CircleAvatar(
-              backgroundColor: Theme.of(context).cardColor,
-              child: Icon(
-                Icons.logout,
-                //color: Theme.of(context).iconTheme.color,
-              )),
+            backgroundColor: Theme.of(context).cardColor,
+            child: Icon(
+              Icons.logout,
+              //color: Theme.of(context).iconTheme.color,
+            ),
+          ),
         ),
         InkWell(
           onTap: () {
@@ -115,11 +116,12 @@ class _DrawerMenuState extends State<DrawerMenu> {
             );
           },
           child: CircleAvatar(
-              backgroundColor: Theme.of(context).cardColor,
-              child: Icon(
-                Icons.settings,
-                // color: Theme.of(context).iconTheme.color,
-              )),
+            backgroundColor: Theme.of(context).cardColor,
+            child: Icon(
+              Icons.settings,
+              // color: Theme.of(context).iconTheme.color,
+            ),
+          ),
         ),
         InkWell(
           onTap: () {
@@ -147,11 +149,11 @@ class _DrawerMenuState extends State<DrawerMenu> {
           ),
         ),
       ],
-      currentAccountPicture: CircleAvatar(
-        backgroundColor: Color.fromARGB(255, 51, 50, 50),
-        backgroundImage: NetworkImage(
-            "https://avatars.githubusercontent.com/u/65506828?v=4"),
-      ),
+      // currentAccountPicture: CircleAvatar(
+      //   backgroundColor: Color.fromARGB(255, 51, 50, 50),
+      //   backgroundImage: NetworkImage(
+      //       "https://avatars.githubusercontent.com/u/65506828?v=4"),
+      // ),
     );
   }
 

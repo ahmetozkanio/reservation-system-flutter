@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:library_reservation_liberta_flutter/actions/rezervasyon/screens/reservation_view_controller.dart';
 
 class ReservationView extends StatelessWidget {
   const ReservationView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<String> image = new List.empty(growable: true);
-    image.add(
-        "https://cdn.pixabay.com/photo/2017/02/27/19/57/marriage-2104147_1280.jpg");
-    image.add(
-        "https://www.shaadidukaan.com/vogue/wp-content/uploads/2019/08/hug-kiss-images.jpg");
-    image.add(
-        "https://images.pexels.com/photos/1133957/pexels-photo-1133957.jpeg");
-    image.add(
-        "https://www.filmibeat.com/ph-big/2019/10/beautiful_157061627750.jpg");
-    image.add(
-        "https://images.pexels.com/photos/1133957/pexels-photo-1133957.jpeg");
+    ScrollController _scrollController = ScrollController();
+    ReservationViewController reservationViewController = Get.put(
+      ReservationViewController(),
+    );
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -24,61 +19,96 @@ class ReservationView extends StatelessWidget {
             color: Theme.of(context).iconTheme.color,
           ),
         ),
-        body: ListView(
-          shrinkWrap: true,
-          children: [
-            Text("Reservasyon"),
-            Container(
-              height: 1000,
-              child: Expanded(
-                child: ListView(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.all(12.0),
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    for (var i = 0; i <= 10; i++)
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text("Blok $i"),
-                            for (var i = 0; i <= 10; i++)
-                              Padding(
-                                padding: EdgeInsets.all(4.0),
-                                child: Row(
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Reservasyon",
+                style: TextStyle(
+                    fontSize: Theme.of(context).textTheme.titleLarge!.fontSize),
+                textAlign: TextAlign.center,
+              ),
+              Card(
+                elevation: 3.0,
+                child: Container(
+                  padding: EdgeInsets.only(
+                    top: 12.0,
+                    bottom: 12.0,
+                  ),
+                  height: 478,
+                  child:
+
+                      // Scrollbar(
+                      //   controller: _scrollController,
+                      //   isAlwaysShown: true,
+                      //   radius: Radius.circular(8.0),
+                      //   child:
+
+                      ListView(
+                    padding: EdgeInsets.all(12.0),
+                    shrinkWrap: true,
+                    // padding: EdgeInsets.all(12.0),
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      for (var i = 0; i <= 10; i++)
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text("Blok $i"),
+                              Divider(
+                                color: Colors.grey,
+                                height: 2,
+                              ),
+                              for (var i = 0; i <= 10; i++)
+                                Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Container(
-                                      width: 28,
-                                      height: 28,
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 221, 221, 221),
-                                        shape: BoxShape.rectangle,
+                                    Card(
+                                      elevation: 2.0,
+                                      color: Colors.grey[100],
+                                      child: Container(
+                                        width: 28,
+                                        height: 28,
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "$i",
+                                          textAlign: TextAlign.center,
+                                        ),
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Container(
-                                      width: 28,
-                                      height: 28,
-                                      decoration: BoxDecoration(
-                                        color: Color.fromARGB(255, 218, 13, 13),
+                                    // SizedBox(
+                                    //   width: 1,
+                                    // ),
+                                    Card(
+                                      color: Color.fromARGB(255, 209, 36, 36),
+                                      child: Container(
+                                        width: 28,
+                                        height: 28,
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "$i",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+              // ),
+            ],
+          ),
         ));
   }
 }

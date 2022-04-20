@@ -472,7 +472,10 @@ class HomeViewUser extends StatelessWidget {
               right: 0.0,
               child: ElevatedButton(
                 onPressed: () {
-                  Get.to(() => ReservationView());
+                  Get.to(
+                    () => ReservationView(),
+                    transition: Transition.zoom,
+                  );
                 },
                 child: Text(
                   'Rezervasyon Yap',
