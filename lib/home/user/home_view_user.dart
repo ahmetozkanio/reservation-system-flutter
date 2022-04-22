@@ -20,7 +20,7 @@ class HomeViewUser extends StatelessWidget {
 
   dynamic searchOnChanged(value) {}
   Container homeUserBody(context) => Container(
-        decoration: pageBackgroundGradient(context),
+        // decoration: pageBackgroundGradient(context),
         child: CustomScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           slivers: [

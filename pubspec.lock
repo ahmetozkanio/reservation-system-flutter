@@ -85,6 +85,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.4"
+  draggable_scrollbar:
+    dependency: "direct main"
+    description:
+      name: draggable_scrollbar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   dropdown_search:
     dependency: "direct main"
     description:
@@ -239,7 +246,7 @@ packages:
       name: group_button
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.5.0"
+    version: "5.0.0"
   hexcolor:
     dependency: "direct main"
     description:

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/actions/fakulte/screens/fakulte_list_view.dart';
 import 'package:library_reservation_liberta_flutter/actions/kurum/screens/kurum_list_view.dart';
+import 'package:library_reservation_liberta_flutter/home/home_view.dart';
+import 'package:library_reservation_liberta_flutter/home/user/home_view_user.dart';
 import 'package:library_reservation_liberta_flutter/settings/actions/themes/panachefile/dark_theme.dart';
 import 'package:library_reservation_liberta_flutter/settings/screens/settings_view.dart';
 import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
@@ -26,22 +28,6 @@ class DrawerMenu extends StatefulWidget {
 
 class _DrawerMenuState extends State<DrawerMenu> {
   late final AuthenticationManager _authManager = Get.find();
-  List<String> menuItems = [
-    "Kurumlar",
-    "Fakülteler",
-    "Birimler",
-    "Salonlar",
-    "Bloklar",
-    "Masalar",
-    "Kitap Tavsiyeleri",
-    "Sıkça Sorulan Sorular"
-  ];
-
-  List<IconData> iconData = [
-    Icons.dashboard,
-  ];
-
-  List<String> menuItemss = [""];
 
   @override
   Widget build(BuildContext context) {
@@ -62,24 +48,26 @@ class _DrawerMenuState extends State<DrawerMenu> {
               child: ListView(
                 padding: EdgeInsets.all(0.0),
                 children: [
-                  menuListItem("assets/icons/ic_university.png", menuItems[0],
-                      KurumListView()),
-                  menuItemsSizedBox(),
-                  menuListItem("assets/icons/ic_meeting_room.png", menuItems[1],
-                      FakulteListView()),
-                  menuItemsSizedBox(),
-                  menuListItem("assets/icons/ic_university.png", menuItems[2],
-                      BirimListView()),
-                  menuItemsSizedBox(),
-                  menuListItem("assets/icons/ic_university.png", menuItems[3],
-                      SalonListView()),
-                  menuItemsSizedBox(),
-                  menuListItem("assets/icons/ic_university.png", menuItems[4],
-                      BirimListView()),
-                  menuItemsSizedBox(),
-                  menuListItem("assets/icons/ic_university.png", menuItems[5],
-                      BirimListView()),
-                  menuItemsSizedBox(),
+                  menuListItem(
+                    Icons.person_outline_rounded,
+                    "Profilim",
+                    FakulteListView(),
+                  ),
+                  menuListItem(
+                    Icons.schedule,
+                    "İşlemlerim",
+                    FakulteListView(),
+                  ),
+                  menuListItem(
+                    Icons.question_answer_outlined,
+                    "SSS",
+                    FakulteListView(),
+                  ),
+                  menuListItem(
+                    Icons.question_mark,
+                    "Yardım",
+                    FakulteListView(),
+                  ),
                 ],
               ),
             ),
@@ -163,11 +151,11 @@ class _DrawerMenuState extends State<DrawerMenu> {
     );
   }
 
-  Widget menuListItem(String icon, menuItems, Widget route) {
+  Widget menuListItem(IconData icon, String menuItemName, Widget route) {
     return ListTile(
-      leading: listTileIcon(icon),
+      leading: Icon(icon),
       title: Text(
-        menuItems,
+        menuItemName,
         style: TextStyle(),
       ),
       onTap: () {

@@ -21,7 +21,7 @@ class HomeView extends StatelessWidget {
       body: SliderDrawer(
         key: _key,
         appBar: SliderAppBar(
-          appBarColor: Theme.of(context).secondaryHeaderColor,
+          appBarColor: Theme.of(context).scaffoldBackgroundColor,
           drawerIconColor: Theme.of(context).iconTheme.color!,
           title: const Text(
             "Ana Sayfa",
