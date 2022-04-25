@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-import 'package:library_reservation_liberta_flutter/accounts/login/screens/login_view.dart';
-import 'package:library_reservation_liberta_flutter/home/controller.dart';
+
 import 'package:library_reservation_liberta_flutter/home/splash_view.dart';
 
 import 'auth_cache_manager.dart';

@@ -1,5 +1,4 @@
 import 'package:get_storage/get_storage.dart';
-import 'package:library_reservation_liberta_flutter/settings/actions/themes/panachefile/red_theme.dart';
 
 mixin AuthCacheManager {
   var authBox = GetStorage();
@@ -29,11 +28,6 @@ mixin AuthCacheManager {
   String? getEmail() => authBox.read(LoginCacheManagerKey.EMAIL.toString());
   String? getUserId() => authBox.read(LoginCacheManagerKey.USERID.toString());
   String? getRole() => authBox.read(LoginCacheManagerKey.ROLE.toString());
-
-  // String? getEmail() {
-  //   return authBox.read(LoginCacheManagerKey.EMAIL.toString());
-  // }
-
 }
 
 enum LoginCacheManagerKey { TOKEN, EMAIL, USERID, ROLE }

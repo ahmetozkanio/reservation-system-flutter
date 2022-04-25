@@ -7,9 +7,6 @@ import '../model/login_response_model.dart';
 
 class LoginService extends GetConnect {
   final String loginUrl = BaseApi.apiBaseUrl + 'user/login';
-  // final String loginUrl = 'https://reqres.in/api/login';
-
-  //final String registerUrl = 'https://reqres.in/api/register';
 
   Future<LoginResponseModel?> fetchLogin(LoginRequestModel model) async {
     final response = await post(loginUrl, model.toJson());

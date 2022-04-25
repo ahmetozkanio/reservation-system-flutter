@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/background_gradient.dart';
-import '../utils/fl_charts/chart_model.dart';
+import 'fl_charts/chart_model.dart';
 
 class HomeViewAdmin extends StatelessWidget {
   HomeViewAdmin({Key? key}) : super(key: key);

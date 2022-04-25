@@ -51,17 +51,6 @@ class LoginController extends GetxController {
       loadingCircle.value = false;
       errorSnackbar(
           'Başarısız Giriş.', 'e-mail veya şifre hatalı, tekrar denenyiniz.');
-      // Get.defaultDialog(
-      //     titlePadding: EdgeInsets.all(24),
-      //     contentPadding: EdgeInsets.all(24),
-      //     radius: 4.0,
-      //     title: "Giriş Başarısız.",
-      //     middleText: "e-mail veya şifre hatalı, tekrar deneyiniz.",
-      //     textConfirm: 'Tamam',
-      //     confirmTextColor: Colors.white,
-      //     onConfirm: () {
-      //       Get.back();
-      //     });
     }
   }
 

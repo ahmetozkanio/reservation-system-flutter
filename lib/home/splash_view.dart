@@ -6,14 +6,16 @@ import 'onboard_view.dart';
 
 class SplashView extends StatelessWidget {
   SplashView({Key? key}) : super(key: key);
-  final AuthenticationManager _authmanager = Get.put(AuthenticationManager());
+  final AuthenticationManager _authmanager = Get.put(
+    AuthenticationManager(),
+  );
 
   Future<void> initializeSettings() async {
     _authmanager.checkLoginStatus();
 
     await Future.delayed(
       const Duration(
-        seconds: 0,
+        seconds: 2,
       ),
     );
   }

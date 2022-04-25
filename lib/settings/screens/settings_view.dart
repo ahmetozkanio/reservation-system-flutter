@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
 
-import '../../widgets/icon_widget.dart';
 import '../../widgets/list_divider.dart';
 import '../actions/themes/screens/themes_view.dart';
 import '/settings/screens/settings_controller.dart';
@@ -30,18 +29,27 @@ class SettingsView extends StatelessWidget {
               child: Column(
                 children: [
                   ListTile(
-                    leading: Container(
-                      width: 24,
-                      height: 24,
-                      child: Image.asset("assets/icons/ic_user_profile.png"),
+                    leading: Icon(
+                      Icons.person,
+                      // color: Theme.of(context).primaryColor,
                     ),
+                    //  Container(
+                    //   width: 24,
+                    //   height: 24,
+                    //   child: Image.asset("assets/icons/ic_user_profile.png"),
+                    // ),
                     style: ListTileStyle.list,
                     title: Text("Profil"),
                     onTap: () {},
                   ),
                   listDivider(context),
                   ListTile(
-                    leading: listTileIcon("assets/icons/ic_color_wheel.png"),
+                    leading: Icon(
+                      Icons.color_lens,
+                      color: Theme.of(context).primaryColor,
+                    ),
+
+                    //  listTileIcon("assets/icons/ic_color_wheel.png"),
                     style: ListTileStyle.list,
                     title: Text("Temalar"),
                     onTap: () {

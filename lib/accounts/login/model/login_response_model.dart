@@ -31,11 +31,3 @@ class LoginResponseModel {
     return data;
   }
 }
-
-
-
-//  "userId": "fb23c25d-c70a-43f3-9a20-1c7ec20314a7",
-//     "email": "ahmet@ozkan.com",
-//     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZiMjNjMjVkLWM3MGEtNDNmMy05YTIwLTFjN2VjMjAzMTRhNyIsIm5iZiI6MTY0OTIzMTg0NSwiZXhwIjoxNjQ5ODM2NjQ1LCJpYXQiOjE2NDkyMzE4NDV9.CxBqe7v8XqpHuGPZfsuOKZ54qVjHLZq893cliJ6T2ig",
-//     "role": 0,
-//     "statusCode": 0

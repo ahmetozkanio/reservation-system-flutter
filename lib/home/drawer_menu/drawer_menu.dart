@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:library_reservation_liberta_flutter/actions/fakulte/screens/fakulte_list_view.dart';
-import 'package:library_reservation_liberta_flutter/actions/kurum/screens/kurum_list_view.dart';
 import 'package:library_reservation_liberta_flutter/home/home_view.dart';
-import 'package:library_reservation_liberta_flutter/home/user/home_view_user.dart';
 import 'package:library_reservation_liberta_flutter/settings/actions/themes/panachefile/dark_theme.dart';
 import 'package:library_reservation_liberta_flutter/settings/screens/settings_view.dart';
-import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
 
 import '../../core/login/auth_manager.dart';
-import '../../settings/actions/themes/initial_function/themes.dart';
+import '../../initializers/themes.dart';
 import '../../settings/actions/themes/screens/themes_controller.dart';
-import '../../settings/actions/themes/screens/themes_view.dart';
-import '../../widgets/icon_widget.dart';
-import '/accounts/login/screens/login_view.dart';
-import '/actions/salon/screens/salon_list_view.dart';
 
-import '/actions/birim/screens/birim_list_view.dart';
 import 'drawer_menu_controller.dart';
 
 class DrawerMenu extends StatefulWidget {
@@ -51,22 +42,22 @@ class _DrawerMenuState extends State<DrawerMenu> {
                   menuListItem(
                     Icons.person_outline_rounded,
                     "Profilim",
-                    FakulteListView(),
+                    HomeView(),
                   ),
                   menuListItem(
                     Icons.schedule,
                     "İşlemlerim",
-                    FakulteListView(),
+                    HomeView(),
                   ),
                   menuListItem(
                     Icons.question_answer_outlined,
                     "SSS",
-                    FakulteListView(),
+                    HomeView(),
                   ),
                   menuListItem(
                     Icons.question_mark,
                     "Yardım",
-                    FakulteListView(),
+                    HomeView(),
                   ),
                 ],
               ),
@@ -118,11 +109,11 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 themesController.saveDarkTheme(
                   EnumThemeData.darkTheme,
                 );
-                print("Dark Mode");
+                // print("Dark Mode");
                 Get.changeTheme(darkTheme);
                 controller.icon = Icons.wb_sunny_outlined;
               } else {
-                print("Light Mode");
+                // print("Light Mode");
                 themesController.removeDarkTheme();
                 initialTheme();
                 controller.icon = Icons.dark_mode_outlined;

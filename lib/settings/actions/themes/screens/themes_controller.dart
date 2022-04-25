@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../core/theme_cache.dart';
+import '../../../../core/theme/theme_cache.dart';
 import '../panachefile/amber_theme.dart';
 import '../panachefile/black_theme.dart';
 import '../panachefile/blue_theme.dart';
 import '../panachefile/bluegray_theme.dart';
 import '../panachefile/brown_theme.dart';
 import '../panachefile/cyan_theme.dart';
-import '../panachefile/dark_theme.dart';
+
 import '../panachefile/deeporange_theme.dart';
 import '../panachefile/deeppurple_theme.dart';
 import '../panachefile/green_theme.dart';
@@ -26,7 +26,6 @@ import '../panachefile/yellow_theme.dart';
 
 class ThemesController extends GetxController with ThemeCacheManager {
   static var character = EnumThemeData.blueTheme;
-  // var cacheTheme = ThemeData().obs;
 
   static backgroundColor(context) {
     return Theme.of(context).secondaryHeaderColor;
@@ -36,15 +35,12 @@ class ThemesController extends GetxController with ThemeCacheManager {
   void onInit() {
     super.onInit();
     radioThemeValue();
-    print(ThemeCacheManager.getTheme());
   }
 
   static ThemeData? getStorageInitTheme() {
-    // var initTheme = ThemeCacheManager.getTheme().toString().split(".");
     var init = ThemeCacheManager.getTheme();
-    //print(init.toString());
     var darkTheme = ThemeCacheManager.getDarkTheme();
-    //print(darkTheme);
+
     if (darkTheme != null) {
       for (var index in EnumThemeData.values) {
         if (index.toString() == darkTheme) {
@@ -59,6 +55,7 @@ class ThemesController extends GetxController with ThemeCacheManager {
         }
       }
     }
+    return null;
   }
 
   radioThemeValue() {

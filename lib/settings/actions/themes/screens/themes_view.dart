@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/home/drawer_menu/drawer_menu_controller.dart';
 import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
 
-import '../core/theme_cache.dart';
+import '../../../../core/theme/theme_cache.dart';
 import 'themes_controller.dart';
 
 class ThemesView extends StatefulWidget {
@@ -85,8 +85,6 @@ class _ThemesViewState extends State<ThemesView> {
                 drawerMenuController.icon = Icons.dark_mode_outlined;
                 Get.changeTheme(ThemesController.themeSelect(value));
                 themesController.saveThemes(value);
-
-                //themesController.saveTheme(value.toString( ));
               });
             }));
   }
