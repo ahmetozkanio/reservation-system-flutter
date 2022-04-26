@@ -12,7 +12,8 @@ Container searchTextField(
       decoration: InputDecoration(
           filled: true,
           //fillColor: Color.fromARGB(255, 255, 255, 255),
-          contentPadding: EdgeInsets.all(0),
+
+          contentPadding: EdgeInsets.all(3),
           prefixIcon: Icon(
             Icons.search,
             size: 18,

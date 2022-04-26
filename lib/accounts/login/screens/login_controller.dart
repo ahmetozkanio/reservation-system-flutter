@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/accounts/login/api/login_api.dart';
 import 'package:library_reservation_liberta_flutter/home/splash_view.dart';
 import 'package:library_reservation_liberta_flutter/widgets/snackbar.dart';
-import "package:path_provider/path_provider.dart";
+
 import '../../../core/login/auth_manager.dart';
 import '../model/login_request_model.dart';
 
@@ -17,18 +17,6 @@ class LoginController extends GetxController {
 
   var loadingCircle = false.obs;
   var pageInitialLoadingCircle = true.obs;
-
-  @override
-  void onInit() {
-    Future _deleteCacheDir() async {
-      final cacheDir = await getTemporaryDirectory();
-
-      if (cacheDir.existsSync()) {
-        cacheDir.deleteSync(recursive: true);
-      }
-      super.onInit();
-    }
-  }
 
   Future<void> loginUser(String email, String sifre) async {
     loadingCircle.value = true;

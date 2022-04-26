@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/actions/rezervasyon/screens/reservation_view_controller.dart';
-import 'package:group_button/group_button.dart';
 
 class ReservationView extends StatelessWidget {
   const ReservationView({Key? key}) : super(key: key);
@@ -29,23 +28,7 @@ class ReservationView extends StatelessWidget {
           color: Theme.of(context).iconTheme.color,
         ),
       ),
-      body:
-          // Column(
-          //   children: [
-          //     Center(
-          //       child: GroupButton(
-          //         controller: controller,
-          //         isRadio: true,
-          //         buttons: List.generate(25, (i) => '${i + 1}'),
-          //         maxSelected: 1,
-          //         onSelected: (val, i, selected) =>
-          //             debugPrint('Button: $val index: $i selected: $selected'),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-
-          Obx(
+      body: Obx(
         () => SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -157,7 +140,24 @@ class ReservationView extends StatelessWidget {
                   ),
                 ),
               ),
-              // ),
+              CheckboxListTile(
+                activeColor: Colors.pink[300],
+                dense: true,
+
+                title: new Text(
+                  "Rasgele Yerleştirme",
+                  style: TextStyle(fontSize: 12, letterSpacing: 0.5),
+                ),
+                value: true,
+                // secondary: Container(
+                //   height: 50,
+                //   width: 50,
+                //   child: Icon(
+                //     Icons.phone,
+                //   ),
+                // ),
+                onChanged: (val) {},
+              ),
             ],
           ),
         ),

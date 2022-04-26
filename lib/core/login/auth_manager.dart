@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:library_reservation_liberta_flutter/home/splash_view.dart';
+import 'package:library_reservation_liberta_flutter/widgets/snackbar.dart';
 
 import 'auth_cache_manager.dart';
 
@@ -8,10 +10,16 @@ class AuthenticationManager extends GetxController with AuthCacheManager {
   final isLogged = false.obs;
 
   void logOut() {
-    isLogged.value = false;
-    removeUserCacheInfo();
-    Get.clearRouteTree();
-    Get.offAll(() => SplashView());
+    try {
+      isLogged.value = false;
+      removeUserCacheInfo();
+      Get.clearRouteTree();
+      Get.offAll(() => SplashView());
+      successSnackbar("Çıkış yapıldı.", '');
+    } catch (e) {
+      print(e.toString());
+      errorSnackbar("Başarısız Çıkış İşlemi.", '');
+    }
   }
 
   void login(

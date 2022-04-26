@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -49,9 +50,14 @@ Scaffold waitingView() {
       children: const [
         Padding(
           padding: EdgeInsets.all(16.0),
-          child: CircularProgressIndicator(),
+          child: CupertinoActivityIndicator(
+            radius: 14.0,
+          ),
         ),
-        Text('Yükleniyor...'),
+        Text(
+          'Yükleniyor...',
+          style: TextStyle(fontSize: 12.0),
+        ),
       ],
     ),
   ));

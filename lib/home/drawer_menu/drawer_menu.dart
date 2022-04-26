@@ -1,13 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_reservation_liberta_flutter/home/home_view.dart';
 import 'package:library_reservation_liberta_flutter/settings/actions/themes/panachefile/dark_theme.dart';
 import 'package:library_reservation_liberta_flutter/settings/screens/settings_view.dart';
 
+import '../../actions/sss/screens/sss_view.dart';
+import '../../actions/yardim/screens/yardim_view.dart';
 import '../../core/login/auth_manager.dart';
 import '../../initializers/themes.dart';
 import '../../settings/actions/themes/screens/themes_controller.dart';
 
+import '../../widgets/snackbar.dart';
 import 'drawer_menu_controller.dart';
 
 class DrawerMenu extends StatefulWidget {
@@ -40,24 +44,24 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 padding: EdgeInsets.all(0.0),
                 children: [
                   menuListItem(
-                    Icons.person_outline_rounded,
+                    Icons.person,
                     "Profilim",
                     HomeView(),
                   ),
                   menuListItem(
-                    Icons.schedule,
+                    CupertinoIcons.time_solid,
                     "İşlemlerim",
                     HomeView(),
                   ),
                   menuListItem(
-                    Icons.question_answer_outlined,
+                    Icons.question_answer,
                     "SSS",
-                    HomeView(),
+                    SSSView(),
                   ),
                   menuListItem(
                     Icons.question_mark,
                     "Yardım",
-                    HomeView(),
+                    YardimView(),
                   ),
                 ],
               ),
@@ -78,7 +82,28 @@ class _DrawerMenuState extends State<DrawerMenu> {
       accountName: Text('Ahmet Ozkan'),
       otherAccountsPictures: [
         InkWell(
-          onTap: () => _authManager.logOut(),
+          onTap: () {
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Çıkış yapmak istediğinizden emin misiniz?'),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text('Vazgeç'),
+                    onPressed: () {
+                      Get.back();
+                    },
+                  ),
+                  TextButton(
+                    child: const Text('Evet'),
+                    onPressed: () {
+                      _authManager.logOut();
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
           child: CircleAvatar(
             backgroundColor: Theme.of(context).cardColor,
             child: Icon(
@@ -144,6 +169,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
 
   Widget menuListItem(IconData icon, String menuItemName, Widget route) {
     return ListTile(
+      dense: true,
       leading: Icon(icon),
       title: Text(
         menuItemName,
