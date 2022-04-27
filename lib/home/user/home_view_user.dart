@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getwidget/getwidget.dart';
+import 'package:library_reservation_liberta_flutter/home/user/home_controller_user.dart';
 
 import 'package:library_reservation_liberta_flutter/widgets/background_gradient.dart';
 import 'package:library_reservation_liberta_flutter/widgets/searchList.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../actions/rezervasyon/screens/reservation_view.dart';
 
@@ -13,13 +16,15 @@ class HomeViewUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HomeViewUserController homeViewUserController =
+        Get.put(HomeViewUserController());
     return Scaffold(
-      body: homeUserBody(context),
+      body: homeUserBody(context, homeViewUserController),
     );
   }
 
   dynamic searchOnChanged(value) {}
-  Container homeUserBody(context) => Container(
+  Container homeUserBody(context, homeViewUserController) => Container(
         // decoration: pageBackgroundGradient(context),
         child: CustomScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -93,12 +98,20 @@ class HomeViewUser extends StatelessWidget {
                   SizedBox(
                     width: 4,
                   ),
-                  Container(
-                    width: 24,
-                    height: 24,
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 218, 218, 218),
-                      borderRadius: BorderRadius.all(Radius.elliptical(24, 24)),
+                  InkWell(
+                    onTap: () {
+                      homeViewUserController.isLoading.value
+                          ? homeViewUserController.isLoading.value = false
+                          : homeViewUserController.isLoading.value = true;
+                    },
+                    child: Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 218, 218, 218),
+                        borderRadius:
+                            BorderRadius.all(Radius.elliptical(24, 24)),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -128,17 +141,29 @@ class HomeViewUser extends StatelessWidget {
                 ),
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    return FlipCard(
-                        fill: Fill
-                            .fillBack, // Fill the back side of the card to make in the same size as the front.
-                        direction: FlipDirection.HORIZONTAL, // default
-                        front: salonCardFront(index),
-                        back: salonCardBack(index));
+                    return Obx(() => homeViewUserController.isLoading.value
+                        ? Shimmer.fromColors(
+                            baseColor: Color.fromARGB(255, 226, 226, 226),
+                            highlightColor: Color.fromARGB(255, 236, 236, 236),
+                            child: Card(
+                              elevation: 3.0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  11,
+                                ),
+                              ),
+                            ))
+                        : FlipCard(
+                            fill: Fill
+                                .fillBack, // Fill the back side of the card to make in the same size as the front.
+                            direction: FlipDirection.HORIZONTAL, // default
+                            front: salonCardFront(index),
+                            back: salonCardBack(index)));
                   },
                   childCount: 11,
                 ),
               ),
-            ),
+            )
           ],
         ),
       );

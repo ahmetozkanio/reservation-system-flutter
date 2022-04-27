@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:library_reservation_liberta_flutter/actions/rezervasyon/screens/datetime_picker/datetime_picker.dart';
 import 'package:library_reservation_liberta_flutter/actions/rezervasyon/screens/reservation_view_controller.dart';
 import 'package:library_reservation_liberta_flutter/widgets/appbar.dart';
 
@@ -119,6 +121,46 @@ class ReservationView extends StatelessWidget {
                                     reservationViewController.isChecked.value,
                               ),
                             )),
+                        TextButton(
+                            onPressed: () {
+                              DatePicker.showPicker(context,
+                                  showTitleActions: true, onChanged: (date) {
+                                print('change $date in time zone ' +
+                                    date.timeZoneOffset.inHours.toString());
+                              }, onConfirm: (date) {
+                                print('confirm $date');
+                              },
+                                  pickerModel: DateTimePicker(
+                                      currentTime: DateTime.now()),
+                                  locale: LocaleType.tr);
+                            },
+                            child: Text(
+                              'show custom time picker,\nyou can custom picker model like this',
+                              style: TextStyle(color: Colors.blue),
+                            )),
+                        TextButton(
+                          onPressed: () {
+                            DatePicker.showTimePicker(
+                              context,
+                              showTitleActions: true,
+                              onChanged: (date) {
+                                print('change $date in time zone ' +
+                                    date.timeZoneOffset.inHours.toString());
+                              },
+                              onConfirm: (date) {
+                                print('confirm $date');
+                              },
+                              currentTime: DateTime.now().toLocal(),
+                              locale: LocaleType.tr,
+                            );
+                          },
+                          child: Text(
+                            'Saat Sec',
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
