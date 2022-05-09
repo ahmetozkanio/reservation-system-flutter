@@ -143,16 +143,81 @@ class HomeViewUser extends StatelessWidget {
                   (context, index) {
                     return Obx(() => homeViewUserController.isLoading.value
                         ? Shimmer.fromColors(
-                            baseColor: Color.fromARGB(255, 226, 226, 226),
-                            highlightColor: Color.fromARGB(255, 236, 236, 236),
-                            child: Card(
-                              elevation: 3.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  11,
-                                ),
-                              ),
-                            ))
+                            baseColor: Color.fromARGB(
+                              255,
+                              207,
+                              207,
+                              207,
+                            ),
+                            highlightColor: Color.fromARGB(255, 230, 229, 229),
+                            child: shimmerContainer(context)
+                            //  Container(
+                            //   // elevation: 3.0,
+                            //   padding: EdgeInsets.symmetric(
+                            //     horizontal: 12.0,
+                            //   ),
+
+                            //   child: Row(
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Expanded(
+                            //         child: Column(
+                            //           crossAxisAlignment:
+                            //               CrossAxisAlignment.start,
+                            //           children: [
+                            //             Container(
+                            //               width: MediaQuery.of(context)
+                            //                       .size
+                            //                       .width *
+                            //                   0.75,
+                            //               height: 8,
+                            //               color: Colors.white,
+                            //             ),
+                            //             const SizedBox(height: 6),
+                            //             Container(
+                            //               width: MediaQuery.of(context)
+                            //                       .size
+                            //                       .width *
+                            //                   0.5,
+                            //               height: 8,
+                            //               color: Colors.white,
+                            //             ),
+                            //             const SizedBox(height: 75),
+                            //             Container(
+                            //               width: MediaQuery.of(context)
+                            //                       .size
+                            //                       .width *
+                            //                   0.25,
+                            //               height: 8,
+                            //               color: Colors.white,
+                            //             ),
+                            //           ],
+                            //         ),
+                            //       ),
+                            //       Column(
+                            //         children: [
+                            //           Container(
+                            //             width: 54,
+                            //             height: 46,
+                            //             decoration: BoxDecoration(
+                            //                 color: Colors.white,
+                            //                 shape: BoxShape.circle),
+                            //           ),
+                            //           SizedBox(height: 24.0),
+                            //           Container(
+                            //             width:
+                            //                 MediaQuery.of(context).size.width *
+                            //                     0.25,
+                            //             height: 8,
+                            //             color: Colors.white,
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     ],
+                            //   ),
+                            // )
+                            ,
+                          )
                         : FlipCard(
                             fill: Fill
                                 .fillBack, // Fill the back side of the card to make in the same size as the front.
@@ -160,7 +225,7 @@ class HomeViewUser extends StatelessWidget {
                             front: salonCardFront(index),
                             back: salonCardBack(index)));
                   },
-                  childCount: 11,
+                  childCount: 5,
                 ),
               ),
             )
@@ -517,55 +582,117 @@ class HomeViewUser extends StatelessWidget {
   }
 }
 
-//  Expanded(
-//                       child: GestureDetector(
-//                         onTap: () {},
-//                         child: Container(
-//                           color: Colors.white,
-//                           width: double.infinity,
-//                           height: double.infinity,
-//                           // width: MediaQuery.of(context).size.width,
-//                           decoration: BoxDecoration(
-//                             borderRadius: const BorderRadius.all(
-//                               Radius.circular(11),
-//                             ),
-//                           ),
-//                           child: Align(
-//                             alignment: Alignment.bottomCenter,
-//                             child: Container(
-//                               height: MediaQuery.of(context).size.width / 9,
-//                               child: Align(
-//                                 child: Text(
-//                                   "title",
-//                                   textAlign: TextAlign.center,
-//                                   style: TextStyle(
-//                                     fontSize: 13,
-//                                     color: Theme.of(context)
-//                                         .textTheme
-//                                         .bodyLarge!
-//                                         .color,
-//                                     decoration: TextDecoration.none,
-//                                     fontWeight: FontWeight.normal,
-//                                   ),
-//                                 ),
-//                               ),
-//                               decoration: const BoxDecoration(
-//                                 borderRadius: BorderRadius.only(
-//                                   topLeft: Radius.circular(0),
-//                                   topRight: Radius.circular(0),
-//                                   bottomLeft: Radius.circular(11),
-//                                   bottomRight: Radius.circular(11),
-//                                 ),
-//                                 boxShadow: [
-//                                   BoxShadow(
-//                                       color: Color.fromRGBO(0, 0, 0, 0.25),
-//                                       offset: Offset(0, 4),
-//                                       blurRadius: 4)
-//                                 ],
-//                                 color: Color.fromRGBO(255, 251, 251, 1),
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                       ),
-//                     );
+Container shimmerContainer(context) {
+  return Container(
+    decoration: BoxDecoration(
+      border: Border.all(width: 1.0, color: const Color(0xFFFFFFFF)),
+      borderRadius: BorderRadius.all(
+        Radius.circular(
+          11,
+        ),
+      ),
+    ),
+    width: double.infinity,
+    height: double.infinity,
+    padding: EdgeInsets.all(
+      12.0,
+    ),
+    child: Stack(
+      children: [
+        Container(
+          alignment: Alignment.topLeft,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.56,
+                height: 12,
+                color: Colors.white,
+              ),
+              SizedBox(
+                height: 4.0,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.44,
+                height: 12,
+                color: Colors.white,
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          bottom: 0.0,
+          left: 0.0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.44,
+                    height: 12,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 3.0,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 12.0,
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.24,
+                    height: 12,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 12.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.24,
+                    height: 12,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          top: 0.0,
+          right: 0.0,
+          child: CircularPercentIndicator(
+            radius: 32.0,
+            lineWidth: 7.0,
+            percent: 0.8,
+            animation: true,
+            animationDuration: 2000,
+            progressColor: Colors.green,
+            backgroundColor: Colors.grey[300]!,
+            circularStrokeCap: CircularStrokeCap.round,
+          ),
+        ),
+        Positioned(
+          bottom: 0.0,
+          right: 0.0,
+          child: Container(
+            width: 96,
+            height: 32,
+            color: Colors.white,
+          ),
+        ),
+      ],
+    ),
+  );
+}
