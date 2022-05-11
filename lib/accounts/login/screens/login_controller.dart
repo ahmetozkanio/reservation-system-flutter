@@ -38,7 +38,7 @@ class LoginController extends GetxController {
     } else {
       loadingCircle.value = false;
       errorSnackbar(
-          'Başarısız Giriş.', 'e-mail veya şifre hatalı, tekrar denenyiniz.');
+          'Başarısız Giriş.', 'e-mail veya şifre hatalı, tekrar deneyiniz.');
     }
   }
 

@@ -24,7 +24,7 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Theme.of(context).secondaryHeaderColor,
+        backgroundColor: Colors.transparent,
         // title: _formType == FormType.login
         //     ? Text(
         //         '',
@@ -35,11 +35,18 @@ class _LoginViewState extends State<LoginView> {
       ),
       body: Container(
         alignment: Alignment.center,
-        decoration: pageBackgroundGradient(context),
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        // color: Theme.of(context).secondaryHeaderColor,
-        child: loginForm(),
-        //  _formType == FormType.login ? loginForm() : registerForm(),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 458),
+          child: Container(
+            alignment: Alignment.center,
+
+            // decoration: pageBackgroundGradient(context),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            // color: Theme.of(context).secondaryHeaderColor,
+            child: loginForm(),
+            //  _formType == FormType.login ? loginForm() : registerForm(),
+          ),
+        ),
       ),
     );
   }
@@ -118,14 +125,17 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   )
                 : ElevatedButton(
+                    style: ButtonStyle(),
                     onPressed: () async {
                       if (formKey.currentState?.validate() ?? false) {
                         await controller.loginUser(controller.emailCtrl.text,
                             controller.sifreCtrl.text);
                       }
                     },
-                    child: Text('Giriş Yap'),
-                  ),
+                    child: Text(
+                      'Giriş Yap',
+                      style: TextStyle(fontSize: 16),
+                    )),
           ),
 
           // TextButton(
