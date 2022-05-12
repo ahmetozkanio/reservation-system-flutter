@@ -20,7 +20,12 @@ class HomeViewUser extends StatelessWidget {
     HomeViewUserController homeViewUserController =
         Get.put(HomeViewUserController());
     return Scaffold(
-      body: SafeArea(child: homeUserBody(context, homeViewUserController)),
+      body: SafeArea(
+        child: homeUserBody(
+          context,
+          homeViewUserController,
+        ),
+      ),
     );
   }
 
@@ -101,10 +106,11 @@ class HomeViewUser extends StatelessWidget {
                 ),
                 sliver: SliverGrid(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: cardGridViewCrossAxisCount(constraints),
+                    crossAxisCount:
+                        salonCardGridViewCrossAxisCount(constraints),
                     mainAxisSpacing: 8.0,
                     crossAxisSpacing: 8.0,
-                    childAspectRatio: cardGridViewAspect(constraints),
+                    childAspectRatio: salonCardGridViewAspect(constraints),
                   ),
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
@@ -119,7 +125,7 @@ class HomeViewUser extends StatelessWidget {
                                 ),
                                 highlightColor:
                                     Color.fromARGB(255, 230, 229, 229),
-                                child: shimmerContainer(context),
+                                child: salonCardShimmerContainer(context),
                               )
                             : FlipCard(
                                 fill: Fill
@@ -496,7 +502,7 @@ class HomeViewUser extends StatelessWidget {
   }
 }
 
-Container shimmerContainer(context) {
+Container salonCardShimmerContainer(context) {
   return Container(
     decoration: BoxDecoration(
       border: Border.all(width: 1.0, color: const Color(0xFFFFFFFF)),
@@ -611,28 +617,28 @@ Container shimmerContainer(context) {
   );
 }
 
-cardGridViewAspect(BoxConstraints constraints) {
+double salonCardGridViewAspect(BoxConstraints constraints) {
   if (constraints.maxWidth > 1200) {
-    return 2;
+    return 2.0;
   } else if (constraints.maxWidth > 964) {
-    return 3;
+    return 3.0;
   } else if (constraints.maxWidth > 888) {
     return 2.4;
   } else if (constraints.maxWidth > 828) {
-    return 2;
+    return 2.0;
   } else if (constraints.maxWidth > 728) {
     return 1.8;
   } else if (constraints.maxWidth > 658) {
     return 1.6;
   } else if (constraints.maxWidth > 600) {
-    return 3;
+    return 3.0;
   } else if (constraints.maxWidth > 458) {
     return 2.5;
   }
-  return 2;
+  return 2.0;
 }
 
-cardGridViewCrossAxisCount(BoxConstraints constraints) {
+int salonCardGridViewCrossAxisCount(BoxConstraints constraints) {
   if (constraints.maxWidth > 1200) {
     return 3;
   } else if (constraints.maxWidth > 658) {
