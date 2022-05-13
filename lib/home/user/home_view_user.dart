@@ -345,7 +345,7 @@ class HomeViewUser extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'SALON ON SALON ON fdasdasd asd asda ds adasd asd asdas d $index',
+                        'SALON ON $index',
                         style: TextStyle(
                           fontSize: 12.0,
                         ),

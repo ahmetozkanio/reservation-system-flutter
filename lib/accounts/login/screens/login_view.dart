@@ -118,7 +118,7 @@ class _LoginViewState extends State<LoginView> {
             height: 8,
           ),
           Obx(
-            () => controller.loadingCircle.value
+            () => controller.loginButtonLoading.value
                 ? Center(
                     child: CupertinoActivityIndicator(
                       radius: 14,
