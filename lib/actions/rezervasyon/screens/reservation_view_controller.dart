@@ -7,7 +7,7 @@ class ReservationViewController extends GetxController {
   var emptyIndexColor = Colors.grey[200];
 
   var selectedIndex = 0.obs;
-
+  var groupValue = 0.obs;
   var isChecked = false.obs;
   @override
   void onInit() {

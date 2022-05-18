@@ -54,10 +54,15 @@ dependencies:
   #Tab bar Google navbar
   google_nav_bar: ^5.0.5
 
+
   #List items Controller
   flutter_slidable: ^1.2.0 
   expansion_tile_card: ^2.0.0
   
+  cross_scroll: ^0.0.75
+  custom_radio_grouped_button: ^2.1.2
+  group_button: ^5.0.1
+
   # Drawer Menu
   flutter_slider_drawer: ^2.1.1
 
