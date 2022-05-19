@@ -67,30 +67,30 @@ class BirimCreateController extends GetxController {
   //   } finally {}
   // }
 
-  Future<bool> postBirim() async {
-    try {
-      isLoading(true);
+  // Future<bool> postBirim() async {
+  //   try {
+  //     isLoading(true);
 
-      var birimPost = await BirimApi.postBirimCreate(
-          aktifMi,
-          birimAdiCtrl.text,
-          sehirId,
-          ilceId,
-          yetkiliAdiCtrl.text,
-          yetkiliEmailCtrl.text,
-          yetkiliCepTelCtrl.text,
-          yetkiliOfisTelCtrl.text);
+  //     var birimPost = await BirimApi.postBirimCreate(
+  //         aktifMi,
+  //         birimAdiCtrl.text,
+  //         sehirId,
+  //         ilceId,
+  //         yetkiliAdiCtrl.text,
+  //         yetkiliEmailCtrl.text,
+  //         yetkiliCepTelCtrl.text,
+  //         yetkiliOfisTelCtrl.text);
 
-      if (birimPost != null && birimPost == true) {
-        return true;
-      } else {
-        return false;
-      }
-    } finally {
-      //  birimCreated = true;
-      isLoading(false);
-    }
-  }
+  //     if (birimPost != null && birimPost == true) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   } finally {
+  //     //  birimCreated = true;
+  //     isLoading(false);
+  //   }
+  // }
 
   // Future<bool> updateBirim() async {
   //   try {

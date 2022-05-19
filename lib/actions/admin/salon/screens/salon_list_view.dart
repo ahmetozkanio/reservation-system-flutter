@@ -1,11 +1,17 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:library_reservation_liberta_flutter/actions/admin/birim/model/birim_model.dart';
+import 'package:library_reservation_liberta_flutter/widgets/shimmers/base_shimmer.dart';
+import 'package:library_reservation_liberta_flutter/widgets/shimmers/drop_down_shimmer.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../widgets/date_picker_theme.dart';
 import '../../../../widgets/searchList.dart';
 import '../../../rezervasyon/screens/reservation_view.dart';
 import 'salon_list_controller.dart';
@@ -29,25 +35,84 @@ Container salonListBody(context, controller) {
       return CustomScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         slivers: [
+          // SliverPadding(
+          //   padding: const EdgeInsets.all(
+          //     12.0,
+          //   ),
+          //   sliver: SliverToBoxAdapter(
+          //     child: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         Text(
+          //           "GAUN",
+          //           style: TextStyle(
+          //               fontSize:
+          //                   Theme.of(context).textTheme.titleLarge!.fontSize),
+          //         ),
+          //         Text("Merkez Kutuphane")
+          //       ],
+          //     ),
+          //   ),
+          // ),
           SliverPadding(
-            padding: const EdgeInsets.all(
-              12.0,
+            padding: EdgeInsets.only(
+              left: 12.0,
+              right: 12.0,
+              bottom: 12.0,
             ),
             sliver: SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "GAUN",
-                    style: TextStyle(
-                        fontSize:
-                            Theme.of(context).textTheme.titleLarge!.fontSize),
-                  ),
-                  Text("Merkez Kutuphane")
-                ],
+              child: Text(
+                "Birimler",
               ),
             ),
           ),
+          SliverPadding(
+            padding: EdgeInsets.only(
+              left: 12.0,
+              right: 12.0,
+              bottom: 12.0,
+            ),
+            sliver: SliverToBoxAdapter(
+              child: Obx(
+                () => _salonListController.birimListLoading.value
+                    ? baseShimmer(dropDownShimmer())
+                    : DropdownSearch<dynamic>(
+                        mode: Mode.BOTTOM_SHEET,
+                        // showSelectedItems: true,
+                        showSearchBox: true,
+                        items: _salonListController.birimNameList,
+                        autoValidateMode: AutovalidateMode.onUserInteraction,
+                        hint: "Birim Seçiniz",
+
+                        onChanged: (data) {
+                          _salonListController.seciliBirimName =
+                              data; //Secili olan birim adimizi seciBirimName' e esitliyoruz.
+                        },
+                        validator: (value) {
+                          if (value == null) {
+                            return "Lütfen birim seçiniz.";
+                          }
+                          return null;
+                        },
+                      ),
+              ),
+            ),
+          ),
+          SliverPadding(
+            padding: EdgeInsets.only(
+              left: 12.0,
+              right: 12.0,
+              bottom: 6.0,
+            ),
+            sliver: SliverToBoxAdapter(
+              child: Divider(
+                thickness: 2.0,
+              ),
+            ),
+          ),
+          SliverPadding(
+              padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0),
+              sliver: SliverToBoxAdapter(child: Text("Tarih ve saat"))),
           SliverPadding(
             padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0),
             sliver: SliverToBoxAdapter(
@@ -56,25 +121,17 @@ Container salonListBody(context, controller) {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    Obx(() => ElevatedButton(
+                    Obx(() => OutlinedButton(
                           //Baslangic Tarihi butonu
                           onPressed: () {
                             DatePicker.showDatePicker(
                               context,
+                              theme: customDatePickerTheme(context),
                               showTitleActions: true,
                               minTime: DateTime
                                   .now(), //suanki zaman ile baslatiliyor.
                               maxTime: DateTime(2050, 12, 31),
-                              onChanged: (date) {
-                                _salonListController
-                                        .salonMinBitisTarihiAndBaslangicCurrentDate
-                                        .value =
-                                    date; //Bitis Tarihi butonu tetikleniyor ve min zaman dilimi ayarlaniyor.
-                                _salonListController
-                                        .salonBaslangicTarihi.value =
-                                    _salonListController.dateFormat(
-                                        date); //Salon Baslangic tarihi formatlanip deger aliniyor. 2022-05-18
-                              },
+                              onChanged: (date) {},
                               onConfirm: (date) {
                                 _salonListController
                                         .salonMinBitisTarihiAndBaslangicCurrentDate
@@ -108,30 +165,25 @@ Container salonListBody(context, controller) {
                           ),
                         )),
                     Padding(padding: EdgeInsets.symmetric(horizontal: 4.0)),
-                    Obx(() => ElevatedButton(
+                    Obx(() => OutlinedButton(
                           //BitisTarihi Butonu
                           onPressed: () {
                             DatePicker.showDatePicker(
                               context,
+                              theme: customDatePickerTheme(context),
                               showTitleActions: true,
                               minTime: _salonListController
                                   .salonMinBitisTarihiAndBaslangicCurrentDate
                                   .value,
                               maxTime: DateTime(2050, 12, 31),
-                              onChanged: (date) {
-                                print('confirm ');
+                              onChanged: (date) {},
+                              onConfirm: (date) {
                                 _salonListController
                                         .salonBitisTarihiCurrentDate.value =
                                     date; //Bitis tarihi secilmis olan tarih.
                                 _salonListController.salonBitisTarihi.value =
                                     _salonListController.dateFormat(
                                         date); // Tarihi formatlanip  String deger aliniyor. 2022-05-18
-
-                                print(_salonListController
-                                    .salonBitisTarihi.value);
-                              },
-                              onConfirm: (date) {
-                                print('confirm ');
                               },
                               currentTime: _salonListController
                                   .salonBitisTarihiCurrentDate
@@ -167,14 +219,16 @@ Container salonListBody(context, controller) {
                   scrollDirection: Axis.horizontal,
                   children: [
                     Obx(
-                      () => ElevatedButton(
+                      () => OutlinedButton(
                         //Baslangic saati
                         onPressed: () {
                           DatePicker.showTimePicker(context,
                               showTitleActions: true,
+                              theme: customDatePickerTheme(context),
                               // minTime: DateTime.now(),
                               // maxTime: DateTime(2022, 12, 31),
-                              showSecondsColumn: false, onChanged: (date) {
+                              showSecondsColumn: false,
+                              onChanged: (date) {}, onConfirm: (date) {
                             _salonListController
                                     .salonMinBitisSaatiAndBaslangicCurrentTime
                                     .value =
@@ -182,10 +236,6 @@ Container salonListBody(context, controller) {
                             _salonListController.salonBaslangicSaati.value =
                                 _salonListController
                                     .timeFormat(date); //String saat degerimiz.
-                            print(
-                                _salonListController.salonBaslangicSaati.value);
-                          }, onConfirm: (date) {
-                            print('confirm ');
                           },
                               currentTime: _salonListController
                                   .salonMinBitisSaatiAndBaslangicCurrentTime
@@ -209,20 +259,20 @@ Container salonListBody(context, controller) {
                       ),
                     ),
                     Padding(padding: EdgeInsets.symmetric(horizontal: 4.0)),
-                    Obx(() => ElevatedButton(
+                    Obx(() => OutlinedButton(
                           //bitis saati
                           onPressed: () {
                             DatePicker.showTimePicker(context,
                                 showTitleActions: true,
-                                showSecondsColumn: false, onChanged: (date) {
+                                showSecondsColumn: false,
+                                theme: customDatePickerTheme(context),
+                                onChanged: (date) {}, onConfirm: (date) {
                               _salonListController
                                       .salonBitisTarihiCurrentDate.value =
                                   date; //Bitis saati secili deger tekrar gozukmesi icin gerekli.
                               _salonListController.salonBitisSaati.value =
                                   _salonListController.timeFormat(
                                       date); //String saat degerimiz.
-                            }, onConfirm: (date) {
-                              print('confirm ');
                             },
                                 currentTime: _salonListController
                                             .salonBitisTarihiCurrentDate
@@ -259,48 +309,75 @@ Container salonListBody(context, controller) {
             padding: EdgeInsets.only(
               left: 12.0,
               right: 12.0,
-              bottom: 6.0,
             ),
             sliver: SliverToBoxAdapter(
-              child: GFMultiSelect(
-                size: GFSize.SMALL,
-                items: ['Wifi', 'Priz'],
-                onSelect: (value) {
-                  print('selected $value ');
-                },
-                dropdownTitleTileTextStyle: TextStyle(
-                  fontSize: 12,
-                ),
-                dropdownTitleTileMargin: const EdgeInsets.all(0.0),
-                dropdownTitleTileText: 'Wifi, Priz ',
-                // dropdownTitleTileMargin:
-                //     EdgeInsets.only(top: 22, left: 18, right: 18, bottom: 5),
-                // dropdownTitleTilePadding: EdgeInsets.all(10),
-                dropdownUnderlineBorder:
-                    const BorderSide(color: Colors.transparent, width: 2),
-                dropdownTitleTileBorder: Border.all(
-                    color: Color.fromARGB(255, 238, 238, 238), width: 1),
-                dropdownTitleTileBorderRadius: BorderRadius.circular(5),
-                expandedIcon: const Icon(
-                  Icons.keyboard_arrow_down,
-                  color: Colors.black54,
-                ),
-                collapsedIcon: const Icon(
-                  Icons.keyboard_arrow_up,
-                  color: Colors.black54,
-                ),
-                submitButton: Text('Tamam'),
-                cancelButton: Text('İptal'),
-
-                // padding: const EdgeInsets.all(6),
-                // margin: const EdgeInsets.all(6),
-                type: GFCheckboxType.custom,
-                activeBgColor: GFColors.SUCCESS,
-                activeBorderColor: GFColors.SUCCESS,
-                inactiveBorderColor: Color.fromARGB(255, 238, 238, 238),
+              child: Divider(
+                thickness: 2.0,
               ),
             ),
           ),
+          SliverPadding(
+            padding: EdgeInsets.only(
+              left: 8.0,
+              right: 12.0,
+              bottom: 6.0,
+            ),
+            sliver: SliverToBoxAdapter(
+              child: MultiSelectChipField<dynamic>(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (values) {
+                  if (values == null || values.isEmpty) {
+                    return "Salon özelliklerini seçiniz.";
+                  }
+                  return null;
+                },
+                textStyle: TextStyle(
+                    fontSize: 12.0,
+                    color: Theme.of(context).textTheme.bodyLarge?.color),
+                items: _salonListController.salonOzellikleriItems,
+                initialValue: [],
+                title: Text(
+                  "Salon Özellikleri",
+                  style: TextStyle(fontSize: 14.0),
+                ),
+                headerColor: Colors.transparent,
+                showHeader: true,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(15)),
+                ),
+                chipColor: Colors.transparent,
+                selectedChipColor:
+                    Theme.of(context).buttonTheme.colorScheme?.primary,
+                selectedTextStyle:
+                    TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                onTap: (values) {
+                  _salonListController.seciliOzellikler = values;
+                  print(_salonListController.seciliOzellikler);
+                },
+              ),
+            ),
+          ),
+          SliverPadding(
+              padding: EdgeInsets.only(
+                left: 12.0,
+                right: 12.0,
+                bottom: 6.0,
+              ),
+              sliver: SliverToBoxAdapter(
+                child: ElevatedButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.search),
+                      SizedBox(
+                        width: 12.0,
+                      ),
+                      Text('Salon Ara'),
+                    ],
+                  ),
+                  onPressed: () {},
+                ),
+              )),
           SliverPadding(
             padding: EdgeInsets.only(bottom: 6.0),
             sliver: SliverToBoxAdapter(
@@ -361,16 +438,7 @@ Container salonListBody(context, controller) {
                 (context, index) {
                   return Obx(
                     () => _salonListController.isLoading.value
-                        ? Shimmer.fromColors(
-                            baseColor: Color.fromARGB(
-                              255,
-                              207,
-                              207,
-                              207,
-                            ),
-                            highlightColor: Color.fromARGB(255, 230, 229, 229),
-                            child: salonCardShimmerContainer(context),
-                          )
+                        ? baseShimmer(salonCardShimmerContainer(context))
                         : FlipCard(
                             fill: Fill
                                 .fillBack, // Fill the back side of the card to make in the same size as the front.

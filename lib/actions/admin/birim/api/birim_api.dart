@@ -34,100 +34,101 @@ class BirimApi {
       }
     } catch (e) {
       print("BirimListApi : " + e.toString());
+      return null;
     }
     return null;
   }
 
-  static Future<bool?> postBirimCreate(
-    bool? aktifMi,
-    String adi,
-    int? sehirId,
-    int? ilceId,
-    String? yetkiliKisi,
-    String? email,
-    String? cepTelefon,
-    String? ofisTelefon,
-  ) async {
-    final url = Uri.parse(BaseApi.apiBaseUrl + '/api/Birim/kayit');
-    final headers = {"Content-Type": "application/json-patch+json"};
-    Map jsonMap = {
-      "aktifMi": aktifMi,
-      "adi": adi,
-      "sehirId": sehirId,
-      "ilceId": ilceId,
-      "yetkiliKisi": yetkiliKisi,
-      "email": email,
-      "cepTelefon": cepTelefon,
-      "ofisTelefon": ofisTelefon
-    };
-    String body = json.encode(jsonMap);
+  // static Future<bool?> postBirimCreate(
+  //   bool? aktifMi,
+  //   String adi,
+  //   int? sehirId,
+  //   int? ilceId,
+  //   String? yetkiliKisi,
+  //   String? email,
+  //   String? cepTelefon,
+  //   String? ofisTelefon,
+  // ) async {
+  //   final url = Uri.parse(BaseApi.apiBaseUrl + '/api/Birim/kayit');
+  //   final headers = {"Content-Type": "application/json-patch+json"};
+  //   Map jsonMap = {
+  //     "aktifMi": aktifMi,
+  //     "adi": adi,
+  //     "sehirId": sehirId,
+  //     "ilceId": ilceId,
+  //     "yetkiliKisi": yetkiliKisi,
+  //     "email": email,
+  //     "cepTelefon": cepTelefon,
+  //     "ofisTelefon": ofisTelefon
+  //   };
+  //   String body = json.encode(jsonMap);
 
-    final response = await http.post(url, headers: headers, body: body);
-    print(response.body);
-    print(response.statusCode);
+  //   final response = await http.post(url, headers: headers, body: body);
+  //   print(response.body);
+  //   print(response.statusCode);
 
-    if (response.statusCode == 201) {
-      return Future<bool>.value(true);
-    } else {
-      Future<bool>.value(false);
-    }
-    return null;
-  }
+  //   if (response.statusCode == 201) {
+  //     return Future<bool>.value(true);
+  //   } else {
+  //     Future<bool>.value(false);
+  //   }
+  //   return null;
+  // }
 
-  static Future<bool?> putUpdateBirim(
-    int? id,
-    bool? aktifMi,
-    String adi,
-    int? sehirId,
-    int? ilceId,
-    String? yetkiliKisi,
-    String? email,
-    String? cepTelefon,
-    String? ofisTelefon,
-  ) async {
-    final url = Uri.parse(BaseApi.apiBaseUrl + '/api/Birim/guncelle/$id');
-    final headers = {"Content-Type": "application/json-patch+json"};
-    Map jsonMap = {
-      "id": id,
-      //"aktifMi": aktifMi,
-      "adi": adi,
-      "sehirId": sehirId,
-      "ilceId": ilceId,
-      "yetkiliKisi": yetkiliKisi,
-      "email": email,
-      "cepTelefon": cepTelefon,
-      "ofisTelefon": ofisTelefon
-    };
-    String body = json.encode(jsonMap);
+  // static Future<bool?> putUpdateBirim(
+  //   int? id,
+  //   bool? aktifMi,
+  //   String adi,
+  //   int? sehirId,
+  //   int? ilceId,
+  //   String? yetkiliKisi,
+  //   String? email,
+  //   String? cepTelefon,
+  //   String? ofisTelefon,
+  // ) async {
+  //   final url = Uri.parse(BaseApi.apiBaseUrl + '/api/Birim/guncelle/$id');
+  //   final headers = {"Content-Type": "application/json-patch+json"};
+  //   Map jsonMap = {
+  //     "id": id,
+  //     //"aktifMi": aktifMi,
+  //     "adi": adi,
+  //     "sehirId": sehirId,
+  //     "ilceId": ilceId,
+  //     "yetkiliKisi": yetkiliKisi,
+  //     "email": email,
+  //     "cepTelefon": cepTelefon,
+  //     "ofisTelefon": ofisTelefon
+  //   };
+  //   String body = json.encode(jsonMap);
 
-    final response = await http.put(url, headers: headers, body: body);
-    print(response.body);
-    print(response.statusCode);
+  //   final response = await http.put(url, headers: headers, body: body);
+  //   print(response.body);
+  //   print(response.statusCode);
 
-    if (response.statusCode == 204) {
-      return Future<bool>.value(true);
-    } else {
-      Future<bool>.value(false);
-    }
-    return null;
-  }
+  //   if (response.statusCode == 204) {
+  //     return Future<bool>.value(true);
+  //   } else {
+  //     Future<bool>.value(false);
+  //   }
+  //   return null;
+  // }
 
-  static Future<bool> putDeleteBirim(int id) async {
-    final url = Uri.parse(BaseApi.apiBaseUrl + '/api/Birim/sil/$id');
-    final headers = {"Content-Type": "application/json-patch+json"};
-    Map jsonMap = {
-      "id": id,
-    };
-    String body = json.encode(jsonMap);
+  // static Future<bool> putDeleteBirim(int id) async {
+  //   final url = Uri.parse(BaseApi.apiBaseUrl + '/api/Birim/sil/$id');
+  //   final headers = {"Content-Type": "application/json-patch+json"};
+  //   Map jsonMap = {
+  //     "id": id,
+  //   };
+  //   String body = json.encode(jsonMap);
 
-    final response = await http.put(url, headers: headers, body: body);
-    print(response.body);
-    print(response.statusCode);
+  //   final response = await http.put(url, headers: headers, body: body);
+  //   print(response.body);
+  //   print(response.statusCode);
 
-    if (response.statusCode == 200 || response.statusCode == 204) {
-      return Future<bool>.value(true);
-    } else {
-      return Future<bool>.value(false);
-    }
-  }
+  //   if (response.statusCode == 200 || response.statusCode == 204) {
+  //     return Future<bool>.value(true);
+  //   } else {
+  //     return Future<bool>.value(false);
+  //   }
+  // }
 }
