@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:library_reservation_liberta_flutter/actions/admin/birim/api/birim_api.dart';
@@ -12,6 +13,9 @@ class SalonListController extends GetxController {
   //Loading shimmer controls
   RxBool birimListLoading = true
       .obs; //Birim listesi servisten bekleme suresi icin kontrol. Baslangicta calisir.
+  RxBool salonOzellikleriLoading = true
+      .obs; //SalonOzellikleri listesi servisten bekleme suresi icin kontrol. Baslangicta calisir.
+
   RxBool salonAramaLoading = true.obs; //Salon arama yapildiginda isleve gecer.
   RxBool salonListLoading = true
       .obs; //Salon aranirken shimmeri devreye sokmak icin. SalonAramaLoading false yapilir.
@@ -19,13 +23,13 @@ class SalonListController extends GetxController {
   @override
   void onInit() {
     fetchBirimList(); //Birimleri baslangicta servisten cagirir.
+    fetchSalonOzellikleri(); //Salon Ozelliklerini baslangicta servisten cagirilir.
     super.onInit();
   }
 
   //Birim Listesi
-  List<BirimModel>? birimList; //BirimModel Listemiz.
-  final List<String> birimNameList =
-      []; //BirimModel.birimAdi String birim adi listemiz dropdown icin gerekli.
+  List<BirimModel>? birimList; //BirimModel Listemiz. Api
+  List birimMultiSelectList = []; //
   String? seciliBirimName; //Dropdown dan secili olan birimAdi miz.
 
   //Tarih
@@ -44,9 +48,6 @@ class SalonListController extends GetxController {
       .obs; //Ayarlanan saat icin secilen saat degerinin tekrar gozukmesi ve bitis saat degerinin baslangic degerinin atanmasi icin gerekli.
   Rx<DateTime> salonBitisSaatCurrentTime = DateTime.now()
       .obs; //Ayarlanan saat current time ile secili olmasi icin gerekli.
-
-  //Salon Ozellikleri
-  var salonOzellikleriList = ['Wifi', 'Priz'];
 
   //SalonListeleme
   List<SalonModel> salonList =
@@ -72,24 +73,20 @@ class SalonListController extends GetxController {
   }
 
   //Salon Ozellikleri Alani *****************************************
-  static List<SalonOzellikleriModel?> salonOzellikList = [
-    SalonOzellikleriModel(id: 1, adi: "Wifi"),
-    SalonOzellikleriModel(id: 2, adi: "Priz"),
-  ];
-  final salonOzellikleriItems = salonOzellikList
-      .map((salonOzellik) => MultiSelectItem<SalonOzellikleriModel?>(
-          salonOzellik, salonOzellik!.adi))
-      .toList()
-      .obs;
-  List<dynamic> seciliOzellikler = [].obs; //Secilmis salon ozellikleri listesi
+
+  List<SalonOzellikleriModel>? salonOzellikleriList =
+      []; //Salon Ozellikleri Listesi
+  List<MultiSelectItem<SalonOzellikleriModel?>> salonOzellikleriItems = [];
+
+  List seciliOzellikler = []; //Secilmis salon ozellikleri listesi
   String salonOzellikleriBirlesimi = '';
-  salonOzellikSplit() {
-    salonOzellikleriBirlesimi = '';
-    for (var list in seciliOzellikler) {
-      salonOzellikleriBirlesimi =
-          salonOzellikleriBirlesimi.toString() + list.adi.toString();
-    }
-  }
+  // salonOzellikSplit() {
+  //   salonOzellikleriBirlesimi = '';
+  //   for (var list in seciliOzellikler) {
+  //     salonOzellikleriBirlesimi =
+  //         salonOzellikleriBirlesimi.toString() + list.adi.toString();
+  //   }
+  // }
   // ------------------------------------------------------------------
 
   //Api Service ******************************************************* Api start
@@ -100,16 +97,34 @@ class SalonListController extends GetxController {
           await BirimApi().getBirimListApi(); //BirimListesi olusturulur.
 
       if (birimList != null) {
-        for (var list in birimList!) {
-          //Birim Listemizdeki birimAdlarini String bir liste haline getiriyoruz.
-          if (list.birimAdi != null) {
-            birimNameList.add(list.birimAdi!);
-          }
-        }
+        //Birim Listemizdeki birimAdlarini String bir liste haline getiriyoruz.
+
+        // birimNameList.add(list.birimAdi!);
+
       }
     } finally {
       birimListLoading.value =
           false; //Birimler yuklendigi zaman shimmer icin false durumu.
+    }
+  }
+
+  fetchSalonOzellikleri() async {
+    //Baslangicta cagirilir ve salonOzellikleri listenip ekrana yazdirilir.
+    try {
+      salonOzellikleriList = await SalonApi()
+          .salonOzellikleriListApi(); //SalonOzellikleriListesi olusturulur.
+
+      if (salonOzellikleriList != null) {
+        //SalonOzellikleri Listemizdeki ozellikAdi ni liste haline getiriyoruz.
+        // var list = salonOzellikleriList!
+        //     .map((salonOzellik) => MultiSelectItem<SalonOzellikleriModel?>(
+        //         salonOzellik, salonOzellik.salonOzellikAdi ?? ''))
+        //     .toList();
+        // salonOzellikleriItems = list;
+      }
+    } finally {
+      salonOzellikleriLoading.value =
+          false; //SalonOzellikleri yuklendigi zaman shimmer icin false durumu.
     }
   }
 

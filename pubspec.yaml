@@ -84,7 +84,8 @@ dependencies:
 
   # select box
   multi_select_flutter: ^4.0.0
-  
+
+
   #Hex color
   hexcolor: ^2.0.6
 

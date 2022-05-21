@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:library_reservation_liberta_flutter/actions/admin/birim/model/birim_model.dart';
 import 'package:library_reservation_liberta_flutter/actions/admin/salon/api/salon_api.dart';
+import 'package:library_reservation_liberta_flutter/actions/admin/salon/model/salon_ozellikleri_model.dart';
 import 'package:library_reservation_liberta_flutter/widgets/shimmers/base_shimmer.dart';
 import 'package:library_reservation_liberta_flutter/widgets/shimmers/drop_down_shimmer.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -75,30 +76,53 @@ Container salonListBody(context, controller) {
             ),
             sliver: SliverToBoxAdapter(
               child: Obx(
-                () => _salonListController.birimListLoading.value
-                    ? baseShimmer(dropDownShimmer())
-                    : DropdownSearch<dynamic>(
-                        popupBackgroundColor:
-                            Theme.of(context).secondaryHeaderColor,
-                        mode: Mode.BOTTOM_SHEET,
-                        // showSelectedItems: true,
-                        showSearchBox: true,
-                        items: _salonListController.birimNameList,
-                        autoValidateMode: AutovalidateMode.onUserInteraction,
-                        hint: "Birim Seçiniz",
+                  () => _salonListController.salonOzellikleriLoading.value
+                      ? baseShimmer(dropDownShimmer())
+                      : MultiSelectDialogField(
+                          title: Text('Birimler'),
+                          buttonText: Text('Birim Seçiniz'),
+                          buttonIcon: Icon(Icons.keyboard_arrow_down_sharp),
+                          searchable: true,
+                          searchHint: 'Birim Ara',
+                          confirmText: Text('Tamam'),
+                          cancelText: Text('İptal'),
+                          items: _salonListController.birimList != null
+                              ? _salonListController.birimList!
+                                  .map((birim) => MultiSelectItem<BirimModel?>(
+                                      birim, birim.birimAdi ?? ''))
+                                  .toList()
+                              : [],
+                          chipDisplay: MultiSelectChipDisplay(
+                            scroll: true,
+                          ),
+                          listType: MultiSelectListType.LIST,
+                          onConfirm: (values) {
+                            _salonListController.birimMultiSelectList = values;
+                            print(_salonListController.birimMultiSelectList);
+                          },
+                        )
+                  //  DropdownSearch<dynamic>(
+                  //     popupBackgroundColor:
+                  //         Theme.of(context).secondaryHeaderColor,
+                  //     mode: Mode.BOTTOM_SHEET,
+                  //     // showSelectedItems: true,
+                  //     showSearchBox: true,
+                  //     items: _salonListController.birimNameList,
+                  //     autoValidateMode: AutovalidateMode.onUserInteraction,
+                  //     hint: "Birim Seçiniz",
 
-                        onChanged: (data) {
-                          _salonListController.seciliBirimName =
-                              data; //Secili olan birim adimizi seciBirimName' e esitliyoruz.
-                        },
-                        validator: (value) {
-                          if (value == null) {
-                            return "Lütfen birim seçiniz.";
-                          }
-                          return null;
-                        },
-                      ),
-              ),
+                  //     onChanged: (data) {
+                  //       _salonListController.seciliBirimName =
+                  //           data; //Secili olan birim adimizi seciBirimName' e esitliyoruz.
+                  //     },
+                  //     validator: (value) {
+                  //       if (value == null) {
+                  //         return "Lütfen birim seçiniz.";
+                  //       }
+                  //       return null;
+                  //     },
+                  //   ),
+                  ),
             ),
           ),
           SliverPadding(
@@ -326,43 +350,53 @@ Container salonListBody(context, controller) {
               bottom: 6.0,
             ),
             sliver: SliverToBoxAdapter(
-              child: MultiSelectChipField<dynamic>(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (values) {
-                  if (values == null || values.isEmpty) {
-                    return "Salon özelliklerini seçiniz.";
-                  }
-                  return null;
-                },
-                textStyle: TextStyle(
-                    fontSize: 12.0,
-                    color: Theme.of(context).textTheme.bodyLarge?.color),
-                items: _salonListController.salonOzellikleriItems,
-                initialValue: [],
-                title: Text(
-                  "Salon Özellikleri",
-                  style: TextStyle(fontSize: 14.0),
-                ),
-                headerColor: Colors.transparent,
-                showHeader: true,
-                decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.only(topLeft: Radius.circular(15.0)),
-                ),
-                chipColor: Theme.of(context).scaffoldBackgroundColor,
-                selectedChipColor:
-                    Theme.of(context).buttonTheme.colorScheme?.primary,
-                selectedTextStyle:
-                    TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                onTap: (values) {
-                  _salonListController.seciliOzellikler =
-                      values; //secilen ozellikler listemize kayit edilir.
-                  _salonListController
-                      .salonOzellikSplit(); //her ozellik secildiginde String degiskenimiz bastan yenilenir.
-                  print(_salonListController.seciliOzellikler);
-                },
-              ),
-            ),
+                child: Obx(
+              () => _salonListController.salonOzellikleriLoading.value
+                  ? baseShimmer(dropDownShimmer())
+                  : MultiSelectChipField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (values) {
+                        if (values == null || values.isEmpty) {
+                          return "Salon özelliklerini seçiniz.";
+                        }
+                        return null;
+                      },
+                      textStyle: TextStyle(
+                          fontSize: 12.0,
+                          color: Theme.of(context).textTheme.bodyLarge?.color),
+                      items: _salonListController.salonOzellikleriList != null
+                          ? _salonListController.salonOzellikleriList!
+                              .map((salonOzellik) =>
+                                  MultiSelectItem<SalonOzellikleriModel?>(
+                                      salonOzellik,
+                                      salonOzellik.salonOzellikAdi ?? ''))
+                              .toList()
+                          : [],
+                      initialValue: [],
+                      title: Text(
+                        "Salon Özellikleri",
+                        style: TextStyle(fontSize: 14.0),
+                      ),
+                      headerColor: Colors.transparent,
+                      showHeader: true,
+                      decoration: const BoxDecoration(
+                        borderRadius:
+                            BorderRadius.only(topLeft: Radius.circular(15.0)),
+                      ),
+                      chipColor: Theme.of(context).scaffoldBackgroundColor,
+                      selectedChipColor:
+                          Theme.of(context).buttonTheme.colorScheme?.primary,
+                      selectedTextStyle:
+                          TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                      onTap: (values) {
+                        _salonListController.seciliOzellikler =
+                            values; //secilen ozellikler listemize kayit edilir.
+                        // _salonListController
+                        //     .salonOzellikSplit(); //her ozellik secildiginde String degiskenimiz bastan yenilenir.
+                        print(_salonListController.seciliOzellikler);
+                      },
+                    ),
+            )),
           ),
           SliverPadding(
               padding: EdgeInsets.only(
@@ -1080,4 +1114,22 @@ int salonCardGridViewCrossAxisCount(BoxConstraints constraints) {
     return 2;
   }
   return 1;
+}
+
+void _showMultiSelect(BuildContext context) async {
+  SalonListController controller = Get.find();
+  await showModalBottomSheet(
+    isScrollControlled: true, // required for min/max child size
+    context: context,
+    builder: (ctx) {
+      return MultiSelectBottomSheet(
+        items: controller.salonOzellikleriItems,
+        initialValue: [],
+        onConfirm: (values) {
+          // controller.seciliOzellikler = values;
+        },
+        maxChildSize: 0.8,
+      );
+    },
+  );
 }

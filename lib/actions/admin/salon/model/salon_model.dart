@@ -1,3 +1,5 @@
+import 'package:library_reservation_liberta_flutter/actions/admin/salon/model/salon_ozellikleri_model.dart';
+
 class SalonModel {
   String? birimId;
   String? salonId;
@@ -10,7 +12,7 @@ class SalonModel {
   int? salonDizilimTipi;
   List<SalonTatilGunleri>? salonTatilGunleri;
   List<MolaZamanlari>? molaZamanlari;
-  List<SalonOzellikleri>? salonOzellikleri;
+  List<SalonOzellikleriModel>? salonOzellikleri;
   List<Iletisimler>? iletisimler;
   String? salonIslemTarihi;
   String? salonAdi;
@@ -83,33 +85,32 @@ class SalonModel {
     if (json['salonFakulteYetkilendirme'] != null) {
       salonFakulteYetkilendirme = <SalonFakulteYetkilendirme>[];
       json['salonFakulteYetkilendirme'].forEach((v) {
-        salonFakulteYetkilendirme!
-            .add(new SalonFakulteYetkilendirme.fromJson(v));
+        salonFakulteYetkilendirme!.add(SalonFakulteYetkilendirme.fromJson(v));
       });
     }
     salonDizilimTipi = json['salonDizilimTipi'];
     if (json['salonTatilGunleri'] != null) {
       salonTatilGunleri = <SalonTatilGunleri>[];
       json['salonTatilGunleri'].forEach((v) {
-        salonTatilGunleri!.add(new SalonTatilGunleri.fromJson(v));
+        salonTatilGunleri!.add(SalonTatilGunleri.fromJson(v));
       });
     }
     if (json['molaZamanlari'] != null) {
       molaZamanlari = <MolaZamanlari>[];
       json['molaZamanlari'].forEach((v) {
-        molaZamanlari!.add(new MolaZamanlari.fromJson(v));
+        molaZamanlari!.add(MolaZamanlari.fromJson(v));
       });
     }
     if (json['salonOzellikleri'] != null) {
-      salonOzellikleri = <SalonOzellikleri>[];
+      salonOzellikleri = <SalonOzellikleriModel>[];
       json['salonOzellikleri'].forEach((v) {
-        salonOzellikleri!.add(new SalonOzellikleri.fromJson(v));
+        salonOzellikleri!.add(SalonOzellikleriModel.fromJson(v));
       });
     }
     if (json['iletisimler'] != null) {
       iletisimler = <Iletisimler>[];
       json['iletisimler'].forEach((v) {
-        iletisimler!.add(new Iletisimler.fromJson(v));
+        iletisimler!.add(Iletisimler.fromJson(v));
       });
     }
     salonIslemTarihi = json['salonIslemTarihi'];
@@ -140,7 +141,7 @@ class SalonModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['birimId'] = this.birimId;
     data['salonId'] = this.salonId;
     data['fakulteId'] = this.fakulteId;
@@ -221,7 +222,7 @@ class SalonFakulteYetkilendirme {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['salonFakulteYetkiId'] = this.salonFakulteYetkiId;
     data['salonId'] = this.salonId;
     data['fakulteId'] = this.fakulteId;
@@ -260,7 +261,7 @@ class SalonTatilGunleri {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['salonTatilGunleriId'] = this.salonTatilGunleriId;
     data['salonId'] = this.salonId;
     data['tatilAciklama'] = this.tatilAciklama;
@@ -291,40 +292,11 @@ class MolaZamanlari {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['salonId'] = this.salonId;
     data['molaId'] = this.molaId;
     data['molaAdi'] = this.molaAdi;
     data['molaSuresi'] = this.molaSuresi;
-    data['aktifMi'] = this.aktifMi;
-    return data;
-  }
-}
-
-class SalonOzellikleri {
-  int? salonOzellikleriId;
-  String? salonId;
-  String? salonOzellikAdi;
-  bool? aktifMi;
-
-  SalonOzellikleri(
-      {this.salonOzellikleriId,
-      this.salonId,
-      this.salonOzellikAdi,
-      this.aktifMi});
-
-  SalonOzellikleri.fromJson(Map<String, dynamic> json) {
-    salonOzellikleriId = json['salonOzellikleriId'];
-    salonId = json['salonId'];
-    salonOzellikAdi = json['salonOzellikAdi'];
-    aktifMi = json['aktifMi'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['salonOzellikleriId'] = this.salonOzellikleriId;
-    data['salonId'] = this.salonId;
-    data['salonOzellikAdi'] = this.salonOzellikAdi;
     data['aktifMi'] = this.aktifMi;
     return data;
   }
@@ -365,7 +337,7 @@ class Iletisimler {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['salonId'] = this.salonId;
     data['iletisimId'] = this.iletisimId;
     data['yetkiliKisiAdi'] = this.yetkiliKisiAdi;
