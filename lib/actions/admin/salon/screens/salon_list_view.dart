@@ -5,6 +5,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:library_reservation_liberta_flutter/actions/admin/birim/model/birim_model.dart';
+import 'package:library_reservation_liberta_flutter/actions/admin/salon/api/salon_api.dart';
 import 'package:library_reservation_liberta_flutter/widgets/shimmers/base_shimmer.dart';
 import 'package:library_reservation_liberta_flutter/widgets/shimmers/drop_down_shimmer.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -77,6 +78,8 @@ Container salonListBody(context, controller) {
                 () => _salonListController.birimListLoading.value
                     ? baseShimmer(dropDownShimmer())
                     : DropdownSearch<dynamic>(
+                        popupBackgroundColor:
+                            Theme.of(context).secondaryHeaderColor,
                         mode: Mode.BOTTOM_SHEET,
                         // showSelectedItems: true,
                         showSearchBox: true,
@@ -343,15 +346,19 @@ Container salonListBody(context, controller) {
                 headerColor: Colors.transparent,
                 showHeader: true,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(15)),
+                  borderRadius:
+                      BorderRadius.only(topLeft: Radius.circular(15.0)),
                 ),
-                chipColor: Colors.transparent,
+                chipColor: Theme.of(context).scaffoldBackgroundColor,
                 selectedChipColor:
                     Theme.of(context).buttonTheme.colorScheme?.primary,
                 selectedTextStyle:
                     TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                 onTap: (values) {
-                  _salonListController.seciliOzellikler = values;
+                  _salonListController.seciliOzellikler =
+                      values; //secilen ozellikler listemize kayit edilir.
+                  _salonListController
+                      .salonOzellikSplit(); //her ozellik secildiginde String degiskenimiz bastan yenilenir.
                   print(_salonListController.seciliOzellikler);
                 },
               ),
@@ -375,7 +382,9 @@ Container salonListBody(context, controller) {
                       Text('Salon Ara'),
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    _salonListController.fetchSalonList();
+                  },
                 ),
               )),
           SliverPadding(
@@ -405,9 +414,9 @@ Container salonListBody(context, controller) {
                   ),
                   InkWell(
                     onTap: () {
-                      _salonListController.isLoading.value
-                          ? _salonListController.isLoading.value = false
-                          : _salonListController.isLoading.value = true;
+                      _salonListController.salonListLoading.value
+                          ? _salonListController.salonListLoading.value = false
+                          : _salonListController.salonListLoading.value = true;
                     },
                     child: Container(
                       width: 24,
@@ -424,34 +433,83 @@ Container salonListBody(context, controller) {
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.all(
-              12.0,
+            padding: const EdgeInsets.only(
+              left: 12.0,
+              right: 12.0,
+              top: 48.0,
             ),
-            sliver: SliverGrid(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: salonCardGridViewCrossAxisCount(constraints),
-                mainAxisSpacing: 8.0,
-                crossAxisSpacing: 8.0,
-                childAspectRatio: salonCardGridViewAspect(constraints),
-              ),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return Obx(
-                    () => _salonListController.isLoading.value
-                        ? baseShimmer(salonCardShimmerContainer(context))
-                        : FlipCard(
-                            fill: Fill
-                                .fillBack, // Fill the back side of the card to make in the same size as the front.
-                            direction: FlipDirection.HORIZONTAL, // default
-                            front: salonCardFront(index),
-                            back: salonCardBack(
-                              index,
+            sliver: Obx(
+              () => _salonListController.salonAramaLoading.value
+                  ? SliverToBoxAdapter(
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.search_off,
+                              size: 38.0,
+                              color: Theme.of(context)
+                                  .buttonTheme
+                                  .colorScheme
+                                  ?.primary,
                             ),
+                            Container(
+                              child: Text(
+                                "Salonları listelemek icin arama yapiniz.",
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .buttonTheme
+                                        .colorScheme
+                                        ?.primary,
+                                    fontSize: 14.0),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  : Obx(() => _salonListController.salonListLoading.value
+                      ? SliverGrid(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount:
+                                salonCardGridViewCrossAxisCount(constraints),
+                            mainAxisSpacing: 8.0,
+                            crossAxisSpacing: 8.0,
+                            childAspectRatio:
+                                salonCardGridViewAspect(constraints),
                           ),
-                  );
-                },
-                childCount: 5,
-              ),
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return baseShimmer(
+                                  salonCardShimmerContainer(context));
+                            },
+                            childCount: 3,
+                          ),
+                        )
+                      : SliverGrid(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount:
+                                salonCardGridViewCrossAxisCount(constraints),
+                            mainAxisSpacing: 8.0,
+                            crossAxisSpacing: 8.0,
+                            childAspectRatio:
+                                salonCardGridViewAspect(constraints),
+                          ),
+                          delegate:
+                              SliverChildBuilderDelegate((context, index) {
+                            return FlipCard(
+                              fill: Fill.fillBack,
+                              direction: FlipDirection.HORIZONTAL,
+                              front: salonCardFront(index),
+                              back: salonCardBack(
+                                index,
+                              ),
+                            );
+                          }, childCount: _salonListController.salonList.length),
+                        )),
             ),
           ),
         ],
@@ -625,6 +683,7 @@ Card salonCardBack(
 }
 
 Card salonCardFront(int index) {
+  SalonListController _salonListController = Get.find();
   return Card(
     elevation: 3.0,
     shape: RoundedRectangleBorder(
@@ -658,7 +717,7 @@ Card salonCardFront(int index) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'SALON ON $index',
+                      _salonListController.salonList[index].salonAdi ?? '',
                       style: TextStyle(
                         fontSize: 12.0,
                       ),
@@ -670,7 +729,7 @@ Card salonCardFront(int index) {
                       height: 4.0,
                     ),
                     Text(
-                      'Fakulte Adi',
+                      _salonListController.salonList[index].birimAdi ?? '',
                       style: TextStyle(
                         fontSize: 11.0,
                       ),
@@ -682,6 +741,56 @@ Card salonCardFront(int index) {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      'Rezervasyon',
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                        fontSize: 11.0,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.date_range,
+                          color: Colors.grey[500],
+                          size: 14.0,
+                        ),
+                        SizedBox(
+                          width: 2.0,
+                        ),
+                        Text(
+                          'Tarih :',
+                          style: TextStyle(
+                            color: Colors.grey[500],
+                            fontSize: 11.0,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 3.0,
+                        ),
+                        Flexible(
+                          child: Text(
+                            _salonListController
+                                    .salonList[index].rezervasyonBaslangicTarihi
+                                    .toString() +
+                                ' / ' +
+                                _salonListController
+                                    .salonList[index].rezervasyonBitisTarihi
+                                    .toString(),
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.clip,
+                            maxLines: 3,
+                            style: TextStyle(
+                              color: Colors.grey[500],
+                              fontSize: 11.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 1.0,
+                    ),
                     Row(
                       children: [
                         Icon(
@@ -690,10 +799,10 @@ Card salonCardFront(int index) {
                           size: 14.0,
                         ),
                         SizedBox(
-                          width: 3.0,
+                          width: 2.0,
                         ),
                         Text(
-                          'Rezervasyon:',
+                          'Saat : ',
                           style: TextStyle(
                             color: Colors.grey[500],
                             fontSize: 11.0,
@@ -702,18 +811,28 @@ Card salonCardFront(int index) {
                         SizedBox(
                           width: 3.0,
                         ),
-                        Text(
-                          '10:00 - 18/04/2022',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                            color: Colors.grey[500],
-                            fontSize: 11.0,
+                        Flexible(
+                          child: Text(
+                            _salonListController
+                                    .salonList[index].rezervasyonBaslangicSaati
+                                    .toString() +
+                                ' / ' +
+                                _salonListController
+                                    .salonList[index].rezervasyonBitisSaati
+                                    .toString(),
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.clip,
+                            maxLines: 3,
+                            style: TextStyle(
+                              color: Colors.grey[500],
+                              fontSize: 11.0,
+                            ),
                           ),
                         ),
                       ],
                     ),
                     SizedBox(
-                      height: 1.0,
+                      height: 8.0,
                     ),
                     Row(
                       children: [
@@ -726,7 +845,8 @@ Card salonCardFront(int index) {
                           width: 3.0,
                         ),
                         Text(
-                          'Akademisyen, Oğrenci',
+                          _salonListController.salonList[index].salonKapasitesi
+                              .toString(),
                           textAlign: TextAlign.right,
                           style: TextStyle(
                             color: Colors.grey[500],
@@ -736,7 +856,7 @@ Card salonCardFront(int index) {
                       ],
                     ),
                     SizedBox(
-                      height: 1.0,
+                      height: 2.0,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -778,11 +898,14 @@ Card salonCardFront(int index) {
                 CircularPercentIndicator(
                   radius: 32.0,
                   lineWidth: 7.0,
-                  percent: 0.8,
+                  percent: _salonListController
+                          .salonList[index].salonKapasitesiYuzde ??
+                      0.0,
                   animation: true,
-                  animationDuration: 2000,
+                  animationDuration: 3000,
                   center: Text(
-                    "80%",
+                    _salonListController.salonList[index].salonKapasitesiYuzde
+                        .toString(),
                     style: TextStyle(
                       fontSize: 11.0,
                     ),

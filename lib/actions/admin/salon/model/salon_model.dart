@@ -1,33 +1,10 @@
 class SalonModel {
-  List<Data>? data;
-
-  SalonModel({this.data});
-
-  SalonModel.fromJson(Map<String, dynamic> json) {
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class Data {
   String? birimId;
   String? salonId;
   String? fakulteId;
   String? kurumId;
   int? salonKapasitesi;
-  int? salonKapasitesiYuzde;
+  double? salonKapasitesiYuzde;
   bool? sureliMi;
   List<SalonFakulteYetkilendirme>? salonFakulteYetkilendirme;
   int? salonDizilimTipi;
@@ -58,7 +35,7 @@ class Data {
   String? salonCircularProgressBarsUnitsColor;
   bool? aktifMi;
 
-  Data(
+  SalonModel(
       {this.birimId,
       this.salonId,
       this.fakulteId,
@@ -95,7 +72,7 @@ class Data {
       this.salonCircularProgressBarsUnitsColor,
       this.aktifMi});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  SalonModel.fromJson(Map<String, dynamic> json) {
     birimId = json['birimId'];
     salonId = json['salonId'];
     fakulteId = json['fakulteId'];
@@ -106,32 +83,33 @@ class Data {
     if (json['salonFakulteYetkilendirme'] != null) {
       salonFakulteYetkilendirme = <SalonFakulteYetkilendirme>[];
       json['salonFakulteYetkilendirme'].forEach((v) {
-        salonFakulteYetkilendirme!.add(SalonFakulteYetkilendirme.fromJson(v));
+        salonFakulteYetkilendirme!
+            .add(new SalonFakulteYetkilendirme.fromJson(v));
       });
     }
     salonDizilimTipi = json['salonDizilimTipi'];
     if (json['salonTatilGunleri'] != null) {
       salonTatilGunleri = <SalonTatilGunleri>[];
       json['salonTatilGunleri'].forEach((v) {
-        salonTatilGunleri!.add(SalonTatilGunleri.fromJson(v));
+        salonTatilGunleri!.add(new SalonTatilGunleri.fromJson(v));
       });
     }
     if (json['molaZamanlari'] != null) {
       molaZamanlari = <MolaZamanlari>[];
       json['molaZamanlari'].forEach((v) {
-        molaZamanlari!.add(MolaZamanlari.fromJson(v));
+        molaZamanlari!.add(new MolaZamanlari.fromJson(v));
       });
     }
     if (json['salonOzellikleri'] != null) {
       salonOzellikleri = <SalonOzellikleri>[];
       json['salonOzellikleri'].forEach((v) {
-        salonOzellikleri!.add(SalonOzellikleri.fromJson(v));
+        salonOzellikleri!.add(new SalonOzellikleri.fromJson(v));
       });
     }
     if (json['iletisimler'] != null) {
       iletisimler = <Iletisimler>[];
       json['iletisimler'].forEach((v) {
-        iletisimler!.add(Iletisimler.fromJson(v));
+        iletisimler!.add(new Iletisimler.fromJson(v));
       });
     }
     salonIslemTarihi = json['salonIslemTarihi'];
@@ -162,58 +140,60 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['birimId'] = birimId;
-    data['salonId'] = salonId;
-    data['fakulteId'] = fakulteId;
-    data['kurumId'] = kurumId;
-    data['salonKapasitesi'] = salonKapasitesi;
-    data['salonKapasitesiYuzde'] = salonKapasitesiYuzde;
-    data['sureliMi'] = sureliMi;
-    if (salonFakulteYetkilendirme != null) {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['birimId'] = this.birimId;
+    data['salonId'] = this.salonId;
+    data['fakulteId'] = this.fakulteId;
+    data['kurumId'] = this.kurumId;
+    data['salonKapasitesi'] = this.salonKapasitesi;
+    data['salonKapasitesiYuzde'] = this.salonKapasitesiYuzde;
+    data['sureliMi'] = this.sureliMi;
+    if (this.salonFakulteYetkilendirme != null) {
       data['salonFakulteYetkilendirme'] =
-          salonFakulteYetkilendirme!.map((v) => v.toJson()).toList();
+          this.salonFakulteYetkilendirme!.map((v) => v.toJson()).toList();
     }
-    data['salonDizilimTipi'] = salonDizilimTipi;
-    if (salonTatilGunleri != null) {
+    data['salonDizilimTipi'] = this.salonDizilimTipi;
+    if (this.salonTatilGunleri != null) {
       data['salonTatilGunleri'] =
-          salonTatilGunleri!.map((v) => v.toJson()).toList();
+          this.salonTatilGunleri!.map((v) => v.toJson()).toList();
     }
-    if (molaZamanlari != null) {
-      data['molaZamanlari'] = molaZamanlari!.map((v) => v.toJson()).toList();
+    if (this.molaZamanlari != null) {
+      data['molaZamanlari'] =
+          this.molaZamanlari!.map((v) => v.toJson()).toList();
     }
-    if (salonOzellikleri != null) {
+    if (this.salonOzellikleri != null) {
       data['salonOzellikleri'] =
-          salonOzellikleri!.map((v) => v.toJson()).toList();
+          this.salonOzellikleri!.map((v) => v.toJson()).toList();
     }
-    if (iletisimler != null) {
-      data['iletisimler'] = iletisimler!.map((v) => v.toJson()).toList();
+    if (this.iletisimler != null) {
+      data['iletisimler'] = this.iletisimler!.map((v) => v.toJson()).toList();
     }
-    data['salonIslemTarihi'] = salonIslemTarihi;
-    data['salonAdi'] = salonAdi;
-    data['rezervasyonBaslangicTarihi'] = rezervasyonBaslangicTarihi;
-    data['rezervasyonBitisTarihi'] = rezervasyonBitisTarihi;
-    data['rezervasyonBaslangicSaati'] = rezervasyonBaslangicSaati;
-    data['rezervasyonBitisSaati'] = rezervasyonBitisSaati;
-    data['bolumId'] = bolumId;
-    data['birimAdi'] = birimAdi;
-    data['salonCardBackgroundColor_Front'] = salonCardBackgroundColorFront;
-    data['salonCardBackgroundColor_Back'] = salonCardBackgroundColorBack;
-    data['salonNameBackgroundBandrolColor'] = salonNameBackgroundBandrolColor;
-    data['salonNameTitleColor'] = salonNameTitleColor;
-    data['salonSubTextColor_Front'] = salonSubTextColorFront;
-    data['salonCommentColor_Front'] = salonCommentColorFront;
-    data['salonSubTextColor_Back'] = salonSubTextColorBack;
-    data['salonCommentColor_Back'] = salonCommentColorBack;
-    data['salonCircularProgressColor_1'] = salonCircularProgressColor1;
-    data['salonCircularProgressColor_2'] = salonCircularProgressColor2;
+    data['salonIslemTarihi'] = this.salonIslemTarihi;
+    data['salonAdi'] = this.salonAdi;
+    data['rezervasyonBaslangicTarihi'] = this.rezervasyonBaslangicTarihi;
+    data['rezervasyonBitisTarihi'] = this.rezervasyonBitisTarihi;
+    data['rezervasyonBaslangicSaati'] = this.rezervasyonBaslangicSaati;
+    data['rezervasyonBitisSaati'] = this.rezervasyonBitisSaati;
+    data['bolumId'] = this.bolumId;
+    data['birimAdi'] = this.birimAdi;
+    data['salonCardBackgroundColor_Front'] = this.salonCardBackgroundColorFront;
+    data['salonCardBackgroundColor_Back'] = this.salonCardBackgroundColorBack;
+    data['salonNameBackgroundBandrolColor'] =
+        this.salonNameBackgroundBandrolColor;
+    data['salonNameTitleColor'] = this.salonNameTitleColor;
+    data['salonSubTextColor_Front'] = this.salonSubTextColorFront;
+    data['salonCommentColor_Front'] = this.salonCommentColorFront;
+    data['salonSubTextColor_Back'] = this.salonSubTextColorBack;
+    data['salonCommentColor_Back'] = this.salonCommentColorBack;
+    data['salonCircularProgressColor_1'] = this.salonCircularProgressColor1;
+    data['salonCircularProgressColor_2'] = this.salonCircularProgressColor2;
     data['salonCircularProgressBar_BackgroundColor'] =
-        salonCircularProgressBarBackgroundColor;
+        this.salonCircularProgressBarBackgroundColor;
     data['salonCircularProgressBar_TitleColor'] =
-        salonCircularProgressBarTitleColor;
+        this.salonCircularProgressBarTitleColor;
     data['salonCircularProgressBars_UnitsColor'] =
-        salonCircularProgressBarsUnitsColor;
-    data['aktifMi'] = aktifMi;
+        this.salonCircularProgressBarsUnitsColor;
+    data['aktifMi'] = this.aktifMi;
     return data;
   }
 }
@@ -241,12 +221,12 @@ class SalonFakulteYetkilendirme {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['salonFakulteYetkiId'] = salonFakulteYetkiId;
-    data['salonId'] = salonId;
-    data['fakulteId'] = fakulteId;
-    data['yetkisiVarmi'] = yetkisiVarmi;
-    data['aktifMi'] = aktifMi;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['salonFakulteYetkiId'] = this.salonFakulteYetkiId;
+    data['salonId'] = this.salonId;
+    data['fakulteId'] = this.fakulteId;
+    data['yetkisiVarmi'] = this.yetkisiVarmi;
+    data['aktifMi'] = this.aktifMi;
     return data;
   }
 }
@@ -280,14 +260,14 @@ class SalonTatilGunleri {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['salonTatilGunleriId'] = salonTatilGunleriId;
-    data['salonId'] = salonId;
-    data['tatilAciklama'] = tatilAciklama;
-    data['tatilBaslangicTarihi'] = tatilBaslangicTarihi;
-    data['tatilBitisTarihi'] = tatilBitisTarihi;
-    data['birimId'] = birimId;
-    data['aktifMi'] = aktifMi;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['salonTatilGunleriId'] = this.salonTatilGunleriId;
+    data['salonId'] = this.salonId;
+    data['tatilAciklama'] = this.tatilAciklama;
+    data['tatilBaslangicTarihi'] = this.tatilBaslangicTarihi;
+    data['tatilBitisTarihi'] = this.tatilBitisTarihi;
+    data['birimId'] = this.birimId;
+    data['aktifMi'] = this.aktifMi;
     return data;
   }
 }
@@ -311,12 +291,12 @@ class MolaZamanlari {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['salonId'] = salonId;
-    data['molaId'] = molaId;
-    data['molaAdi'] = molaAdi;
-    data['molaSuresi'] = molaSuresi;
-    data['aktifMi'] = aktifMi;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['salonId'] = this.salonId;
+    data['molaId'] = this.molaId;
+    data['molaAdi'] = this.molaAdi;
+    data['molaSuresi'] = this.molaSuresi;
+    data['aktifMi'] = this.aktifMi;
     return data;
   }
 }
@@ -341,11 +321,11 @@ class SalonOzellikleri {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['salonOzellikleriId'] = salonOzellikleriId;
-    data['salonId'] = salonId;
-    data['salonOzellikAdi'] = salonOzellikAdi;
-    data['aktifMi'] = aktifMi;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['salonOzellikleriId'] = this.salonOzellikleriId;
+    data['salonId'] = this.salonId;
+    data['salonOzellikAdi'] = this.salonOzellikAdi;
+    data['aktifMi'] = this.aktifMi;
     return data;
   }
 }
@@ -385,16 +365,16 @@ class Iletisimler {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['salonId'] = salonId;
-    data['iletisimId'] = iletisimId;
-    data['yetkiliKisiAdi'] = yetkiliKisiAdi;
-    data['email'] = email;
-    data['cepTelefon'] = cepTelefon;
-    data['ofisTelefon'] = ofisTelefon;
-    data['kurumId'] = kurumId;
-    data['birimId'] = birimId;
-    data['aktifMi'] = aktifMi;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['salonId'] = this.salonId;
+    data['iletisimId'] = this.iletisimId;
+    data['yetkiliKisiAdi'] = this.yetkiliKisiAdi;
+    data['email'] = this.email;
+    data['cepTelefon'] = this.cepTelefon;
+    data['ofisTelefon'] = this.ofisTelefon;
+    data['kurumId'] = this.kurumId;
+    data['birimId'] = this.birimId;
+    data['aktifMi'] = this.aktifMi;
     return data;
   }
 }
