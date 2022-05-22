@@ -37,25 +37,25 @@ Container salonListBody(context, controller) {
       return CustomScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         slivers: [
-          // SliverPadding(
-          //   padding: const EdgeInsets.all(
-          //     12.0,
-          //   ),
-          //   sliver: SliverToBoxAdapter(
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Text(
-          //           "GAUN",
-          //           style: TextStyle(
-          //               fontSize:
-          //                   Theme.of(context).textTheme.titleLarge!.fontSize),
-          //         ),
-          //         Text("Merkez Kutuphane")
-          //       ],
-          //     ),
-          //   ),
-          // ),
+          SliverPadding(
+            padding: const EdgeInsets.all(
+              12.0,
+            ),
+            sliver: SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "SALONLAR",
+                    style: TextStyle(
+                        fontSize:
+                            Theme.of(context).textTheme.titleLarge!.fontSize),
+                  ),
+                  // Text("Salonlar")
+                ],
+              ),
+            ),
+          ),
           SliverPadding(
             padding: EdgeInsets.only(
               left: 12.0,
@@ -79,26 +79,43 @@ Container salonListBody(context, controller) {
                   () => _salonListController.salonOzellikleriLoading.value
                       ? baseShimmer(dropDownShimmer())
                       : MultiSelectDialogField(
+                          height: MediaQuery.of(context).size.height / 2,
                           title: Text('Birimler'),
-                          buttonText: Text('Birim Seçiniz'),
+                          buttonText: Text(
+                            'Birim seçin',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                            ),
+                          ),
+                          itemsTextStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          selectedItemsTextStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                           buttonIcon: Icon(Icons.keyboard_arrow_down_sharp),
                           searchable: true,
-                          searchHint: 'Birim Ara',
+                          searchHint: 'Birim ara',
                           confirmText: Text('Tamam'),
                           cancelText: Text('İptal'),
-                          items: _salonListController.birimList != null
-                              ? _salonListController.birimList!
-                                  .map((birim) => MultiSelectItem<BirimModel?>(
-                                      birim, birim.birimAdi ?? ''))
-                                  .toList()
-                              : [],
+                          barrierColor: Theme.of(context).primaryColor,
+                          selectedColor: Theme.of(context).colorScheme.primary,
+                          backgroundColor:
+                              Theme.of(context).secondaryHeaderColor,
+                          checkColor: Theme.of(context).secondaryHeaderColor,
+                          items: _salonListController.birimMultiSelectList,
                           chipDisplay: MultiSelectChipDisplay(
-                            scroll: true,
-                          ),
+                              scroll: true,
+                              chipColor: Theme.of(context).colorScheme.primary,
+                              textStyle: TextStyle(color: Colors.white)),
                           listType: MultiSelectListType.LIST,
                           onConfirm: (values) {
-                            _salonListController.birimMultiSelectList = values;
-                            print(_salonListController.birimMultiSelectList);
+                            _salonListController.seciliBirimler =
+                                values; //Degerler seciliBirimler listesine esitlenir
+                            _salonListController
+                                .secilmisBirimlerinAdlariBirlestirilmesi(); //seciliBirimler Listesindeki birimAdi lari  virgul ile birlestirip Tek Bir String Haline Getirilir
+                            print(
+                                _salonListController.secilmisBirimlerinAdlari);
                           },
                         )
                   //  DropdownSearch<dynamic>(
@@ -364,14 +381,8 @@ Container salonListBody(context, controller) {
                       textStyle: TextStyle(
                           fontSize: 12.0,
                           color: Theme.of(context).textTheme.bodyLarge?.color),
-                      items: _salonListController.salonOzellikleriList != null
-                          ? _salonListController.salonOzellikleriList!
-                              .map((salonOzellik) =>
-                                  MultiSelectItem<SalonOzellikleriModel?>(
-                                      salonOzellik,
-                                      salonOzellik.salonOzellikAdi ?? ''))
-                              .toList()
-                          : [],
+                      items:
+                          _salonListController.salonOzellikleriMultiSelectList,
                       initialValue: [],
                       title: Text(
                         "Salon Özellikleri",
@@ -389,11 +400,12 @@ Container salonListBody(context, controller) {
                       selectedTextStyle:
                           TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                       onTap: (values) {
-                        _salonListController.seciliOzellikler =
+                        _salonListController.secilmisSalonOzellikleri =
                             values; //secilen ozellikler listemize kayit edilir.
-                        // _salonListController
-                        //     .salonOzellikSplit(); //her ozellik secildiginde String degiskenimiz bastan yenilenir.
-                        print(_salonListController.seciliOzellikler);
+                        _salonListController
+                            .secilmisSalonOzellikAdlariBirlestirilmesi();
+                        // //her ozellik secildiginde String degiskenimiz bastan yenilenir.
+                        print(_salonListController.secilmisSalonOzellikAdlari);
                       },
                     ),
             )),
@@ -421,51 +433,51 @@ Container salonListBody(context, controller) {
                   },
                 ),
               )),
-          SliverPadding(
-            padding: EdgeInsets.only(bottom: 6.0),
-            sliver: SliverToBoxAdapter(
-              child: Row(
-                children: [
-                  SizedBox(
-                    height: 28.0,
-                    width: MediaQuery.of(context).size.width / 1.3,
-                    child: searchTextField(
-                      context,
-                      searchOnChanged,
-                      "Salon Ara",
-                    ),
-                  ),
-                  Container(
-                    width: 24,
-                    height: 24,
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 218, 218, 218),
-                      borderRadius: BorderRadius.all(Radius.elliptical(24, 24)),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      _salonListController.salonListLoading.value
-                          ? _salonListController.salonListLoading.value = false
-                          : _salonListController.salonListLoading.value = true;
-                    },
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 218, 218, 218),
-                        borderRadius:
-                            BorderRadius.all(Radius.elliptical(24, 24)),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          // SliverPadding(
+          //   padding: EdgeInsets.only(bottom: 6.0),
+          //   sliver: SliverToBoxAdapter(
+          //     child: Row(
+          //       children: [
+          //         SizedBox(
+          //           height: 28.0,
+          //           width: MediaQuery.of(context).size.width / 1.3,
+          //           child: searchTextField(
+          //             context,
+          //             searchOnChanged,
+          //             "Salon Ara",
+          //           ),
+          //         ),
+          //         Container(
+          //           width: 24,
+          //           height: 24,
+          //           decoration: BoxDecoration(
+          //             color: Color.fromARGB(255, 218, 218, 218),
+          //             borderRadius: BorderRadius.all(Radius.elliptical(24, 24)),
+          //           ),
+          //         ),
+          //         SizedBox(
+          //           width: 4,
+          //         ),
+          //         InkWell(
+          //           onTap: () {
+          //             _salonListController.salonListLoading.value
+          //                 ? _salonListController.salonListLoading.value = false
+          //                 : _salonListController.salonListLoading.value = true;
+          //           },
+          //           child: Container(
+          //             width: 24,
+          //             height: 24,
+          //             decoration: BoxDecoration(
+          //               color: Color.fromARGB(255, 218, 218, 218),
+          //               borderRadius:
+          //                   BorderRadius.all(Radius.elliptical(24, 24)),
+          //             ),
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           SliverPadding(
             padding: const EdgeInsets.only(
               left: 12.0,
@@ -519,7 +531,7 @@ Container salonListBody(context, controller) {
                               return baseShimmer(
                                   salonCardShimmerContainer(context));
                             },
-                            childCount: 3,
+                            childCount: 2,
                           ),
                         )
                       : SliverGrid(
@@ -546,6 +558,7 @@ Container salonListBody(context, controller) {
                         )),
             ),
           ),
+          SliverPadding(padding: EdgeInsets.only(bottom: 64.0))
         ],
       );
     }),
@@ -933,8 +946,12 @@ Card salonCardFront(int index) {
                   radius: 32.0,
                   lineWidth: 7.0,
                   percent: _salonListController
-                          .salonList[index].salonKapasitesiYuzde ??
-                      0.0,
+                              .salonList[index].salonKapasitesiYuzde !=
+                          null
+                      ? _salonListController
+                              .salonList[index].salonKapasitesiYuzde! *
+                          0.01
+                      : 0.0,
                   animation: true,
                   animationDuration: 3000,
                   center: Text(
@@ -1114,22 +1131,4 @@ int salonCardGridViewCrossAxisCount(BoxConstraints constraints) {
     return 2;
   }
   return 1;
-}
-
-void _showMultiSelect(BuildContext context) async {
-  SalonListController controller = Get.find();
-  await showModalBottomSheet(
-    isScrollControlled: true, // required for min/max child size
-    context: context,
-    builder: (ctx) {
-      return MultiSelectBottomSheet(
-        items: controller.salonOzellikleriItems,
-        initialValue: [],
-        onConfirm: (values) {
-          // controller.seciliOzellikler = values;
-        },
-        maxChildSize: 0.8,
-      );
-    },
-  );
 }
