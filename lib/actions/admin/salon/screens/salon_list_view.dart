@@ -9,12 +9,14 @@ import 'package:library_reservation_liberta_flutter/actions/admin/salon/api/salo
 import 'package:library_reservation_liberta_flutter/actions/admin/salon/model/salon_ozellikleri_model.dart';
 import 'package:library_reservation_liberta_flutter/widgets/shimmers/base_shimmer.dart';
 import 'package:library_reservation_liberta_flutter/widgets/shimmers/drop_down_shimmer.dart';
+import 'package:library_reservation_liberta_flutter/widgets/shimmers/multiselect_chipfield_shimmer.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../widgets/date_picker_theme.dart';
 import '../../../../widgets/searchList.dart';
+import '../../../../widgets/shimmers/multiselect_dialogfield_shimmer.dart';
 import '../../../rezervasyon/screens/reservation_view.dart';
 import 'salon_list_controller.dart';
 
@@ -77,7 +79,7 @@ Container salonListBody(context, controller) {
             sliver: SliverToBoxAdapter(
               child: Obx(
                   () => _salonListController.salonOzellikleriLoading.value
-                      ? baseShimmer(dropDownShimmer())
+                      ? baseShimmer(multiSelectDialogFieldShimmer())
                       : MultiSelectDialogField(
                           height: MediaQuery.of(context).size.height / 2,
                           title: Text('Birimler'),
@@ -98,7 +100,7 @@ Container salonListBody(context, controller) {
                           searchHint: 'Birim ara',
                           confirmText: Text('Tamam'),
                           cancelText: Text('İptal'),
-                          barrierColor: Theme.of(context).primaryColor,
+                          // barrierColor: Theme.of(context).primaryColor,
                           selectedColor: Theme.of(context).colorScheme.primary,
                           backgroundColor:
                               Theme.of(context).secondaryHeaderColor,
@@ -369,7 +371,7 @@ Container salonListBody(context, controller) {
             sliver: SliverToBoxAdapter(
                 child: Obx(
               () => _salonListController.salonOzellikleriLoading.value
-                  ? baseShimmer(dropDownShimmer())
+                  ? baseShimmer(multiSelectChhipFieldShimmer())
                   : MultiSelectChipField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (values) {
@@ -568,6 +570,7 @@ Container salonListBody(context, controller) {
 Card salonCardBack(
   int index,
 ) {
+  SalonListController _salonListController = Get.find();
   return Card(
     elevation: 3.0,
     shape: RoundedRectangleBorder(
@@ -597,7 +600,7 @@ Card salonCardBack(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'SALON ARKA $index',
+                  _salonListController.salonList[index].salonAdi ?? '',
                   style: TextStyle(
                     fontSize: 12.0,
                   ),
@@ -606,7 +609,7 @@ Card salonCardBack(
                   height: 4.0,
                 ),
                 Text(
-                  'Fakulte Adi',
+                  _salonListController.salonList[index].birimAdi ?? '',
                   style: TextStyle(
                     fontSize: 11.0,
                   ),
