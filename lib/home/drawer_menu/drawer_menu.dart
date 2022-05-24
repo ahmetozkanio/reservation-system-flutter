@@ -127,31 +127,32 @@ class _DrawerMenuState extends State<DrawerMenu> {
             ),
           ),
         ),
-        InkWell(
-          onTap: () {
-            setState(() {
-              if (controller.icon == Icons.dark_mode_outlined) {
-                themesController.saveDarkTheme(
-                  EnumThemeData.darkTheme,
-                );
-                // print("Dark Mode");
-                Get.changeTheme(darkTheme);
-                controller.icon = Icons.wb_sunny_outlined;
-              } else {
-                // print("Light Mode");
-                themesController.removeDarkTheme();
-                initialTheme();
-                controller.icon = Icons.dark_mode_outlined;
-              }
-            });
-          },
-          child: CircleAvatar(
-            backgroundColor: Theme.of(context).cardColor,
-            child: Icon(
-              controller.icon,
-            ),
-          ),
-        ),
+        //Dark Mode Aktif edilmesi icin burasi acilmali ...................................................
+        // InkWell(
+        //   onTap: () {
+        //     setState(() {
+        //       if (controller.icon == Icons.dark_mode_outlined) {
+        //         themesController.saveDarkTheme(
+        //           EnumThemeData.darkTheme,
+        //         );
+        //         // print("Dark Mode");
+        //         Get.changeTheme(darkTheme);
+        //         controller.icon = Icons.wb_sunny_outlined;
+        //       } else {
+        //         // print("Light Mode");
+        //         themesController.removeDarkTheme();
+        //         initialTheme();
+        //         controller.icon = Icons.dark_mode_outlined;
+        //       }
+        //     });
+        //   },
+        //   child: CircleAvatar(
+        //     backgroundColor: Theme.of(context).cardColor,
+        //     child: Icon(
+        //       controller.icon,
+        //     ),
+        //   ),
+        // ),
       ],
       // currentAccountPicture: CircleAvatar(
       //   backgroundColor: Color.fromARGB(255, 51, 50, 50),

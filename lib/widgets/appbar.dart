@@ -11,11 +11,6 @@ AppBar globalAppBar(BuildContext context, String title, List<Widget>? actions) {
     backgroundColor: Colors.transparent,
     // backgroundColor: Theme.of(context).secondaryHeaderColor,
     elevation: 0.0,
-    title: Text(
-      title,
-      style: GoogleFonts.roboto(
-        color: Theme.of(context).textTheme.titleSmall!.color,
-      ),
-    ),
+    title: Text(title, style: TextStyle(color: Colors.black)),
   );
 }

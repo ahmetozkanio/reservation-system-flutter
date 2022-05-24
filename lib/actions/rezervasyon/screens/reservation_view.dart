@@ -280,7 +280,7 @@ class ReservationView extends StatelessWidget {
                           ],
                         ),
                         onPressed: () {
-                          _reservationViewController.fetchReservation();
+                          _reservationViewController.fetchReservation(context);
                         },
                       ),
                     ],
@@ -488,138 +488,140 @@ class ReservationView extends StatelessWidget {
                                       'Rezervasyon shimmer api donene kadar'))
                               : SliverToBoxAdapter(
                                   child: Card(
-                                    elevation: 4.0,
-                                    child: Container(
-                                      alignment: Alignment.topLeft,
-                                      constraints: BoxConstraints(
-                                        maxHeight:
-                                            MediaQuery.of(context).size.height *
-                                                0.50,
-                                      ),
-                                      child: CrossScroll(
-                                        ///Optional
-                                        // normalColor: Colors.blue,
-                                        ///Optional
-                                        // hoverColor: Colors.red,
-                                        ///Optional
-                                        // dimColor: Colors.red.withOpacity(0.4),
-                                        ///design track and thumb
-                                        // verticalBar: const CrossScrollBar(),
-                                        // horizontalBar: const CrossScrollBar(),
-
-                                        child: Row(
-                                          children: [
-                                            if (_reservationViewController
-                                                    .reservationList !=
-                                                null)
-                                              for (var blokList
-                                                  in _reservationViewController
-                                                      .reservationList)
-                                                Container(
-                                                    width: 112.0,
-                                                    padding:
-                                                        EdgeInsets.all(12.0),
-                                                    // decoration: BoxDecoration(),
-                                                    child: Column(children: [
-                                                      Text(blokList.adi
-                                                          .toString()),
-                                                      GridView.builder(
-                                                        physics:
-                                                            NeverScrollableScrollPhysics(),
-                                                        shrinkWrap: true,
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        gridDelegate:
-                                                            SliverGridDelegateWithFixedCrossAxisCount(
-                                                          crossAxisCount: 2,
-                                                          crossAxisSpacing: 8.0,
-                                                          mainAxisSpacing: 8.0,
-                                                          childAspectRatio: 1.0,
-                                                        ),
-                                                        itemCount: blokList
-                                                                .masayaAitSandalyeler
-                                                                ?.length ??
-                                                            0,
-                                                        itemBuilder:
-                                                            (context, index) {
-                                                          return Obx(
-                                                            () => GFRadio(
-                                                              type: GFRadioType
-                                                                  .custom,
-                                                              size: 25.0,
-                                                              value: index,
-                                                              toggleable: true,
-                                                              inactiveBgColor: blokList
-                                                                      .masayaAitSandalyeler![
-                                                                          index]
-                                                                      .sandalyeDoluMu!
-                                                                  ? Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          209,
-                                                                          209,
-                                                                          209)
-                                                                  : Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          184,
-                                                                          33,
-                                                                          33),
-                                                              groupValue:
-                                                                  _reservationViewController
-                                                                      .groupValue
-                                                                      .value,
-                                                              onChanged:
-                                                                  (value) {
-                                                                print(value
-                                                                    .toString());
-                                                                _reservationViewController
-                                                                        .groupValue
-                                                                        .value =
-                                                                    value
-                                                                        as int;
-                                                              },
-                                                              inactiveIcon:
-                                                                  null,
-                                                              activeBorderColor:
-                                                                  GFColors
-                                                                      .SUCCESS,
-                                                              customBgColor:
-                                                                  GFColors
-                                                                      .SUCCESS,
-                                                            ),
-                                                          );
-                                                        },
-                                                        // children: [
-                                                        //   for (int i = 1; i < 55; i++)
-
-                                                        // Card(
-                                                        //   color: Color.fromARGB(255, 209, 36, 36),
-                                                        //   child: Container(
-                                                        //     width: 18,
-                                                        //     height: 18,
-                                                        //     alignment: Alignment.center,
-                                                        //     child: Text(
-                                                        //       "",
-                                                        //       style: TextStyle(
-                                                        //         color: Colors.white,
-                                                        //       ),
-                                                        //       textAlign: TextAlign.center,
-                                                        //     ),
-                                                        //   ),
-                                                        // ),
-                                                        // ],
-                                                      ),
-                                                    ]))
-                                          ],
+                                      elevation: 8.0,
+                                      child: Container(
+                                        alignment: Alignment.topLeft,
+                                        constraints: BoxConstraints(
+                                          maxHeight: _reservationViewController
+                                              .blokSandalyeAdetiUiMaxHeight
+                                              .value,
                                         ),
-                                      ),
-                                    ),
-                                  ),
+                                        child: CrossScroll(
+                                          ///Optional
+                                          // normalColor: Colors.blue,
+                                          ///Optional
+                                          // hoverColor: Colors.red,
+                                          ///Optional
+                                          // dimColor: Colors.red.withOpacity(0.4),
+                                          ///design track and thumb
+                                          // verticalBar: const CrossScrollBar(),
+                                          // horizontalBar: const CrossScrollBar(),
+
+                                          child: Row(
+                                            children: [
+                                              if (_reservationViewController
+                                                      .reservationList !=
+                                                  null)
+                                                for (var blokList
+                                                    in _reservationViewController
+                                                        .reservationList)
+                                                  Container(
+                                                      width: 112.0,
+                                                      padding:
+                                                          EdgeInsets.all(12.0),
+                                                      // decoration: BoxDecoration(),
+                                                      child: Column(children: [
+                                                        Text(blokList.adi
+                                                            .toString()),
+                                                        blokList.masayaAitSandalyeler !=
+                                                                null
+                                                            ? GridView.builder(
+                                                                physics:
+                                                                    NeverScrollableScrollPhysics(),
+                                                                shrinkWrap:
+                                                                    true,
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                gridDelegate:
+                                                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                                                  crossAxisCount:
+                                                                      2,
+                                                                  crossAxisSpacing:
+                                                                      0.0,
+                                                                  mainAxisSpacing:
+                                                                      0.0,
+                                                                  childAspectRatio:
+                                                                      1.0,
+                                                                ),
+                                                                itemCount: blokList
+                                                                        .masayaAitSandalyeler
+                                                                        ?.length ??
+                                                                    0,
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        index) {
+                                                                  return blokList
+                                                                              .masayaAitSandalyeler![index]
+                                                                              .sandalyeId !=
+                                                                          null
+                                                                      ? Obx(
+                                                                          () =>
+                                                                              Card(
+                                                                            elevation:
+                                                                                3.0,
+                                                                            shape:
+                                                                                RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(15.0),
+                                                                            ),
+                                                                            child: GFRadio<String>(
+                                                                                type: GFRadioType.custom,
+                                                                                size: 25.0,
+                                                                                value: blokList.masayaAitSandalyeler![index].sandalyeId!,
+                                                                                toggleable: true,
+                                                                                inactiveBgColor: blokList.masayaAitSandalyeler![index].sandalyeDoluMu! ? GFColors.DANGER : Color.fromARGB(255, 235, 235, 235),
+                                                                                groupValue: _reservationViewController.groupValue.value,
+                                                                                onChanged: (value) {
+                                                                                  print('Basilan Sandalye Id miz. : ' + value);
+                                                                                  blokList.masayaAitSandalyeler![index].sandalyeDoluMu! ? _reservationViewController.groupValue.value = value : null; // Sandalye doluysa groupValue degerimiz degistirmemis olacagiz ve kullanici dolu sandalyeyi secememis olacaktir. Aslinda Radio butonu disabled etmis gibi oluyoruz.
+                                                                                  print('Secili Group value degerimiz. : ' + _reservationViewController.groupValue.value);
+                                                                                },
+                                                                                activeIcon: Icon(
+                                                                                  Icons.done,
+                                                                                  color: GFColors.SUCCESS,
+                                                                                ),
+                                                                                inactiveIcon: null,
+                                                                                activeBorderColor: GFColors.SUCCESS,
+                                                                                inactiveBorderColor: blokList.masayaAitSandalyeler![index].sandalyeDoluMu! ?  GFColors.DANGER:GFColors.SUCCESS 
+
+                                                                                // customBgColor:
+                                                                                //     GFColors.SUCCESS,
+                                                                                ),
+                                                                          ),
+                                                                        )
+                                                                      : Text('');
+                                                                },
+                                                                // children: [
+                                                                //   for (int i = 1; i < 55; i++)
+
+                                                                // Card(
+                                                                //   color: Color.fromARGB(255, 209, 36, 36),
+                                                                //   child: Container(
+                                                                //     width: 18,
+                                                                //     height: 18,
+                                                                //     alignment: Alignment.center,
+                                                                //     child: Text(
+                                                                //       "",
+                                                                //       style: TextStyle(
+                                                                //         color: Colors.white,
+                                                                //       ),
+                                                                //       textAlign: TextAlign.center,
+                                                                //     ),
+                                                                //   ),
+                                                                // ),
+                                                                // ],
+                                                              )
+                                                            : Text(''),
+                                                      ]))
+                                            ],
+                                          ),
+                                        ),
+                                      )),
                                 ),
                         ),
                 ),
               ),
+
               const SliverPadding(padding: EdgeInsets.only(bottom: 64.0))
             ],
           ),

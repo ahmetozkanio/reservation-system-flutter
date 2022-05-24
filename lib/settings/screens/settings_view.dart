@@ -42,21 +42,23 @@ class SettingsView extends StatelessWidget {
                     title: Text("Profil"),
                     onTap: () {},
                   ),
-                  listDivider(context),
-                  ListTile(
-                    leading: Icon(
-                      Icons.color_lens,
-                      color: Theme.of(context).primaryColor,
-                    ),
+                  // listDivider(context),
 
-                    //  listTileIcon("assets/icons/ic_color_wheel.png"),
-                    style: ListTileStyle.list,
-                    title: Text("Temalar"),
-                    onTap: () {
-                      Get.to(() => ThemesView(),
-                          transition: Transition.rightToLeft);
-                    },
-                  ),
+                  //Tema Ekranina erismek icin burasi acilmali..............
+                  // ListTile(
+                  //   leading: Icon(
+                  //     Icons.color_lens,
+                  //     color: Theme.of(context).primaryColor,
+                  //   ),
+
+                  //   //  listTileIcon("assets/icons/ic_color_wheel.png"),
+                  //   style: ListTileStyle.list,
+                  //   title: Text("Temalar"),
+                  //   onTap: () {
+                  //     Get.to(() => ThemesView(),
+                  //         transition: Transition.rightToLeft);
+                  //   },
+                  // ),
                 ],
               ),
             ),

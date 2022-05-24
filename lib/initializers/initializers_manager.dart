@@ -6,7 +6,7 @@ class InitializersManager extends GetxController {
   @override
   void onInit() {
     // Theme Storage initial
-    initialTheme();
+    // initialTheme(); //Temayi Aktif Etmek icin burasi acilmali......
     super.onInit();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -10,6 +11,7 @@ import 'package:library_reservation_liberta_flutter/actions/admin/salon/model/sa
 import 'package:library_reservation_liberta_flutter/widgets/shimmers/base_shimmer.dart';
 import 'package:library_reservation_liberta_flutter/widgets/shimmers/drop_down_shimmer.dart';
 import 'package:library_reservation_liberta_flutter/widgets/shimmers/multiselect_chipfield_shimmer.dart';
+import 'package:lottie/lottie.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shimmer/shimmer.dart';
@@ -45,397 +47,741 @@ Container salonListBody(context, controller) {
               12.0,
             ),
             sliver: SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: ExpansionTileCard(
+                initialElevation: 2.0,
+                title: Text('Salonları Filtrele'),
+                animateTrailing: true,
+                trailing: Lottie.asset(
+                  'assets/lottie/salon_search.json',
+                  height: 96.0,
+                  width: 96.0,
+                ),
                 children: [
-                  Text(
-                    "SALONLAR",
-                    style: TextStyle(
-                        fontSize:
-                            Theme.of(context).textTheme.titleLarge!.fontSize),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Divider(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4.0),
+                          child: Text(
+                            "Birimler",
+                          ),
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                        Obx(() => _salonListController
+                                .salonOzellikleriLoading.value
+                            ? baseShimmer(multiSelectDialogFieldShimmer())
+                            : MultiSelectDialogField(
+                                height: MediaQuery.of(context).size.height / 2,
+                                title: Text('Birimler'),
+                                buttonText: Text(
+                                  'Birim seçin',
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                                itemsTextStyle: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                selectedItemsTextStyle: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                buttonIcon:
+                                    Icon(Icons.keyboard_arrow_down_sharp),
+                                searchable: true,
+                                searchHint: 'Birim ara',
+                                confirmText: Text('Tamam'),
+                                cancelText: Text('İptal'),
+                                // barrierColor: Theme.of(context).primaryColor,
+                                selectedColor:
+                                    Theme.of(context).colorScheme.primary,
+                                backgroundColor:
+                                    Theme.of(context).secondaryHeaderColor,
+                                checkColor:
+                                    Theme.of(context).secondaryHeaderColor,
+                                items:
+                                    _salonListController.birimMultiSelectList,
+                                chipDisplay: MultiSelectChipDisplay(
+                                    scroll: true,
+                                    chipColor:
+                                        Theme.of(context).colorScheme.primary,
+                                    textStyle: TextStyle(color: Colors.white)),
+                                listType: MultiSelectListType.LIST,
+                                onConfirm: (values) {
+                                  _salonListController.seciliBirimler =
+                                      values; //Degerler seciliBirimler listesine esitlenir
+                                  _salonListController
+                                      .secilmisBirimlerinAdlariBirlestirilmesi(); //seciliBirimler Listesindeki birimAdi lari  virgul ile birlestirip Tek Bir String Haline Getirilir
+                                  print(_salonListController
+                                      .secilmisBirimlerinAdlari);
+                                },
+                              )),
+                        SizedBox(
+                          height: 16.0,
+                        ),
+                        Divider(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        SizedBox(
+                          height: 16.0,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: Text("Tarih ve saat"),
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 4.0),
+                          height: 32,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              Obx(() => OutlinedButton(
+                                    //Baslangic Tarihi butonu
+                                    onPressed: () {
+                                      DatePicker.showDatePicker(
+                                        context,
+                                        theme: customDatePickerTheme(context),
+                                        showTitleActions: true,
+                                        minTime: DateTime
+                                            .now(), //suanki zaman ile baslatiliyor.
+                                        maxTime: DateTime(2050, 12, 31),
+                                        onChanged: (date) {},
+                                        onConfirm: (date) {
+                                          _salonListController
+                                                  .salonMinBitisTarihiAndBaslangicCurrentDate
+                                                  .value =
+                                              date; //Bitis Tarihi butonu tetikleniyor ve min zaman dilimi ayarlaniyor.
+                                          _salonListController
+                                                  .salonBaslangicTarihi.value =
+                                              dateFormat(
+                                                  date); //Salon Baslangic tarihi formatlanip deger aliniyor. 2022-05-18
+                                        },
+                                        currentTime: _salonListController
+                                            .salonMinBitisTarihiAndBaslangicCurrentDate
+                                            .value, //Secili olan tarih.
+                                        locale: LocaleType.tr,
+                                      );
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.date_range,
+                                          size: 16.0,
+                                        ),
+                                        Text(
+                                          'Başlangıç Tarihi : ' +
+                                              _salonListController
+                                                  .salonBaslangicTarihi.value
+                                                  .toString(),
+                                          style: TextStyle(fontSize: 12.0),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                              Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 4.0)),
+                              Obx(() => OutlinedButton(
+                                    //BitisTarihi Butonu
+                                    onPressed: () {
+                                      DatePicker.showDatePicker(
+                                        context,
+                                        theme: customDatePickerTheme(context),
+                                        showTitleActions: true,
+                                        minTime: _salonListController
+                                            .salonMinBitisTarihiAndBaslangicCurrentDate
+                                            .value,
+                                        maxTime: DateTime(2050, 12, 31),
+                                        onChanged: (date) {},
+                                        onConfirm: (date) {
+                                          _salonListController
+                                                  .salonBitisTarihiCurrentDate
+                                                  .value =
+                                              date; //Bitis tarihi secilmis olan tarih.
+                                          _salonListController
+                                                  .salonBitisTarihi.value =
+                                              dateFormat(
+                                                  date); // Tarihi formatlanip  String deger aliniyor. 2022-05-18
+                                        },
+                                        currentTime: _salonListController
+                                            .salonBitisTarihiCurrentDate
+                                            .value, //secili olan tarih
+                                        locale: LocaleType.tr,
+                                      );
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.date_range,
+                                          size: 16.0,
+                                        ),
+                                        Text(
+                                          'Bitiş Tarihi : ' +
+                                              _salonListController
+                                                  .salonBitisTarihi.value,
+                                          style: TextStyle(fontSize: 12.0),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 4.0),
+                          height: 32,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              Obx(
+                                () => OutlinedButton(
+                                  //Baslangic saati
+                                  onPressed: () {
+                                    DatePicker.showTimePicker(context,
+                                        showTitleActions: true,
+                                        theme: customDatePickerTheme(context),
+                                        // minTime: DateTime.now(),
+                                        // maxTime: DateTime(2022, 12, 31),
+                                        showSecondsColumn: false,
+                                        onChanged: (date) {},
+                                        onConfirm: (date) {
+                                      _salonListController
+                                              .salonMinBitisSaatiAndBaslangicCurrentTime
+                                              .value =
+                                          date; //secilen saat degeri esitleniyor.
+                                      _salonListController
+                                              .salonBaslangicSaati.value =
+                                          timeFormat(
+                                              date); //String saat degerimiz.
+                                    },
+                                        currentTime: _salonListController
+                                            .salonMinBitisSaatiAndBaslangicCurrentTime
+                                            .value,
+                                        locale: LocaleType.tr);
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.schedule,
+                                        size: 16.0,
+                                      ),
+                                      Text(
+                                        'Başlangıç Saati : ' +
+                                            _salonListController
+                                                .salonBaslangicSaati.value,
+                                        style: TextStyle(fontSize: 12.0),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 4.0)),
+                              Obx(() => OutlinedButton(
+                                    //bitis saati
+                                    onPressed: () {
+                                      DatePicker.showTimePicker(context,
+                                          showTitleActions: true,
+                                          showSecondsColumn: false,
+                                          theme: customDatePickerTheme(context),
+                                          onChanged: (date) {},
+                                          onConfirm: (date) {
+                                        _salonListController
+                                                .salonBitisTarihiCurrentDate
+                                                .value =
+                                            date; //Bitis saati secili deger tekrar gozukmesi icin gerekli.
+                                        _salonListController
+                                                .salonBitisSaati.value =
+                                            timeFormat(
+                                                date); //String saat degerimiz.
+                                      },
+                                          currentTime: _salonListController
+                                                      .salonBitisTarihiCurrentDate
+                                                      .value ==
+                                                  DateTime.now()
+                                              ? _salonListController
+                                                  .salonMinBitisSaatiAndBaslangicCurrentTime
+                                                  .value // herhangi bir bitis saati secilmemis ise baslangic saatin secili degeri gelir.
+                                              : _salonListController
+                                                  .salonBitisTarihiCurrentDate
+                                                  .value, // bitis saati secilmis ise bitis saatinin degeri secili gelir.
+                                          locale: LocaleType.tr);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.schedule,
+                                          size: 16.0,
+                                        ),
+                                        Text(
+                                          'Bitiş Saati : ' +
+                                              _salonListController
+                                                  .salonBitisSaati.value,
+                                          style: TextStyle(fontSize: 12.0),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                        Divider(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        Obx(
+                          () => _salonListController
+                                  .salonOzellikleriLoading.value
+                              ? baseShimmer(multiSelectChhipFieldShimmer())
+                              : MultiSelectChipField(
+                                  // autovalidateMode:
+                                  //     AutovalidateMode.onUserInteraction,
+                                  // // validator: (values) {
+                                  //   if (values == null || values.isEmpty) {
+                                  //     return "Salon özelliklerini seçiniz.";
+                                  //   }
+                                  //   return null;
+                                  // },
+                                  textStyle: TextStyle(
+                                      fontSize: 12.0,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.color),
+                                  items: _salonListController
+                                      .salonOzellikleriMultiSelectList,
+                                  initialValue: [],
+                                  title: Text(
+                                    "Salon Özellikleri",
+                                    style: TextStyle(fontSize: 14.0),
+                                  ),
+                                  headerColor: Colors.transparent,
+                                  showHeader: true,
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(15.0)),
+                                  ),
+                                  chipColor:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  selectedChipColor: Theme.of(context)
+                                      .buttonTheme
+                                      .colorScheme
+                                      ?.primary,
+                                  selectedTextStyle: TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 255, 255, 255)),
+                                  onTap: (values) {
+                                    _salonListController
+                                            .secilmisSalonOzellikleri =
+                                        values; //secilen ozellikler listemize kayit edilir.
+                                    _salonListController
+                                        .secilmisSalonOzellikAdlariBirlestirilmesi();
+                                    // //her ozellik secildiginde String degiskenimiz bastan yenilenir.
+                                    print(_salonListController
+                                        .secilmisSalonOzellikAdlari);
+                                  },
+                                ),
+                        ),
+                        Divider(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        ElevatedButton(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.search),
+                              SizedBox(
+                                width: 12.0,
+                              ),
+                              Text(
+                                'Salon Ara',
+                              ),
+                            ],
+                          ),
+                          onPressed: () {
+                            _salonListController.fetchSalonList();
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                  // Text("Salonlar")
                 ],
               ),
             ),
           ),
-          SliverPadding(
-            padding: EdgeInsets.only(
-              left: 12.0,
-              right: 12.0,
-              bottom: 12.0,
-            ),
-            sliver: SliverToBoxAdapter(
-              child: Text(
-                "Birimler",
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.only(
-              left: 12.0,
-              right: 12.0,
-              bottom: 12.0,
-            ),
-            sliver: SliverToBoxAdapter(
-              child: Obx(
-                  () => _salonListController.salonOzellikleriLoading.value
-                      ? baseShimmer(multiSelectDialogFieldShimmer())
-                      : MultiSelectDialogField(
-                          height: MediaQuery.of(context).size.height / 2,
-                          title: Text('Birimler'),
-                          buttonText: Text(
-                            'Birim seçin',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                            ),
-                          ),
-                          itemsTextStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          selectedItemsTextStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          buttonIcon: Icon(Icons.keyboard_arrow_down_sharp),
-                          searchable: true,
-                          searchHint: 'Birim ara',
-                          confirmText: Text('Tamam'),
-                          cancelText: Text('İptal'),
-                          // barrierColor: Theme.of(context).primaryColor,
-                          selectedColor: Theme.of(context).colorScheme.primary,
-                          backgroundColor:
-                              Theme.of(context).secondaryHeaderColor,
-                          checkColor: Theme.of(context).secondaryHeaderColor,
-                          items: _salonListController.birimMultiSelectList,
-                          chipDisplay: MultiSelectChipDisplay(
-                              scroll: true,
-                              chipColor: Theme.of(context).colorScheme.primary,
-                              textStyle: TextStyle(color: Colors.white)),
-                          listType: MultiSelectListType.LIST,
-                          onConfirm: (values) {
-                            _salonListController.seciliBirimler =
-                                values; //Degerler seciliBirimler listesine esitlenir
-                            _salonListController
-                                .secilmisBirimlerinAdlariBirlestirilmesi(); //seciliBirimler Listesindeki birimAdi lari  virgul ile birlestirip Tek Bir String Haline Getirilir
-                            print(
-                                _salonListController.secilmisBirimlerinAdlari);
-                          },
-                        )
-                  //  DropdownSearch<dynamic>(
-                  //     popupBackgroundColor:
-                  //         Theme.of(context).secondaryHeaderColor,
-                  //     mode: Mode.BOTTOM_SHEET,
-                  //     // showSelectedItems: true,
-                  //     showSearchBox: true,
-                  //     items: _salonListController.birimNameList,
-                  //     autoValidateMode: AutovalidateMode.onUserInteraction,
-                  //     hint: "Birim Seçiniz",
-
-                  //     onChanged: (data) {
-                  //       _salonListController.seciliBirimName =
-                  //           data; //Secili olan birim adimizi seciBirimName' e esitliyoruz.
-                  //     },
-                  //     validator: (value) {
-                  //       if (value == null) {
-                  //         return "Lütfen birim seçiniz.";
-                  //       }
-                  //       return null;
-                  //     },
-                  //   ),
-                  ),
-            ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.only(
-              left: 12.0,
-              right: 12.0,
-              bottom: 6.0,
-            ),
-            sliver: SliverToBoxAdapter(
-              child: Divider(
-                thickness: 2.0,
-              ),
-            ),
-          ),
-          SliverPadding(
-              padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0),
-              sliver: SliverToBoxAdapter(child: Text("Tarih ve saat"))),
-          SliverPadding(
-            padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0),
-            sliver: SliverToBoxAdapter(
-              child: Container(
-                height: 32,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Obx(() => OutlinedButton(
-                          //Baslangic Tarihi butonu
-                          onPressed: () {
-                            DatePicker.showDatePicker(
-                              context,
-                              theme: customDatePickerTheme(context),
-                              showTitleActions: true,
-                              minTime: DateTime
-                                  .now(), //suanki zaman ile baslatiliyor.
-                              maxTime: DateTime(2050, 12, 31),
-                              onChanged: (date) {},
-                              onConfirm: (date) {
-                                _salonListController
-                                        .salonMinBitisTarihiAndBaslangicCurrentDate
-                                        .value =
-                                    date; //Bitis Tarihi butonu tetikleniyor ve min zaman dilimi ayarlaniyor.
-                                _salonListController
-                                        .salonBaslangicTarihi.value =
-                                    dateFormat(
-                                        date); //Salon Baslangic tarihi formatlanip deger aliniyor. 2022-05-18
-                              },
-                              currentTime: _salonListController
-                                  .salonMinBitisTarihiAndBaslangicCurrentDate
-                                  .value, //Secili olan tarih.
-                              locale: LocaleType.tr,
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.date_range,
-                                size: 16.0,
-                              ),
-                              Text(
-                                'Başlangıç Tarihi : ' +
-                                    _salonListController
-                                        .salonBaslangicTarihi.value
-                                        .toString(),
-                                style: TextStyle(fontSize: 12.0),
-                              ),
-                            ],
-                          ),
-                        )),
-                    Padding(padding: EdgeInsets.symmetric(horizontal: 4.0)),
-                    Obx(() => OutlinedButton(
-                          //BitisTarihi Butonu
-                          onPressed: () {
-                            DatePicker.showDatePicker(
-                              context,
-                              theme: customDatePickerTheme(context),
-                              showTitleActions: true,
-                              minTime: _salonListController
-                                  .salonMinBitisTarihiAndBaslangicCurrentDate
-                                  .value,
-                              maxTime: DateTime(2050, 12, 31),
-                              onChanged: (date) {},
-                              onConfirm: (date) {
-                                _salonListController
-                                        .salonBitisTarihiCurrentDate.value =
-                                    date; //Bitis tarihi secilmis olan tarih.
-                                _salonListController.salonBitisTarihi.value =
-                                    dateFormat(
-                                        date); // Tarihi formatlanip  String deger aliniyor. 2022-05-18
-                              },
-                              currentTime: _salonListController
-                                  .salonBitisTarihiCurrentDate
-                                  .value, //secili olan tarih
-                              locale: LocaleType.tr,
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.date_range,
-                                size: 16.0,
-                              ),
-                              Text(
-                                'Bitiş Tarihi : ' +
-                                    _salonListController.salonBitisTarihi.value,
-                                style: TextStyle(fontSize: 12.0),
-                              ),
-                            ],
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 6.0),
-            sliver: SliverToBoxAdapter(
-              child: Container(
-                height: 32,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Obx(
-                      () => OutlinedButton(
-                        //Baslangic saati
-                        onPressed: () {
-                          DatePicker.showTimePicker(context,
-                              showTitleActions: true,
-                              theme: customDatePickerTheme(context),
-                              // minTime: DateTime.now(),
-                              // maxTime: DateTime(2022, 12, 31),
-                              showSecondsColumn: false,
-                              onChanged: (date) {}, onConfirm: (date) {
-                            _salonListController
-                                    .salonMinBitisSaatiAndBaslangicCurrentTime
-                                    .value =
-                                date; //secilen saat degeri esitleniyor.
-                            _salonListController.salonBaslangicSaati.value =
-                                timeFormat(date); //String saat degerimiz.
-                          },
-                              currentTime: _salonListController
-                                  .salonMinBitisSaatiAndBaslangicCurrentTime
-                                  .value,
-                              locale: LocaleType.tr);
-                        },
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.schedule,
-                              size: 16.0,
-                            ),
-                            Text(
-                              'Başlangıç Saati : ' +
-                                  _salonListController
-                                      .salonBaslangicSaati.value,
-                              style: TextStyle(fontSize: 12.0),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.symmetric(horizontal: 4.0)),
-                    Obx(() => OutlinedButton(
-                          //bitis saati
-                          onPressed: () {
-                            DatePicker.showTimePicker(context,
-                                showTitleActions: true,
-                                showSecondsColumn: false,
-                                theme: customDatePickerTheme(context),
-                                onChanged: (date) {}, onConfirm: (date) {
-                              _salonListController
-                                      .salonBitisTarihiCurrentDate.value =
-                                  date; //Bitis saati secili deger tekrar gozukmesi icin gerekli.
-                              _salonListController.salonBitisSaati.value =
-                                  timeFormat(date); //String saat degerimiz.
-                            },
-                                currentTime: _salonListController
-                                            .salonBitisTarihiCurrentDate
-                                            .value ==
-                                        DateTime.now()
-                                    ? _salonListController
-                                        .salonMinBitisSaatiAndBaslangicCurrentTime
-                                        .value // herhangi bir bitis saati secilmemis ise baslangic saatin secili degeri gelir.
-                                    : _salonListController
-                                        .salonBitisTarihiCurrentDate
-                                        .value, // bitis saati secilmis ise bitis saatinin degeri secili gelir.
-                                locale: LocaleType.tr);
-                          },
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.schedule,
-                                size: 16.0,
-                              ),
-                              Text(
-                                'Bitiş Saati : ' +
-                                    _salonListController.salonBitisSaati.value,
-                                style: TextStyle(fontSize: 12.0),
-                              ),
-                            ],
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.only(
-              left: 12.0,
-              right: 12.0,
-            ),
-            sliver: SliverToBoxAdapter(
-              child: Divider(
-                thickness: 2.0,
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.only(
-              left: 8.0,
-              right: 12.0,
-              bottom: 6.0,
-            ),
-            sliver: SliverToBoxAdapter(
-                child: Obx(
-              () => _salonListController.salonOzellikleriLoading.value
-                  ? baseShimmer(multiSelectChhipFieldShimmer())
-                  : MultiSelectChipField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (values) {
-                        if (values == null || values.isEmpty) {
-                          return "Salon özelliklerini seçiniz.";
-                        }
-                        return null;
-                      },
-                      textStyle: TextStyle(
-                          fontSize: 12.0,
-                          color: Theme.of(context).textTheme.bodyLarge?.color),
-                      items:
-                          _salonListController.salonOzellikleriMultiSelectList,
-                      initialValue: [],
-                      title: Text(
-                        "Salon Özellikleri",
-                        style: TextStyle(fontSize: 14.0),
-                      ),
-                      headerColor: Colors.transparent,
-                      showHeader: true,
-                      decoration: const BoxDecoration(
-                        borderRadius:
-                            BorderRadius.only(topLeft: Radius.circular(15.0)),
-                      ),
-                      chipColor: Theme.of(context).scaffoldBackgroundColor,
-                      selectedChipColor:
-                          Theme.of(context).buttonTheme.colorScheme?.primary,
-                      selectedTextStyle:
-                          TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                      onTap: (values) {
-                        _salonListController.secilmisSalonOzellikleri =
-                            values; //secilen ozellikler listemize kayit edilir.
-                        _salonListController
-                            .secilmisSalonOzellikAdlariBirlestirilmesi();
-                        // //her ozellik secildiginde String degiskenimiz bastan yenilenir.
-                        print(_salonListController.secilmisSalonOzellikAdlari);
-                      },
-                    ),
-            )),
-          ),
-          SliverPadding(
-              padding: EdgeInsets.only(
-                left: 12.0,
-                right: 12.0,
-                bottom: 6.0,
-              ),
-              sliver: SliverToBoxAdapter(
-                child: ElevatedButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.search),
-                      SizedBox(
-                        width: 12.0,
-                      ),
-                      Text(
-                        'Salon Ara',
-                      ),
-                    ],
-                  ),
-                  onPressed: () {
-                    _salonListController.fetchSalonList();
-                  },
-                ),
-              )),
+          // SliverPadding(
+          //   padding: EdgeInsets.only(
+          //     left: 12.0,
+          //     right: 12.0,
+          //     bottom: 12.0,
+          //   ),
+          //   sliver: SliverToBoxAdapter(
+          //     child: Text(
+          //       "Birimler",
+          //     ),
+          //   ),
+          // ),
+          // SliverPadding(
+          //   padding: EdgeInsets.only(
+          //     left: 12.0,
+          //     right: 12.0,
+          //     bottom: 12.0,
+          //   ),
+          //   sliver: SliverToBoxAdapter(
+          //     child:
+          //         Obx(() => _salonListController.salonOzellikleriLoading.value
+          //             ? baseShimmer(multiSelectDialogFieldShimmer())
+          //             : MultiSelectDialogField(
+          //                 height: MediaQuery.of(context).size.height / 2,
+          //                 title: Text('Birimler'),
+          //                 buttonText: Text(
+          //                   'Birim seçin',
+          //                   style: TextStyle(
+          //                     fontSize: 12.0,
+          //                   ),
+          //                 ),
+          //                 itemsTextStyle: TextStyle(
+          //                   color: Theme.of(context).colorScheme.primary,
+          //                 ),
+          //                 selectedItemsTextStyle: TextStyle(
+          //                   color: Theme.of(context).colorScheme.primary,
+          //                 ),
+          //                 buttonIcon: Icon(Icons.keyboard_arrow_down_sharp),
+          //                 searchable: true,
+          //                 searchHint: 'Birim ara',
+          //                 confirmText: Text('Tamam'),
+          //                 cancelText: Text('İptal'),
+          //                 // barrierColor: Theme.of(context).primaryColor,
+          //                 selectedColor: Theme.of(context).colorScheme.primary,
+          //                 backgroundColor:
+          //                     Theme.of(context).secondaryHeaderColor,
+          //                 checkColor: Theme.of(context).secondaryHeaderColor,
+          //                 items: _salonListController.birimMultiSelectList,
+          //                 chipDisplay: MultiSelectChipDisplay(
+          //                     scroll: true,
+          //                     chipColor: Theme.of(context).colorScheme.primary,
+          //                     textStyle: TextStyle(color: Colors.white)),
+          //                 listType: MultiSelectListType.LIST,
+          //                 onConfirm: (values) {
+          //                   _salonListController.seciliBirimler =
+          //                       values; //Degerler seciliBirimler listesine esitlenir
+          //                   _salonListController
+          //                       .secilmisBirimlerinAdlariBirlestirilmesi(); //seciliBirimler Listesindeki birimAdi lari  virgul ile birlestirip Tek Bir String Haline Getirilir
+          //                   print(
+          //                       _salonListController.secilmisBirimlerinAdlari);
+          //                 },
+          //               )),
+          //   ),
+          // ),
+          // SliverPadding(
+          //   padding: EdgeInsets.only(
+          //     left: 12.0,
+          //     right: 12.0,
+          //     bottom: 6.0,
+          //   ),
+          //   sliver: SliverToBoxAdapter(
+          //     child: Divider(
+          //       thickness: 2.0,
+          //     ),
+          //   ),
+          // ),
+          // SliverPadding(
+          //     padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0),
+          //     sliver: SliverToBoxAdapter(child: Text("Tarih ve saat"))),
+          // SliverPadding(
+          //   padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0),
+          //   sliver: SliverToBoxAdapter(
+          //     child: Container(
+          //       height: 32,
+          //       child: ListView(
+          //         scrollDirection: Axis.horizontal,
+          //         children: [
+          //           Obx(() => OutlinedButton(
+          //                 //Baslangic Tarihi butonu
+          //                 onPressed: () {
+          //                   DatePicker.showDatePicker(
+          //                     context,
+          //                     theme: customDatePickerTheme(context),
+          //                     showTitleActions: true,
+          //                     minTime: DateTime
+          //                         .now(), //suanki zaman ile baslatiliyor.
+          //                     maxTime: DateTime(2050, 12, 31),
+          //                     onChanged: (date) {},
+          //                     onConfirm: (date) {
+          //                       _salonListController
+          //                               .salonMinBitisTarihiAndBaslangicCurrentDate
+          //                               .value =
+          //                           date; //Bitis Tarihi butonu tetikleniyor ve min zaman dilimi ayarlaniyor.
+          //                       _salonListController
+          //                               .salonBaslangicTarihi.value =
+          //                           dateFormat(
+          //                               date); //Salon Baslangic tarihi formatlanip deger aliniyor. 2022-05-18
+          //                     },
+          //                     currentTime: _salonListController
+          //                         .salonMinBitisTarihiAndBaslangicCurrentDate
+          //                         .value, //Secili olan tarih.
+          //                     locale: LocaleType.tr,
+          //                   );
+          //                 },
+          //                 child: Row(
+          //                   children: [
+          //                     Icon(
+          //                       Icons.date_range,
+          //                       size: 16.0,
+          //                     ),
+          //                     Text(
+          //                       'Başlangıç Tarihi : ' +
+          //                           _salonListController
+          //                               .salonBaslangicTarihi.value
+          //                               .toString(),
+          //                       style: TextStyle(fontSize: 12.0),
+          //                     ),
+          //                   ],
+          //                 ),
+          //               )),
+          //           Padding(padding: EdgeInsets.symmetric(horizontal: 4.0)),
+          //           Obx(() => OutlinedButton(
+          //                 //BitisTarihi Butonu
+          //                 onPressed: () {
+          //                   DatePicker.showDatePicker(
+          //                     context,
+          //                     theme: customDatePickerTheme(context),
+          //                     showTitleActions: true,
+          //                     minTime: _salonListController
+          //                         .salonMinBitisTarihiAndBaslangicCurrentDate
+          //                         .value,
+          //                     maxTime: DateTime(2050, 12, 31),
+          //                     onChanged: (date) {},
+          //                     onConfirm: (date) {
+          //                       _salonListController
+          //                               .salonBitisTarihiCurrentDate.value =
+          //                           date; //Bitis tarihi secilmis olan tarih.
+          //                       _salonListController.salonBitisTarihi.value =
+          //                           dateFormat(
+          //                               date); // Tarihi formatlanip  String deger aliniyor. 2022-05-18
+          //                     },
+          //                     currentTime: _salonListController
+          //                         .salonBitisTarihiCurrentDate
+          //                         .value, //secili olan tarih
+          //                     locale: LocaleType.tr,
+          //                   );
+          //                 },
+          //                 child: Row(
+          //                   children: [
+          //                     Icon(
+          //                       Icons.date_range,
+          //                       size: 16.0,
+          //                     ),
+          //                     Text(
+          //                       'Bitiş Tarihi : ' +
+          //                           _salonListController.salonBitisTarihi.value,
+          //                       style: TextStyle(fontSize: 12.0),
+          //                     ),
+          //                   ],
+          //                 ),
+          //               )),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // SliverPadding(
+          //   padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 6.0),
+          //   sliver: SliverToBoxAdapter(
+          //     child: Container(
+          //       height: 32,
+          //       child: ListView(
+          //         scrollDirection: Axis.horizontal,
+          //         children: [
+          //           Obx(
+          //             () => OutlinedButton(
+          //               //Baslangic saati
+          //               onPressed: () {
+          //                 DatePicker.showTimePicker(context,
+          //                     showTitleActions: true,
+          //                     theme: customDatePickerTheme(context),
+          //                     // minTime: DateTime.now(),
+          //                     // maxTime: DateTime(2022, 12, 31),
+          //                     showSecondsColumn: false,
+          //                     onChanged: (date) {}, onConfirm: (date) {
+          //                   _salonListController
+          //                           .salonMinBitisSaatiAndBaslangicCurrentTime
+          //                           .value =
+          //                       date; //secilen saat degeri esitleniyor.
+          //                   _salonListController.salonBaslangicSaati.value =
+          //                       timeFormat(date); //String saat degerimiz.
+          //                 },
+          //                     currentTime: _salonListController
+          //                         .salonMinBitisSaatiAndBaslangicCurrentTime
+          //                         .value,
+          //                     locale: LocaleType.tr);
+          //               },
+          //               child: Row(
+          //                 children: [
+          //                   Icon(
+          //                     Icons.schedule,
+          //                     size: 16.0,
+          //                   ),
+          //                   Text(
+          //                     'Başlangıç Saati : ' +
+          //                         _salonListController
+          //                             .salonBaslangicSaati.value,
+          //                     style: TextStyle(fontSize: 12.0),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //           Padding(padding: EdgeInsets.symmetric(horizontal: 4.0)),
+          //           Obx(() => OutlinedButton(
+          //                 //bitis saati
+          //                 onPressed: () {
+          //                   DatePicker.showTimePicker(context,
+          //                       showTitleActions: true,
+          //                       showSecondsColumn: false,
+          //                       theme: customDatePickerTheme(context),
+          //                       onChanged: (date) {}, onConfirm: (date) {
+          //                     _salonListController
+          //                             .salonBitisTarihiCurrentDate.value =
+          //                         date; //Bitis saati secili deger tekrar gozukmesi icin gerekli.
+          //                     _salonListController.salonBitisSaati.value =
+          //                         timeFormat(date); //String saat degerimiz.
+          //                   },
+          //                       currentTime: _salonListController
+          //                                   .salonBitisTarihiCurrentDate
+          //                                   .value ==
+          //                               DateTime.now()
+          //                           ? _salonListController
+          //                               .salonMinBitisSaatiAndBaslangicCurrentTime
+          //                               .value // herhangi bir bitis saati secilmemis ise baslangic saatin secili degeri gelir.
+          //                           : _salonListController
+          //                               .salonBitisTarihiCurrentDate
+          //                               .value, // bitis saati secilmis ise bitis saatinin degeri secili gelir.
+          //                       locale: LocaleType.tr);
+          //                 },
+          //                 child: Row(
+          //                   children: [
+          //                     Icon(
+          //                       Icons.schedule,
+          //                       size: 16.0,
+          //                     ),
+          //                     Text(
+          //                       'Bitiş Saati : ' +
+          //                           _salonListController.salonBitisSaati.value,
+          //                       style: TextStyle(fontSize: 12.0),
+          //                     ),
+          //                   ],
+          //                 ),
+          //               )),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // SliverPadding(
+          //   padding: EdgeInsets.only(
+          //     left: 12.0,
+          //     right: 12.0,
+          //   ),
+          //   sliver: SliverToBoxAdapter(
+          //     child: Divider(
+          //       thickness: 2.0,
+          //     ),
+          //   ),
+          // ),
+          // SliverPadding(
+          //   padding: EdgeInsets.only(
+          //     left: 8.0,
+          //     right: 12.0,
+          //     bottom: 6.0,
+          //   ),
+          //   sliver: SliverToBoxAdapter(
+          //       child: Obx(
+          //     () => _salonListController.salonOzellikleriLoading.value
+          //         ? baseShimmer(multiSelectChhipFieldShimmer())
+          //         : MultiSelectChipField(
+          //             autovalidateMode: AutovalidateMode.onUserInteraction,
+          //             validator: (values) {
+          //               if (values == null || values.isEmpty) {
+          //                 return "Salon özelliklerini seçiniz.";
+          //               }
+          //               return null;
+          //             },
+          //             textStyle: TextStyle(
+          //                 fontSize: 12.0,
+          //                 color: Theme.of(context).textTheme.bodyLarge?.color),
+          //             items:
+          //                 _salonListController.salonOzellikleriMultiSelectList,
+          //             initialValue: [],
+          //             title: Text(
+          //               "Salon Özellikleri",
+          //               style: TextStyle(fontSize: 14.0),
+          //             ),
+          //             headerColor: Colors.transparent,
+          //             showHeader: true,
+          //             decoration: const BoxDecoration(
+          //               borderRadius:
+          //                   BorderRadius.only(topLeft: Radius.circular(15.0)),
+          //             ),
+          //             chipColor: Theme.of(context).scaffoldBackgroundColor,
+          //             selectedChipColor:
+          //                 Theme.of(context).buttonTheme.colorScheme?.primary,
+          //             selectedTextStyle:
+          //                 TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+          //             onTap: (values) {
+          //               _salonListController.secilmisSalonOzellikleri =
+          //                   values; //secilen ozellikler listemize kayit edilir.
+          //               _salonListController
+          //                   .secilmisSalonOzellikAdlariBirlestirilmesi();
+          //               // //her ozellik secildiginde String degiskenimiz bastan yenilenir.
+          //               print(_salonListController.secilmisSalonOzellikAdlari);
+          //             },
+          //           ),
+          //   )),
+          // ),
+          // SliverPadding(
+          //     padding: EdgeInsets.only(
+          //       left: 12.0,
+          //       right: 12.0,
+          //       bottom: 6.0,
+          //     ),
+          //     sliver: SliverToBoxAdapter(
+          //       child: ElevatedButton(
+          //         child: Row(
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           children: [
+          //             Icon(Icons.search),
+          //             SizedBox(
+          //               width: 12.0,
+          //             ),
+          //             Text(
+          //               'Salon Ara',
+          //             ),
+          //           ],
+          //         ),
+          //         onPressed: () {
+          //           _salonListController.fetchSalonList();
+          //         },
+          //       ),
+          //     )),
           // SliverPadding(
           //   padding: EdgeInsets.only(bottom: 6.0),
           //   sliver: SliverToBoxAdapter(
@@ -481,6 +827,52 @@ Container salonListBody(context, controller) {
           //     ),
           //   ),
           // ),
+          SliverPadding(
+            padding: EdgeInsets.only(bottom: 6.0),
+            sliver: SliverToBoxAdapter(
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 32.0,
+                    width: MediaQuery.of(context).size.width,
+                    child: searchTextField(
+                      context,
+                      searchOnChanged,
+                      "Salon Ara",
+                    ),
+                  ),
+                  // Container(
+                  //   width: 24,
+                  //   height: 24,
+                  //   decoration: BoxDecoration(
+                  //     color: Color.fromARGB(255, 218, 218, 218),
+                  //     borderRadius: BorderRadius.all(Radius.elliptical(24, 24)),
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   width: 4,
+                  // ),
+                  // InkWell(
+                  //   onTap: () {
+                  //     _salonListController.salonListLoading.value
+                  //         ? _salonListController.salonListLoading.value = false
+                  //         : _salonListController.salonListLoading.value = true;
+                  //   },
+                  //   child: Container(
+                  //     width: 24,
+                  //     height: 24,
+                  //     decoration: BoxDecoration(
+                  //       color: Color.fromARGB(255, 218, 218, 218),
+                  //       borderRadius:
+                  //           BorderRadius.all(Radius.elliptical(24, 24)),
+                  //     ),
+                  //   ),
+                  // ),
+                ],
+              ),
+            ),
+          ),
+
           SliverPadding(
             padding: const EdgeInsets.only(
               left: 12.0,

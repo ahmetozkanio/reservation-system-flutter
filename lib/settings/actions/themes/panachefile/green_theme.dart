@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData greenTheme = ThemeData(
   primarySwatch: Colors.green,
@@ -66,246 +67,37 @@ final ThemeData greenTheme = ThemeData(
       brightness: Brightness.light,
     ),
   ),
-  // textTheme: TextTheme(
-  //   display4: TextStyle(
-  //   color: Color( 0x8a000000 ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   display3: TextStyle(
-  //   color: Color( 0x8a000000 ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   display2: TextStyle(
-  //   color: Color( 0x8a000000 ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   display1: TextStyle(
-  //   color: Color( 0x8a000000 ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   headline: TextStyle(
-  //   color: Color( 0xdd000000 ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   title: TextStyle(
-  //   color: Color( 0xdd000000 ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   subhead: TextStyle(
-  //   color: Color( 0xdd000000 ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   body2: TextStyle(
-  //   color: Color( 0xdd000000 ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   body1: TextStyle(
-  //   color: Color( 0xdd000000 ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   caption: TextStyle(
-  //   color: Color( 0x8a000000 ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   button: TextStyle(
-  //   color: Color( 0xdd000000 ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   subtitle: TextStyle(
-  //   color: Color( 0xff000000 ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   overline: TextStyle(
-  //   color: Color( 0xff000000 ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  // ),
-  // primaryTextTheme: TextTheme(
-  //   display4: TextStyle(
-  //   color: Color( 0xb3ffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   display3: TextStyle(
-  //   color: Color( 0xb3ffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   display2: TextStyle(
-  //   color: Color( 0xb3ffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   display1: TextStyle(
-  //   color: Color( 0xb3ffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   headline: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   title: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   subhead: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   body2: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   body1: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   caption: TextStyle(
-  //   color: Color( 0xb3ffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   button: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   subtitle: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   overline: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  // ),
-  // accentTextTheme: TextTheme(
-  //   display4: TextStyle(
-  //   color: Color( 0xb3ffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   display3: TextStyle(
-  //   color: Color( 0xb3ffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   display2: TextStyle(
-  //   color: Color( 0xb3ffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   display1: TextStyle(
-  //   color: Color( 0xb3ffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   headline: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   title: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   subhead: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   body2: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   body1: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   caption: TextStyle(
-  //   color: Color( 0xb3ffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   button: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   subtitle: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  //   overline: TextStyle(
-  //   color: Color( 0xffffffff ),
-  //   fontSize: null,
-  //   fontWeight: FontWeight.w400,
-  //   fontStyle: FontStyle.normal,
-  // ),
-  // ),
+  textTheme: TextTheme(
+    displayLarge: GoogleFonts.roboto(
+        fontSize: 97, fontWeight: FontWeight.w300, letterSpacing: -1.5),
+    displayMedium: GoogleFonts.roboto(
+        fontSize: 61, fontWeight: FontWeight.w300, letterSpacing: -0.5),
+    displaySmall: GoogleFonts.roboto(fontSize: 48, fontWeight: FontWeight.w400),
+    headlineLarge: GoogleFonts.roboto(
+        fontSize: 34, fontWeight: FontWeight.w400, letterSpacing: 0.25),
+    headlineMedium:
+        GoogleFonts.roboto(fontSize: 24, fontWeight: FontWeight.w400),
+    headlineSmall: GoogleFonts.roboto(
+        fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0.15),
+    titleLarge: GoogleFonts.roboto(
+        fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.15),
+    titleMedium: GoogleFonts.roboto(
+        fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
+    titleSmall: GoogleFonts.roboto(
+        fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
+    bodyLarge: GoogleFonts.roboto(
+        fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5),
+    bodyMedium: GoogleFonts.roboto(
+        fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.25),
+    bodySmall: GoogleFonts.roboto(
+        fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 1.25),
+    labelLarge: GoogleFonts.roboto(
+        fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
+    labelMedium: GoogleFonts.roboto(
+        fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
+    labelSmall: GoogleFonts.roboto(
+        fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
+  ),
   // inputDecorationTheme: InputDecorationTheme(
   //   labelStyle: TextStyle(
   //     color: Color(0xdd000000),

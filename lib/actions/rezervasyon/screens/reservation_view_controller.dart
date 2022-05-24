@@ -18,7 +18,7 @@ class ReservationViewController extends GetxController {
   // var emptyIndexColor = Colors.grey[200];
 
   // var selectedIndex = 0.obs;
-  var groupValue = 0.obs;
+  var groupValue = ''.obs;
   // var isChecked = false.obs;
   @override
   void onInit() {
@@ -55,7 +55,42 @@ class ReservationViewController extends GetxController {
 
   //Api ************************************************************************* Start;
 
-  fetchReservation() async {
+//ReservationView Bloklar Listeleme Icin CrossScroll Ekran Boyutu arama Sandalye Adetine gore. MaxHeigt Belirleme.
+  RxDouble blokSandalyeAdetiUiMaxHeight = 128.0.obs;
+  reservationViewBlokSandalyeAdetineGoreMaxHeight(context) {
+    int blokSandalyeAdeti = 0;
+    if (reservationList != null) {
+      for (var blokList in reservationList) {
+        if (blokList.masayaAitSandalyeler != null) {
+          if (blokList.masayaAitSandalyeler!.length > blokSandalyeAdeti) {
+            blokSandalyeAdeti = blokList.masayaAitSandalyeler!.length;
+          }
+        }
+      }
+    }
+
+    if (blokSandalyeAdeti >= 20) {
+      blokSandalyeAdetiUiMaxHeight.value =
+          MediaQuery.of(context).size.height * 0.7;
+    } else if (blokSandalyeAdeti >= 15) {
+      blokSandalyeAdetiUiMaxHeight.value =
+          MediaQuery.of(context).size.height * 0.6;
+    } else if (blokSandalyeAdeti >= 10) {
+      blokSandalyeAdetiUiMaxHeight.value =
+          MediaQuery.of(context).size.height * 0.5;
+    } else if (blokSandalyeAdeti >= 5) {
+      blokSandalyeAdetiUiMaxHeight.value =
+          MediaQuery.of(context).size.height * 0.3;
+    } else if (blokSandalyeAdeti >= 0) {
+      blokSandalyeAdetiUiMaxHeight.value =
+          MediaQuery.of(context).size.height * 0.2;
+    } else {
+      blokSandalyeAdetiUiMaxHeight.value =
+          128.0; //Default Hic sandalye listelenmez ise .
+    }
+  }
+
+  fetchReservation(context) async {
     //Rezervayon Ara butonuyla ilgili veriler api den istekte bulunup rezervasyon listesini aliriz.
     reservationAramaLoading.value = false; // Rezervasyon ara butonu kontolu.
     reservationListLoading.value =
@@ -77,6 +112,9 @@ class ReservationViewController extends GetxController {
           reservationList = list;
           reservationListLoading.value =
               false; //Liste null gelmez ise shimmer devreden cikar.
+
+          reservationViewBlokSandalyeAdetineGoreMaxHeight(
+              context); // bu bize blokSandalyelerimizin alanini belirler MaxHeight degerimiz icin gerekli
         } else {
           reservationList.clear();
           reservationAramaLoading.value =

@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 Container searchTextField(
     context, Function(String) searchOnChange, String hintText) {
   return Container(
-    padding: EdgeInsets.only(left: 16, right: 24),
+    padding: EdgeInsets.only(left: 16, right: 16),
     height: 32.0,
     child: TextField(
       onChanged: (value) {
         searchOnChange(value);
       },
       decoration: InputDecoration(
-          filled: true,
+          filled: false,
           //fillColor: Color.fromARGB(255, 255, 255, 255),
 
-          contentPadding: EdgeInsets.all(3),
+          contentPadding: EdgeInsets.all(4.0),
           prefixIcon: Icon(
             Icons.search,
             size: 18,
