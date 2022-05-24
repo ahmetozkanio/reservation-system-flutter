@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+
 import 'package:library_reservation_liberta_flutter/actions/admin/birim/api/birim_api.dart';
 import 'package:library_reservation_liberta_flutter/actions/admin/birim/model/birim_model.dart';
 import 'package:library_reservation_liberta_flutter/actions/admin/salon/model/salon_ozellikleri_model.dart';
@@ -70,24 +70,6 @@ class SalonListController extends GetxController {
   List<SalonModel> salonList =
       <SalonModel>[].obs; // Api den gelen salonListemiz.
 
-  //Tarih icin formatlama
-  dateFormat(dateTime) {
-    String formatDate;
-
-    if (dateTime != null) {
-      formatDate = DateFormat('yyyy-MM-dd').format(dateTime);
-      return formatDate;
-    }
-  }
-
-  //Saat icin Formatlama
-  timeFormat(DateTime dateTime) {
-    String formatTime;
-    if (dateTime != null) {
-      formatTime = DateFormat('HH:mm').format(dateTime);
-      return formatTime;
-    }
-  }
   // ------------------------------------------------------------------ End
 
   //Salon Ozellikleri Alani ***************************************** Start
@@ -157,7 +139,7 @@ class SalonListController extends GetxController {
   fetchSalonList() async {
     //Salon listemiz Salon ara butonuyla tetiklenir ve degerlerimiz apiye gonderilir.
     salonAramaLoading.value = false; //Arama butonu kontrolu.
-    salonListLoading.value = true;
+    salonListLoading.value = true; // Shimmer devreye girer.
 
     try {
       if (salonBaslangicTarihi.value != '' &&

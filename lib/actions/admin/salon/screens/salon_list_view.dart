@@ -14,6 +14,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../functions/date_time_format.dart';
 import '../../../../widgets/date_picker_theme.dart';
 import '../../../../widgets/searchList.dart';
 import '../../../../widgets/shimmers/multiselect_dialogfield_shimmer.dart';
@@ -185,7 +186,7 @@ Container salonListBody(context, controller) {
                                     date; //Bitis Tarihi butonu tetikleniyor ve min zaman dilimi ayarlaniyor.
                                 _salonListController
                                         .salonBaslangicTarihi.value =
-                                    _salonListController.dateFormat(
+                                    dateFormat(
                                         date); //Salon Baslangic tarihi formatlanip deger aliniyor. 2022-05-18
                               },
                               currentTime: _salonListController
@@ -205,7 +206,7 @@ Container salonListBody(context, controller) {
                                     _salonListController
                                         .salonBaslangicTarihi.value
                                         .toString(),
-                                style: TextStyle(fontSize: 9.0),
+                                style: TextStyle(fontSize: 12.0),
                               ),
                             ],
                           ),
@@ -228,7 +229,7 @@ Container salonListBody(context, controller) {
                                         .salonBitisTarihiCurrentDate.value =
                                     date; //Bitis tarihi secilmis olan tarih.
                                 _salonListController.salonBitisTarihi.value =
-                                    _salonListController.dateFormat(
+                                    dateFormat(
                                         date); // Tarihi formatlanip  String deger aliniyor. 2022-05-18
                               },
                               currentTime: _salonListController
@@ -246,7 +247,7 @@ Container salonListBody(context, controller) {
                               Text(
                                 'Bitiş Tarihi : ' +
                                     _salonListController.salonBitisTarihi.value,
-                                style: TextStyle(fontSize: 9.0),
+                                style: TextStyle(fontSize: 12.0),
                               ),
                             ],
                           ),
@@ -280,8 +281,7 @@ Container salonListBody(context, controller) {
                                     .value =
                                 date; //secilen saat degeri esitleniyor.
                             _salonListController.salonBaslangicSaati.value =
-                                _salonListController
-                                    .timeFormat(date); //String saat degerimiz.
+                                timeFormat(date); //String saat degerimiz.
                           },
                               currentTime: _salonListController
                                   .salonMinBitisSaatiAndBaslangicCurrentTime
@@ -298,7 +298,7 @@ Container salonListBody(context, controller) {
                               'Başlangıç Saati : ' +
                                   _salonListController
                                       .salonBaslangicSaati.value,
-                              style: TextStyle(fontSize: 9.0),
+                              style: TextStyle(fontSize: 12.0),
                             ),
                           ],
                         ),
@@ -317,8 +317,7 @@ Container salonListBody(context, controller) {
                                       .salonBitisTarihiCurrentDate.value =
                                   date; //Bitis saati secili deger tekrar gozukmesi icin gerekli.
                               _salonListController.salonBitisSaati.value =
-                                  _salonListController.timeFormat(
-                                      date); //String saat degerimiz.
+                                  timeFormat(date); //String saat degerimiz.
                             },
                                 currentTime: _salonListController
                                             .salonBitisTarihiCurrentDate
@@ -341,7 +340,7 @@ Container salonListBody(context, controller) {
                               Text(
                                 'Bitiş Saati : ' +
                                     _salonListController.salonBitisSaati.value,
-                                style: TextStyle(fontSize: 9.0),
+                                style: TextStyle(fontSize: 12.0),
                               ),
                             ],
                           ),
@@ -427,7 +426,9 @@ Container salonListBody(context, controller) {
                       SizedBox(
                         width: 12.0,
                       ),
-                      Text('Salon Ara'),
+                      Text(
+                        'Salon Ara',
+                      ),
                     ],
                   ),
                   onPressed: () {
@@ -971,14 +972,15 @@ Card salonCardFront(int index) {
                 ElevatedButton(
                   onPressed: () {
                     Get.to(
-                      () => ReservationView(),
+                      () => ReservationView(
+                          _salonListController.salonList[index]),
                       transition: Transition.zoom,
                     );
                   },
                   child: Text(
                     'Rezervasyon',
                     style: TextStyle(
-                      fontSize: 7.0,
+                      fontSize: 11.0,
                     ),
                   ),
                 ),
