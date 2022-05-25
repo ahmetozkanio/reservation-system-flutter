@@ -13,26 +13,35 @@ class SalonApi {
       .find(); //Onceden baslatilmis authenticatin manager sinifimiz buradan cagiriyoruz. Token icin.
 
   Future<List<SalonModel>?> salonListApi(
-    String salonRezervasyonBaslangicTarihi,
-    String salonRezervasyonBitisTarihi,
-    String salonRezervasyonBaslangicSaati,
-    String salonRezervasyonBitisSaati,
-    String salonOzellikAdi,
-    String salonOzellikBirimAdi,
+    String? salonRezervasyonBaslangicTarihi,
+    String? salonRezervasyonBitisTarihi,
+    String? salonRezervasyonBaslangicSaati,
+    String? salonRezervasyonBitisSaati,
+    String? salonOzellikAdi,
+    String? salonOzellikBirimAdi,
   ) async {
     final Uri _salonListUrl =
-        Uri.parse(BaseApi.apiBaseUrl + "Salon/SalonListesi");
+        Uri.parse(BaseApi.apiBaseUrl + "Salon/GetAllSalonListFilter");
 
     try {
       String? _userToken = _authenticationManager
           .getToken(); //Giris yapmis kullanicin tokeni storage den cekiliyor.
       String body = jsonEncode({
-        "salonRezervasyonBaslangicTarihi": "2022-04-24",
-        "salonRezervasyonBitisTarihi": "2022-05-01",
-        "salonRezervasyonBaslangicSaati": salonRezervasyonBaslangicSaati,
-        "salonRezervasyonBitisSaati": salonRezervasyonBitisSaati,
-        "SalonOzellikAdi": salonOzellikAdi,
-        "SalonOzellikBirimAdi": salonOzellikBirimAdi,
+        //Salon Listesi default veriler bize sayfa ilk defa acildiginda gelmesi icin gerekli.
+        "salonRezervasyonBaslangicTarihi": salonRezervasyonBaslangicTarihi == ''
+            ? DateTime.now().year.toString() + '-' + '01' + '-' + '01'
+            : salonRezervasyonBaslangicTarihi,
+        "salonRezervasyonBitisTarihi": salonRezervasyonBitisTarihi == ''
+            ? DateTime.now().year.toString() + '-' + '12' + '-' + '30'
+            : salonRezervasyonBitisTarihi,
+        "salonRezervasyonBaslangicSaati": salonRezervasyonBaslangicSaati == ''
+            ? '01:00'
+            : salonRezervasyonBaslangicSaati,
+        "salonRezervasyonBitisSaati": salonRezervasyonBitisSaati == ''
+            ? '23:55'
+            : salonRezervasyonBitisSaati,
+        "SalonOzellikAdi": salonOzellikAdi ?? '',
+        "SalonOzellikBirimAdi": salonOzellikBirimAdi ?? '',
       });
 
       final response = await http.post(

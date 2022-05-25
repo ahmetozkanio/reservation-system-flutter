@@ -23,6 +23,7 @@ class SalonListController extends GetxController {
   void onInit() {
     fetchBirimList(); //Birimleri baslangicta servisten cagirir.
     fetchSalonOzellikleri(); //Salon Ozelliklerini baslangicta servisten cagirilir.
+    fetchSalonList();//Salonlar Uygulama Acildiginda Listelenir Filtreleme yapilmadadan default degerler gonderilerek.
     super.onInit();
   }
 
@@ -33,7 +34,7 @@ class SalonListController extends GetxController {
       []; // Multi select te gosterilen listemiz
   List? seciliBirimler; //Kullanicinin sectigi birimlerin listesi.
   String secilmisBirimlerinAdlari =
-      ''; //Api ye gonderilecek birlestirilmis birim adlari
+      ''; //  Api ye gonderilecek birlestirilmis birim adlari
 
   secilmisBirimlerinAdlariBirlestirilmesi() {
     //seciliBirimler Listesindeki birimAdi lari  virgul ile birlestirip Tek Bir String Haline Getirilir
@@ -81,6 +82,7 @@ class SalonListController extends GetxController {
       secilmisSalonOzellikleri; //Kullanicinin sectigi salon ozellikleri listesi.
   String secilmisSalonOzellikAdlari =
       ''; //Api ye gonderilecek birlestirilmis salon Ozellik adlari
+
   secilmisSalonOzellikAdlariBirlestirilmesi() {
     //Secili SalonOzellikleri Listesindeki birimAdi lari  virgul ile birlestirip Tek Bir String Haline Getirilir
     secilmisSalonOzellikAdlari = '';
@@ -142,35 +144,29 @@ class SalonListController extends GetxController {
     salonListLoading.value = true; // Shimmer devreye girer.
 
     try {
-      if (salonBaslangicTarihi.value != '' &&
-          salonBitisTarihi.value != '' &&
-          salonBaslangicSaati.value != '' &&
-          salonBitisSaati.value != '' &&
-          secilmisSalonOzellikAdlari != '' &&
-          secilmisBirimlerinAdlari != '') {
-        var _list = await SalonApi().salonListApi(
-          salonBaslangicTarihi.value,
-          salonBitisTarihi.value,
-          salonBaslangicSaati.value,
-          salonBitisSaati.value,
-          secilmisSalonOzellikAdlari,
-          secilmisBirimlerinAdlari,
-        );
+      var _list = await SalonApi().salonListApi(
+        salonBaslangicTarihi.value,
+        salonBitisTarihi.value,
+        salonBaslangicSaati.value,
+        salonBitisSaati.value,
+        secilmisSalonOzellikAdlari,
+        secilmisBirimlerinAdlari,
+      );
 
-        if (_list != null) {
-          salonList = _list;
-          salonListLoading.value = false;
-        } else {
-          salonList.clear();
-          salonAramaLoading.value = true;
-          infoSnackbar("Salon Bulunamadı!",
-              'Arama yaptığınız bilgilerde herhangi bir sonuç bulunamadı. ');
-        }
+      if (_list != null) {
+        salonList = _list;
+        salonListLoading.value = false;
       } else {
-        errorSnackbar("Eksik Bilgi!",
-            'Birimler, tarih ve saat  ve salon özellikleri alanlarını boş bırakmayınız. ');
+        salonList.clear();
         salonAramaLoading.value = true;
+        infoSnackbar("Salon Bulunamadı!",
+            'Arama yaptığınız bilgilerde herhangi bir sonuç bulunamadı. ');
       }
+      // } else {
+      //   errorSnackbar("Eksik Bilgi!",
+      //       'Birimler, tarih ve saat  ve salon özellikleri alanlarını boş bırakmayınız. ');
+      //   salonAramaLoading.value = true;
+      // }
     } catch (e) {
       print("SalonListeme " + e.toString());
     }

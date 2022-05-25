@@ -60,6 +60,7 @@ class _LoginViewState extends State<LoginView> {
         shrinkWrap: true,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: [
+          Image.asset('assets/logo.png'),
           Center(
               child: Text(
             "Giriş",

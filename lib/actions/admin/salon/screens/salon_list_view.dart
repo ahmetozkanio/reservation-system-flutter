@@ -1,24 +1,20 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:library_reservation_liberta_flutter/actions/admin/birim/model/birim_model.dart';
-import 'package:library_reservation_liberta_flutter/actions/admin/salon/api/salon_api.dart';
-import 'package:library_reservation_liberta_flutter/actions/admin/salon/model/salon_ozellikleri_model.dart';
-import 'package:library_reservation_liberta_flutter/widgets/shimmers/base_shimmer.dart';
-import 'package:library_reservation_liberta_flutter/widgets/shimmers/drop_down_shimmer.dart';
+
+import 'package:hexcolor/hexcolor.dart';
+
 import 'package:library_reservation_liberta_flutter/widgets/shimmers/multiselect_chipfield_shimmer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../../functions/date_time_format.dart';
 import '../../../../widgets/date_picker_theme.dart';
 import '../../../../widgets/searchList.dart';
+import '../../../../widgets/shimmers/base_shimmer.dart';
 import '../../../../widgets/shimmers/multiselect_dialogfield_shimmer.dart';
 import '../../../rezervasyon/screens/reservation_view.dart';
 import 'salon_list_controller.dart';
@@ -906,11 +902,12 @@ Container salonListBody(context, controller) {
                               child: Text(
                                 "Salonları listelemek icin arama yapiniz.",
                                 style: TextStyle(
-                                    color: Theme.of(context)
-                                        .buttonTheme
-                                        .colorScheme
-                                        ?.primary,
-                                    fontSize: 14.0),
+                                  color: Theme.of(context)
+                                      .buttonTheme
+                                      .colorScheme
+                                      ?.primary,
+                                  fontSize: 14.0,
+                                ),
                               ),
                             )
                           ],
@@ -973,6 +970,12 @@ Card salonCardBack(
   SalonListController _salonListController = Get.find();
   return Card(
     elevation: 3.0,
+    color: _salonListController
+                .salonList[index].salonCardBackgroundColorBack! !=
+            null
+        ? HexColor(
+            _salonListController.salonList[index].salonCardBackgroundColorBack!)
+        : null,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(
         11.0,
@@ -1134,8 +1137,20 @@ Card salonCardBack(
 
 Card salonCardFront(int index) {
   SalonListController _salonListController = Get.find();
+
+  Color? salonCommentColorFront = _salonListController
+              .salonList[index].salonCommentColorFront! !=
+          null
+      ? HexColor(_salonListController.salonList[index].salonCommentColorFront!)
+      : null;
   return Card(
     elevation: 3.0,
+    color:
+        _salonListController.salonList[index].salonCardBackgroundColorFront! !=
+                null
+            ? HexColor(_salonListController
+                .salonList[index].salonCardBackgroundColorFront!)
+            : null,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(
         11,
@@ -1166,14 +1181,33 @@ Card salonCardFront(int index) {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      _salonListController.salonList[index].salonAdi ?? '',
-                      style: TextStyle(
-                        fontSize: 12.0,
+                    Container(
+                      padding: EdgeInsets.all(4.0),
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                        color: _salonListController.salonList[index]
+                                    .salonNameBackgroundBandrolColor! !=
+                                null
+                            ? HexColor(_salonListController.salonList[index]
+                                .salonNameBackgroundBandrolColor!)
+                            : null,
                       ),
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.clip,
-                      maxLines: 3,
+                      child: Text(
+                        _salonListController.salonList[index].salonAdi ?? '',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: _salonListController
+                                      .salonList[index].salonNameTitleColor! !=
+                                  null
+                              ? HexColor(_salonListController
+                                  .salonList[index].salonNameTitleColor!)
+                              : null,
+                        ),
+                        textAlign: TextAlign.start,
+                        overflow: TextOverflow.clip,
+                        maxLines: 3,
+                      ),
                     ),
                     SizedBox(
                       height: 4.0,
@@ -1182,6 +1216,12 @@ Card salonCardFront(int index) {
                       _salonListController.salonList[index].birimAdi ?? '',
                       style: TextStyle(
                         fontSize: 11.0,
+                        color: _salonListController
+                                    .salonList[index].salonSubTextColorFront! !=
+                                null
+                            ? HexColor(_salonListController
+                                .salonList[index].salonSubTextColorFront!)
+                            : null,
                       ),
                     ),
                   ],
@@ -1194,7 +1234,7 @@ Card salonCardFront(int index) {
                     Text(
                       'Rezervasyon',
                       style: TextStyle(
-                        color: Colors.grey[500],
+                        color: salonCommentColorFront,
                         fontSize: 11.0,
                       ),
                     ),
@@ -1202,7 +1242,7 @@ Card salonCardFront(int index) {
                       children: [
                         Icon(
                           Icons.date_range,
-                          color: Colors.grey[500],
+                          color: salonCommentColorFront,
                           size: 14.0,
                         ),
                         SizedBox(
@@ -1211,7 +1251,7 @@ Card salonCardFront(int index) {
                         Text(
                           'Tarih :',
                           style: TextStyle(
-                            color: Colors.grey[500],
+                            color: salonCommentColorFront,
                             fontSize: 11.0,
                           ),
                         ),
@@ -1231,7 +1271,7 @@ Card salonCardFront(int index) {
                             overflow: TextOverflow.clip,
                             maxLines: 3,
                             style: TextStyle(
-                              color: Colors.grey[500],
+                              color: salonCommentColorFront,
                               fontSize: 11.0,
                             ),
                           ),
@@ -1245,7 +1285,7 @@ Card salonCardFront(int index) {
                       children: [
                         Icon(
                           Icons.schedule,
-                          color: Colors.grey[500],
+                          color: salonCommentColorFront,
                           size: 14.0,
                         ),
                         SizedBox(
@@ -1254,7 +1294,7 @@ Card salonCardFront(int index) {
                         Text(
                           'Saat : ',
                           style: TextStyle(
-                            color: Colors.grey[500],
+                            color: salonCommentColorFront,
                             fontSize: 11.0,
                           ),
                         ),
@@ -1274,7 +1314,7 @@ Card salonCardFront(int index) {
                             overflow: TextOverflow.clip,
                             maxLines: 3,
                             style: TextStyle(
-                              color: Colors.grey[500],
+                              color: salonCommentColorFront,
                               fontSize: 11.0,
                             ),
                           ),
@@ -1288,7 +1328,7 @@ Card salonCardFront(int index) {
                       children: [
                         Icon(
                           Icons.people_rounded,
-                          color: Colors.grey[500],
+                          color: salonCommentColorFront,
                           size: 14.0,
                         ),
                         SizedBox(
@@ -1299,7 +1339,7 @@ Card salonCardFront(int index) {
                               .toString(),
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                            color: Colors.grey[500],
+                            color: salonCommentColorFront,
                             fontSize: 11.0,
                           ),
                         ),
@@ -1313,7 +1353,7 @@ Card salonCardFront(int index) {
                       children: [
                         Icon(
                           Icons.wifi,
-                          color: Colors.grey[500],
+                          color: salonCommentColorFront,
                           size: 14.0,
                         ),
                         SizedBox(
@@ -1321,7 +1361,7 @@ Card salonCardFront(int index) {
                         ),
                         Icon(
                           Icons.electrical_services,
-                          color: Colors.grey[500],
+                          color: salonCommentColorFront,
                           size: 14.0,
                         ),
                         SizedBox(
@@ -1329,7 +1369,7 @@ Card salonCardFront(int index) {
                         ),
                         Icon(
                           Icons.desktop_mac,
-                          color: Colors.grey[500],
+                          color: salonCommentColorFront,
                           size: 14.0,
                         ),
                       ],
@@ -1345,28 +1385,48 @@ Card salonCardFront(int index) {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CircularPercentIndicator(
-                  radius: 32.0,
-                  lineWidth: 7.0,
-                  percent: _salonListController
-                              .salonList[index].salonKapasitesiYuzde !=
-                          null
-                      ? _salonListController
-                              .salonList[index].salonKapasitesiYuzde! *
-                          0.01
-                      : 0.0,
-                  animation: true,
-                  animationDuration: 3000,
-                  center: Text(
-                    _salonListController.salonList[index].salonKapasitesiYuzde
-                        .toString(),
-                    style: TextStyle(
-                      fontSize: 11.0,
-                    ),
+                Container(
+                  padding: EdgeInsets.all(
+                    4.0,
                   ),
-                  progressColor: Colors.green,
-                  backgroundColor: Colors.grey[300]!,
-                  circularStrokeCap: CircularStrokeCap.round,
+                  decoration: BoxDecoration(
+                    color: _salonListController.salonList[index]
+                                .salonCircularProgressBarBackgroundColor! !=
+                            null
+                        ? HexColor(_salonListController.salonList[index]
+                            .salonCircularProgressBarBackgroundColor!)
+                        : null,
+                    shape: BoxShape.circle,
+                  ),
+                  child: CircularPercentIndicator(
+                    radius: 32.0,
+                    lineWidth: 7.0,
+                    percent: _salonListController
+                                .salonList[index].salonKapasitesiYuzde !=
+                            null
+                        ? _salonListController
+                                .salonList[index].salonKapasitesiYuzde! *
+                            0.01
+                        : 0.0,
+                    animation: true,
+                    animationDuration: 3000,
+                    center: Text(
+                      _salonListController.salonList[index].salonKapasitesiYuzde
+                          .toString(),
+                      style: TextStyle(
+                        fontSize: 11.0,
+                      ),
+                    ),
+                    progressColor: _salonListController.salonList[index]
+                                .salonCircularProgressBarsUnitsColor! !=
+                            null
+                        ? HexColor(_salonListController.salonList[index]
+                            .salonCircularProgressBarsUnitsColor!)
+                        : null,
+                    backgroundColor: HexColor(_salonListController
+                        .salonList[index].salonCircularProgressColor2!),
+                    circularStrokeCap: CircularStrokeCap.round,
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () {
