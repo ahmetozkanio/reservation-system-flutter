@@ -68,34 +68,34 @@ final ThemeData tealTheme = ThemeData(
     ),
   ),
   textTheme: TextTheme(
-    displayLarge: GoogleFonts.roboto(
+    displayLarge: GoogleFonts.ubuntu(
         fontSize: 97, fontWeight: FontWeight.w300, letterSpacing: -1.5),
-    displayMedium: GoogleFonts.roboto(
+    displayMedium: GoogleFonts.ubuntu(
         fontSize: 61, fontWeight: FontWeight.w300, letterSpacing: -0.5),
-    displaySmall: GoogleFonts.roboto(fontSize: 48, fontWeight: FontWeight.w400),
-    headlineLarge: GoogleFonts.roboto(
+    displaySmall: GoogleFonts.ubuntu(fontSize: 48, fontWeight: FontWeight.w400),
+    headlineLarge: GoogleFonts.ubuntu(
         fontSize: 34, fontWeight: FontWeight.w400, letterSpacing: 0.25),
     headlineMedium:
-        GoogleFonts.roboto(fontSize: 24, fontWeight: FontWeight.w400),
-    headlineSmall: GoogleFonts.roboto(
+        GoogleFonts.ubuntu(fontSize: 24, fontWeight: FontWeight.w400),
+    headlineSmall: GoogleFonts.ubuntu(
         fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0.15),
-    titleLarge: GoogleFonts.roboto(
+    titleLarge: GoogleFonts.ubuntu(
         fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.15),
-    titleMedium: GoogleFonts.roboto(
+    titleMedium: GoogleFonts.ubuntu(
         fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
-    titleSmall: GoogleFonts.roboto(
+    titleSmall: GoogleFonts.ubuntu(
         fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
-    bodyLarge: GoogleFonts.roboto(
+    bodyLarge: GoogleFonts.ubuntu(
         fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5),
-    bodyMedium: GoogleFonts.roboto(
+    bodyMedium: GoogleFonts.ubuntu(
         fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.25),
-    bodySmall: GoogleFonts.roboto(
+    bodySmall: GoogleFonts.ubuntu(
         fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 1.25),
-    labelLarge: GoogleFonts.roboto(
+    labelLarge: GoogleFonts.ubuntu(
         fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
-    labelMedium: GoogleFonts.roboto(
+    labelMedium: GoogleFonts.ubuntu(
         fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
-    labelSmall: GoogleFonts.roboto(
+    labelSmall: GoogleFonts.ubuntu(
         fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
   ),
   // textTheme: TextTheme(

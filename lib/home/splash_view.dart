@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../core/login/auth_manager.dart';
 import 'onboard_view.dart';
@@ -16,7 +17,7 @@ class SplashView extends StatelessWidget {
 
     await Future.delayed(
       const Duration(
-        seconds: 2,
+        seconds: 3,
       ),
     );
   }
@@ -43,22 +44,28 @@ Scaffold errorView(AsyncSnapshot<Object?> snapshot) {
 
 Scaffold waitingView() {
   return Scaffold(
-      body: Center(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: CupertinoActivityIndicator(
-            radius: 14.0,
-          ),
-        ),
-        Text(
-          'Yükleniyor...',
-          style: TextStyle(fontSize: 12.0),
-        ),
-      ],
+    body: Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Padding(
+          //   padding: EdgeInsets.all(16.0),
+          //   child: CupertinoActivityIndicator(
+          //     radius: 14.0,
+          //   ),
+          // ),
+
+          Lottie.asset('assets/lottie/book_loading2.json',
+              width: 256.0, height: 256.0, fit: BoxFit.fill),
+          Container(
+            child: Text(
+              'Yükleniyor...',
+              style: TextStyle(fontSize: 12.0),
+            ),
+          )
+        ],
+      ),
     ),
-  ));
+  );
 }

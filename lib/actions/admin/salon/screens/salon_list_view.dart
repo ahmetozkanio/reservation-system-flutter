@@ -48,7 +48,9 @@ Container salonListBody(context, controller) {
             ),
             sliver: SliverToBoxAdapter(
               child: ExpansionTileCard(
-                initialElevation: 2.0,
+                baseColor: Color.fromARGB(255, 240, 240, 240),
+                expandedColor: Color.fromARGB(255, 240, 240, 240),
+                initialElevation: 1.0,
                 title: Text('Salonları Filtrele'),
                 animateTrailing: true,
                 trailing: Lottie.asset(
@@ -131,6 +133,67 @@ Container salonListBody(context, controller) {
                         Divider(
                           color: Theme.of(context).primaryColor,
                         ),
+                        // SizedBox(
+                        //   height: 4.0,
+                        // ),
+                        Obx(
+                          () => _salonListController
+                                  .salonOzellikleriLoading.value
+                              ? baseShimmer(multiSelectChhipFieldShimmer())
+                              : MultiSelectChipField(
+                                  // autovalidateMode:
+                                  //     AutovalidateMode.onUserInteraction,
+                                  // // validator: (values) {
+                                  //   if (values == null || values.isEmpty) {
+                                  //     return "Salon özelliklerini seçiniz.";
+                                  //   }
+                                  //   return null;
+                                  // },
+                                  textStyle: TextStyle(
+                                      fontSize: 12.0,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.color),
+                                  items: _salonListController
+                                      .salonOzellikleriMultiSelectList,
+                                  initialValue: [],
+                                  title: Text(
+                                    "Salon Özellikleri",
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                    ),
+                                  ),
+                                  headerColor: Colors.transparent,
+                                  showHeader: true,
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(15.0)),
+                                  ),
+                                  chipColor:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  selectedChipColor: Theme.of(context)
+                                      .buttonTheme
+                                      .colorScheme
+                                      ?.primary,
+                                  selectedTextStyle: TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 255, 255, 255)),
+                                  onTap: (values) {
+                                    _salonListController
+                                            .secilmisSalonOzellikleri =
+                                        values; //secilen ozellikler listemize kayit edilir.
+                                    _salonListController
+                                        .secilmisSalonOzellikAdlariBirlestirilmesi();
+                                    // //her ozellik secildiginde String degiskenimiz bastan yenilenir.
+                                    print(_salonListController
+                                        .secilmisSalonOzellikAdlari);
+                                  },
+                                ),
+                        ),
+                        Divider(
+                          color: Theme.of(context).primaryColor,
+                        ),
                         SizedBox(
                           height: 16.0,
                         ),
@@ -139,7 +202,7 @@ Container salonListBody(context, controller) {
                           child: Text("Tarih ve saat"),
                         ),
                         SizedBox(
-                          height: 8.0,
+                          height: 16.0,
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 4.0),
@@ -343,62 +406,6 @@ Container salonListBody(context, controller) {
                         ),
                         SizedBox(
                           height: 8.0,
-                        ),
-                        Divider(
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        Obx(
-                          () => _salonListController
-                                  .salonOzellikleriLoading.value
-                              ? baseShimmer(multiSelectChhipFieldShimmer())
-                              : MultiSelectChipField(
-                                  // autovalidateMode:
-                                  //     AutovalidateMode.onUserInteraction,
-                                  // // validator: (values) {
-                                  //   if (values == null || values.isEmpty) {
-                                  //     return "Salon özelliklerini seçiniz.";
-                                  //   }
-                                  //   return null;
-                                  // },
-                                  textStyle: TextStyle(
-                                      fontSize: 12.0,
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.color),
-                                  items: _salonListController
-                                      .salonOzellikleriMultiSelectList,
-                                  initialValue: [],
-                                  title: Text(
-                                    "Salon Özellikleri",
-                                    style: TextStyle(fontSize: 14.0),
-                                  ),
-                                  headerColor: Colors.transparent,
-                                  showHeader: true,
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15.0)),
-                                  ),
-                                  chipColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  selectedChipColor: Theme.of(context)
-                                      .buttonTheme
-                                      .colorScheme
-                                      ?.primary,
-                                  selectedTextStyle: TextStyle(
-                                      color:
-                                          Color.fromARGB(255, 255, 255, 255)),
-                                  onTap: (values) {
-                                    _salonListController
-                                            .secilmisSalonOzellikleri =
-                                        values; //secilen ozellikler listemize kayit edilir.
-                                    _salonListController
-                                        .secilmisSalonOzellikAdlariBirlestirilmesi();
-                                    // //her ozellik secildiginde String degiskenimiz bastan yenilenir.
-                                    print(_salonListController
-                                        .secilmisSalonOzellikAdlari);
-                                  },
-                                ),
                         ),
                         Divider(
                           color: Theme.of(context).primaryColor,

@@ -75,11 +75,23 @@ class _DrawerMenuState extends State<DrawerMenu> {
   UserAccountsDrawerHeader userAccountDrawerCustom(context, controller) {
     ThemesController themesController = ThemesController();
     return UserAccountsDrawerHeader(
-      accountEmail: Obx(() => Text(controller.userEmail.value ?? "")),
+      accountEmail: Obx(
+        () => Text(
+          controller.userEmail.value ?? "",
+          style: TextStyle(
+              fontFamily:
+                  Theme.of(context).textTheme.bodyLarge!.fontFamily ?? null),
+        ),
+      ),
       // decoration: BoxDecoration(
       //   color: Theme.of(context).textTheme.titleSmall!.color,
       // ),
-      accountName: Text('Ahmet Ozkan'),
+      accountName: Text(
+        'Ahmet Ozkan',
+        style: TextStyle(
+          fontFamily: Theme.of(context).textTheme.bodySmall!.fontFamily ?? null,
+        ),
+      ),
       otherAccountsPictures: [
         InkWell(
           onTap: () {

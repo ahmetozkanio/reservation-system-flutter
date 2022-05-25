@@ -2,12 +2,10 @@ import 'package:cross_scroll/cross_scroll.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
-import 'package:getwidget/components/radio/gf_radio.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:library_reservation_liberta_flutter/actions/admin/salon/model/salon_model.dart';
 import 'package:library_reservation_liberta_flutter/actions/rezervasyon/screens/reservation_view_controller.dart';
 import 'package:library_reservation_liberta_flutter/widgets/appbar.dart';
-
 import '../../../functions/date_time_format.dart';
 import '../../../widgets/date_picker_theme.dart';
 
@@ -582,7 +580,7 @@ class ReservationView extends StatelessWidget {
                                                                                 ),
                                                                                 inactiveIcon: null,
                                                                                 activeBorderColor: GFColors.SUCCESS,
-                                                                                inactiveBorderColor: blokList.masayaAitSandalyeler![index].sandalyeDoluMu! ?  GFColors.DANGER:GFColors.SUCCESS 
+                                                                                inactiveBorderColor: blokList.masayaAitSandalyeler![index].sandalyeDoluMu! ? GFColors.DANGER : GFColors.SUCCESS
 
                                                                                 // customBgColor:
                                                                                 //     GFColors.SUCCESS,
